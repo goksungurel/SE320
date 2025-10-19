@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +13,19 @@ public class GameManager : MonoBehaviour
     public Sprite backSprite;        // Ortak arka yüz
     public List<Sprite> fronts;      // Eiffel, Croissant, Macaron, ...
 
+
+    [Header("Win UI")]
+    public GameObject winPanel;       // Canvas altındaki WinPanel (başta inactive olsun)
+    public TextMeshProUGUI winText;   // Panel içindeki yazı (opsiyonel)
+
     [Range(2, 20)] public int pairs = 6;   // kaç çift istiyorsun?
     public float hideDelay = 0.6f;
 
     public bool InputLocked { get; private set; }
 
     Card first, second;
+    int foundPairs = 0;
+    int totalPairs = 0;
 
     void Awake()
     {
@@ -24,13 +33,22 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start() => BuildBoard();
+    void Start()
+    {
+        // Kazanma paneli oyunun başında kapalı kalsın
+        if (winPanel) winPanel.SetActive(false);
+
+        BuildBoard();
+    }
 
     void BuildBoard()
     {
+        foundPairs = 0;
+
         // 1) Deste: listedeki ilk 'pairs' sprite'tan ikişer adet
         var deck = new List<(Sprite spr, int id)>();
         int usable = Mathf.Min(pairs, fronts.Count);
+        totalPairs = usable;
         for (int i = 0; i < usable; i++)
         {
             deck.Add((fronts[i], i));
@@ -47,7 +65,7 @@ public class GameManager : MonoBehaviour
         // 3) Instantiate + Init
         foreach (var (spr, id) in deck)
         {
-            var go   = Instantiate(cardPrefab, gridParent);
+            var go = Instantiate(cardPrefab, gridParent);
             var card = go.GetComponent<Card>();
             card.Init(spr, backSprite, id);
         }
@@ -71,6 +89,11 @@ public class GameManager : MonoBehaviour
         {
             first.SetMatched();
             second.SetMatched();
+
+            foundPairs++;
+
+            if (foundPairs >= totalPairs)
+                Win();
         }
         else
         {
@@ -82,5 +105,21 @@ public class GameManager : MonoBehaviour
         first = null;
         second = null;
         InputLocked = false;
+    }
+    void Win()
+    {
+        if (winText)
+            winText.text = "Tebrikler, Paris’e gidiyorsunuz! 🗼✨";
+
+        if (winPanel)
+        {
+            // Paneli öne getir ve görünür yap
+            winPanel.SetActive(true);
+            winPanel.transform.SetAsLastSibling(); // z-order en öne
+            var img = winPanel.GetComponent<UnityEngine.UI.Image>();
+            if (img) { var c = img.color; c.a = 0.75f; img.color = c; } // yarı opak arka plan (opsiyonel)
+        }
+    
+
     }
 }
