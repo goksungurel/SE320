@@ -109,22 +109,28 @@ public class GameManager : MonoBehaviour
     public AudioSource winSound;
 
     void Win()
+{
+    // Panel varsa göster
+    if (winPanel != null)
     {
-        if (winText)
-            winText.text = "Tebrikler, Paris’e gidiyorsunuz!";
+        winPanel.SetActive(true);
+        winPanel.transform.SetAsLastSibling(); // Ekranda en öne al
 
-        if (winPanel)
+        // Arka plan şeffaflığı
+        var img = winPanel.GetComponent<UnityEngine.UI.Image>();
+        if (img != null)
         {
-            // Paneli öne getir ve görünür yap
-            winPanel.SetActive(true);
-            winPanel.transform.SetAsLastSibling(); // z-order en öne
-            
-            var img = winPanel.GetComponent<UnityEngine.UI.Image>();
-            if (img) { var c = img.color; c.a = 0.75f; img.color = c; } // yarı opak arka plan (opsiyonel)
+            Color c = img.color;
+            c.a = 0.75f;
+            img.color = c;
         }
-        if (winSound) winSound.Play();
-
-
     }
+
+    // Ses varsa çal
+    if (winSound != null)
+    {
+        winSound.Play();
+    }
+}
     
 }
