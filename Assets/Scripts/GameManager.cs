@@ -106,20 +106,25 @@ public class GameManager : MonoBehaviour
         second = null;
         InputLocked = false;
     }
+    public AudioSource winSound;
+
     void Win()
     {
         if (winText)
-            winText.text = "Tebrikler, Paris’e gidiyorsunuz! 🗼✨";
+            winText.text = "Tebrikler, Paris’e gidiyorsunuz!";
 
         if (winPanel)
         {
             // Paneli öne getir ve görünür yap
             winPanel.SetActive(true);
             winPanel.transform.SetAsLastSibling(); // z-order en öne
+            
             var img = winPanel.GetComponent<UnityEngine.UI.Image>();
             if (img) { var c = img.color; c.a = 0.75f; img.color = c; } // yarı opak arka plan (opsiyonel)
         }
-    
+        if (winSound) winSound.Play();
+
 
     }
+    
 }
