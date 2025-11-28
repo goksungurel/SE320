@@ -505,7 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gridParent: {fileID: 1152013655}
   cardPrefab: {fileID: 8058887638080993889, guid: 3070e89284bd845c4b1a69e1783855ec, type: 3}
-  backSprite: {fileID: 7482667652216324306, guid: 9c278868aa15f42a5a8ff4b83b73e779, type: 3}
+  backSprite: {fileID: 4579240053916074417, guid: a420d33546a8048569b4a0a924d01e35, type: 3}
   fronts:
   - {fileID: -3461561106008321405, guid: 099df587dc2464320b6072a1dc6970d0, type: 3}
   - {fileID: -8818700558067738569, guid: c2427ef6a893542d38cd5566d9b7f5b7, type: 3}
@@ -519,12 +519,11 @@ MonoBehaviour:
   - {fileID: 2876409113969650406, guid: 851ebba995253477e8b1e06e9ede5f21, type: 3}
   - {fileID: -3416637933660632600, guid: 4f925020c23814e1587b87e11e97e310, type: 3}
   - {fileID: 2308621337023586013, guid: ca57fee37955c4d17898bf0dc59920a8, type: 3}
-  - {fileID: 9038454289376953275, guid: 31e305224372a49c89127058db9d7aa9, type: 3}
-  - {fileID: 8460202930573662075, guid: 4f8da1135a1f14d698c53a6933daf378, type: 3}
   winPanel: {fileID: 1701406300}
   winText: {fileID: 982130513}
   pairs: 15
   hideDelay: 0.6
+  winSound: {fileID: 0}
 --- !u!4 &865491363
 Transform:
   m_ObjectHideFlags: 0
