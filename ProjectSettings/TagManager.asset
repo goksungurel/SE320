@@ -3,18 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-<<<<<<< Updated upstream
   tags: []
-=======
-  tags:
-  - GoodItem
-  - BadItem
->>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Ground
+  - 
   - Water
   - UI
   - 
@@ -44,9 +38,6 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
-    uniqueID: 401216653
-    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
