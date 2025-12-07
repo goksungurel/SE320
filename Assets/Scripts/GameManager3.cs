@@ -4,37 +4,57 @@ using UnityEngine.SceneManagement;
 
 public class GameManager3 : MonoBehaviour
 {
-    public int maxLives = 3;      // Inspector'dan 3
-    public Image[] hearts;        // Heart1, Heart2, Heart3
+    public static GameManager3 Instance;
 
-    int currentLives;
+    public int maxLives = 3;
+    public int currentLives;
+    public Image[] hearts;
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+    }
 
     void Start()
     {
         currentLives = maxLives;
-        UpdateHearts();
+        UpdateHeartsUI();
     }
 
-    void UpdateHearts()
+    
+    public void TakeDamage(int amount)
+    {
+        currentLives -= amount;
+        if (currentLives < 0)
+            currentLives = 0;
+
+        UpdateHeartsUI();
+
+        if (currentLives <= 0)
+        {
+            RestartLevel();
+        }
+    }
+
+    void UpdateHeartsUI()
     {
         for (int i = 0; i < hearts.Length; i++)
         {
-            // kaç can varsa o kadar kalp açýk
+           
             hearts[i].enabled = i < currentLives;
         }
     }
 
-    public void TakeDamage()
+    void RestartLevel()
     {
-        if (currentLives <= 0) return;
-
-        currentLives--;
-        UpdateHearts();
-
-        if (currentLives <= 0)
-        {
-            // can bitince sahneyi baþtan yükle
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
