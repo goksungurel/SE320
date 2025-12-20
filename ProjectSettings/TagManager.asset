@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Obstacle
+  - GoodItem
+  - BadItem
+  - Coin
   layers:
   - Default
   - TransparentFX
@@ -41,6 +44,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Asset
+    uniqueID: 3660705817
+    locked: 0
+  - name: Asset
+    uniqueID: 2654802711
     locked: 0
   m_RenderingLayers:
   - Default

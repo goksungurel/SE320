@@ -1,55 +1,34 @@
-
 using UnityEngine;
 using UnityEngine.SceneManagement; 
-using TMPro; 
 
 public class GameManagerC : MonoBehaviour
 {
-
+    [Header("Life Settings")]
     public int currentLives = 3; 
-    public int maxBadItems = 3; 
-
-
-    public TextMeshProUGUI bombCountText; 
-
+    public int maxLives = 3; 
 
     void Start()
     {
-
-        UpdateBombCountUI();
+        // Set current lives to maximum at start
+        currentLives = maxLives;
     }
-
-
 
     public void LoseLife()
     {
         currentLives--;
         Debug.Log("Loss of heart. Current live: " + currentLives);
-    UpdateBombCountUI();
-       
-    }
 
-    void UpdateBombCountUI()
-{
-
+        // Check if game should restart
         if (currentLives <= 0)
         {
-            Debug.Log("Game Over! ");
+            Debug.Log("Game Over!");
             RestartGame();
         }
-    if (bombCountText != null)
-    {
-     
-
-        bombCountText.text = $"Can: {currentLives} / {maxBadItems}"; 
     }
-}
-
-    
 
     void RestartGame()
     {
+        // Reloads the active scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
     }
 }

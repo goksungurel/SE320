@@ -14,7 +14,7 @@ public class ItemSpawner : MonoBehaviour
     
     public float screenWidthUnits = 8.89f; //screen width
     
-    public float safetyPadding = 0.5f; // padding for objects preventing them being half inside of screen
+    public float safetyPadding = 4.0f; // padding for objects preventing them being half inside of screen
 
 
     private Dictionary<int, int> spawnCounts = new Dictionary<int, int>();

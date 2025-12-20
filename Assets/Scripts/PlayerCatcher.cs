@@ -9,6 +9,8 @@ public class PlayerCatcher : MonoBehaviour
     public GameManagerC gameManager; 
     public AudioSource audioSource; 
     public AudioClip badItemSound;  
+    public AudioClip goodItemSound;
+    public AudioClip coinSound;
     // for camera boundaries
     private float screenLeft;
     private float screenRight;
@@ -43,11 +45,15 @@ public class PlayerCatcher : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
     {
-        // controlling tag for score 
+
         if (other.CompareTag("GoodItem"))
         {
             Debug.Log("Good Item Catched! Score added!");
             // Burada skor ekleme kodu gelecek
+            if (audioSource != null && goodItemSound != null)
+            {
+                audioSource.PlayOneShot(goodItemSound);//ses çal
+            }
 
             Destroy(other.gameObject); 
         }
@@ -58,7 +64,7 @@ public class PlayerCatcher : MonoBehaviour
           
             if (audioSource != null && badItemSound != null)
             {
-                audioSource.PlayOneShot(badItemSound); // Sesi çal
+                audioSource.PlayOneShot(badItemSound, 0.5f); // ses çal
             }
 
             if (gameManager != null)
@@ -68,6 +74,14 @@ public class PlayerCatcher : MonoBehaviour
                 gameManager.LoseLife(); 
             }
            
+            Destroy(other.gameObject); 
+        }
+        else if(other.CompareTag("Coin")){
+            Debug.Log("Coin catched! Coin added");
+            if (audioSource != null && coinSound != null)
+            {
+                audioSource.PlayOneShot(coinSound);//ses çal
+            }
             Destroy(other.gameObject); 
         }
     }
