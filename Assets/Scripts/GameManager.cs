@@ -2,24 +2,35 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    // ================= LEVEL SETTINGS =================
+    [Header("Level Settings")]
+    public float levelTime = 30f;   // Scene 1: 30 | Scene 2: 60 | Scene 3: 90
+
+    // ================= TIMER =================
+    [Header("Timer")]
+    public TextMeshProUGUI timerText;
+    float timeLeft;
+    bool timerRunning = true;
+
+    // ================= BOARD =================
     [Header("Board")]
-    public Transform gridParent;     // CardsContainer (Grid Layout Group’lu)
-    public GameObject cardPrefab;    // Tek Card.prefab
-    public Sprite backSprite;        // Ortak arka yüz
-    public List<Sprite> fronts;      // Eiffel, Croissant, Macaron, ...
+    public Transform gridParent;
+    public GameObject cardPrefab;
+    public Sprite backSprite;
+    public List<Sprite> fronts;
 
-
-    [Header("Win UI")]
-    public GameObject winPanel;       // Canvas altındaki WinPanel (başta inactive olsun)
-    public TextMeshProUGUI winText;   // Panel içindeki yazı (opsiyonel)
-
-    [Range(2, 20)] public int pairs = 6;   // kaç çift istiyorsun?
+    [Range(2, 20)] public int pairs = 6;
     public float hideDelay = 0.6f;
+
+    // ================= WIN UI =================
+    [Header("Win UI")]
+    public GameObject winPanel;
+    public TextMeshProUGUI winText;
+    public AudioSource winSound;
 
     public bool InputLocked { get; private set; }
 
@@ -27,53 +38,125 @@ public class GameManager : MonoBehaviour
     int foundPairs = 0;
     int totalPairs = 0;
 
+    // ================= UNITY LIFECYCLE =================
+
     void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
     void Start()
     {
-        // Kazanma paneli oyunun başında kapalı kalsın
-        if (winPanel) winPanel.SetActive(false);
+        if (winPanel != null)
+            winPanel.SetActive(false);
+
+        timeLeft = levelTime;     // ⬅️ SAHNEYE ÖZEL SÜRE
+        UpdateTimerUI();
 
         BuildBoard();
     }
+
+    void Update()
+    {
+        if (!timerRunning) return;
+
+        if (timeLeft > 0f)
+        {
+            timeLeft -= Time.deltaTime;
+            UpdateTimerUI();
+        }
+        else
+        {
+            timeLeft = 0f;
+            timerRunning = false;
+            TimeIsUp();
+        }
+    }
+
+    // ================= TIMER METHODS =================
+
+    void UpdateTimerUI()
+{
+    if (timerText == null) return;
+
+    int seconds = Mathf.CeilToInt(timeLeft);
+
+    // Süre bittiyse
+    if (seconds <= 0)
+    {
+        timerText.text = "TIME UP!";
+        timerText.color = Color.red;
+        return;
+    }
+
+    // Son 5 saniye → kırmızı
+    if (seconds <= 5)
+    {
+        timerText.color = Color.red;
+    }
+    else
+    {
+        timerText.color = Color.white; // normal renk
+    }
+
+    timerText.text = "TIME: 00:" + seconds.ToString("00");
+}
+
+
+    void TimeIsUp()
+    {
+        Debug.Log("Süre bitti!");
+        InputLocked = true;
+        timerRunning = false;
+
+        // burada istersen Lose Panel / Restart logic eklenir
+    }
+
+    // ================= GAME LOGIC =================
 
     void BuildBoard()
     {
         foundPairs = 0;
 
-        // 1) Deste: listedeki ilk 'pairs' sprite'tan ikişer adet
         var deck = new List<(Sprite spr, int id)>();
         int usable = Mathf.Min(pairs, fronts.Count);
         totalPairs = usable;
+
         for (int i = 0; i < usable; i++)
         {
             deck.Add((fronts[i], i));
             deck.Add((fronts[i], i));
         }
 
-        // 2) Karıştır
         for (int i = deck.Count - 1; i > 0; i--)
         {
             int k = Random.Range(0, i + 1);
             (deck[i], deck[k]) = (deck[k], deck[i]);
         }
 
-        // 3) Instantiate + Init
         foreach (var (spr, id) in deck)
         {
-            var go = Instantiate(cardPrefab, gridParent);
-            var card = go.GetComponent<Card>();
+            GameObject go = Instantiate(cardPrefab, gridParent);
+            Card card = go.GetComponent<Card>();
             card.Init(spr, backSprite, id);
         }
     }
 
     public void OnCardRevealed(Card c)
     {
-        if (first == null) { first = c; return; }
+        if (InputLocked) return;
+
+        if (first == null)
+        {
+            first = c;
+            return;
+        }
+
         if (second == null && c != first)
         {
             second = c;
@@ -89,7 +172,6 @@ public class GameManager : MonoBehaviour
         {
             first.SetMatched();
             second.SetMatched();
-
             foundPairs++;
 
             if (foundPairs >= totalPairs)
@@ -106,31 +188,26 @@ public class GameManager : MonoBehaviour
         second = null;
         InputLocked = false;
     }
-    public AudioSource winSound;
 
     void Win()
-{
-    // Panel varsa göster
-    if (winPanel != null)
     {
-        winPanel.SetActive(true);
-        winPanel.transform.SetAsLastSibling(); // Ekranda en öne al
+        timerRunning = false;   // ⏸ süre durur
 
-        // Arka plan şeffaflığı
-        var img = winPanel.GetComponent<UnityEngine.UI.Image>();
-        if (img != null)
+        if (winPanel != null)
         {
-            Color c = img.color;
-            c.a = 0.75f;
-            img.color = c;
-        }
-    }
+            winPanel.SetActive(true);
+            winPanel.transform.SetAsLastSibling();
 
-    // Ses varsa çal
-    if (winSound != null)
-    {
-        winSound.Play();
+            var img = winPanel.GetComponent<UnityEngine.UI.Image>();
+            if (img != null)
+            {
+                Color c = img.color;
+                c.a = 0.75f;
+                img.color = c;
+            }
+        }
+
+        if (winSound != null)
+            winSound.Play();
     }
-}
-    
 }
