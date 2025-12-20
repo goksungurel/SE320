@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags:
-  - Obstacle
-  - GoodItem
-  - BadItem
-<<<<<<< Updated upstream
-  - Coin
-=======
->>>>>>> Stashed changes
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -18,8 +11,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Ground
-  - card
+  - 
+  - 
   - 
   - 
   - 
@@ -47,12 +40,6 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Asset
-    uniqueID: 3660705817
-    locked: 0
-  - name: Asset
-    uniqueID: 2654802711
     locked: 0
   m_RenderingLayers:
   - Default
