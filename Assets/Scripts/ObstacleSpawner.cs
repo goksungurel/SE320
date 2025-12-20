@@ -2,39 +2,67 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    public GameObject[] obstaclePrefabs; 
-    public float minSpawnTime = 1.5f;    
-    public float maxSpawnTime = 3f;      
-    float timer;
+    [Header("Prefabs")]
+    public GameObject[] obstaclePrefabs;
 
-    void Start()
-    {
-        ResetTimer();
-    }
+    [Header("Spawn Points")]
+    public Transform[] spawnPoints;
+
+    [Header("Timing")]
+    public float spawnInterval = 1.2f;
+
+    [Header("Anti-overlap")]
+    public LayerMask obstacleLayer;
+    public Vector2 checkSize = new Vector2(2.5f, 2.0f);
+    public int maxAttempts = 10;
+
+    private float timer;
 
     void Update()
     {
-        timer -= Time.deltaTime;
+        if (obstaclePrefabs == null || obstaclePrefabs.Length == 0) return;
+        if (spawnPoints == null || spawnPoints.Length == 0) return;
 
-        if (timer <= 0f)
+        timer += Time.deltaTime;
+        if (timer >= spawnInterval)
         {
-            SpawnObstacle();
-            ResetTimer();
+            timer = 0f;
+            TrySpawn();
         }
     }
 
-    void ResetTimer()
+    void TrySpawn()
     {
-        timer = Random.Range(minSpawnTime, maxSpawnTime);
+        for (int attempt = 0; attempt < maxAttempts; attempt++)
+        {
+            Transform p = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            if (p == null) continue;
+
+            if (IsAreaFree(p.position))
+            {
+                GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
+                Instantiate(prefab, p.position, Quaternion.identity);
+                return;
+            }
+        }
+
     }
 
-    void SpawnObstacle()
+    bool IsAreaFree(Vector2 pos)
     {
-        if (obstaclePrefabs.Length == 0) return;
+        Collider2D hit = Physics2D.OverlapBox(pos, checkSize, 0f, obstacleLayer);
+        return hit == null;
+    }
 
-        int index = Random.Range(0, obstaclePrefabs.Length);
+    void OnDrawGizmosSelected()
+    {
+        if (spawnPoints == null) return;
+        Gizmos.color = Color.cyan;
 
-        
-        Instantiate(obstaclePrefabs[index], transform.position, Quaternion.identity);
+        foreach (var p in spawnPoints)
+        {
+            if (p == null) continue;
+            Gizmos.DrawWireCube(p.position, checkSize);
+        }
     }
 }
