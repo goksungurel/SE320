@@ -69,11 +69,9 @@ public class PlayerCatcher : MonoBehaviour
 
             if (gameManager != null)
             {
-                // GameManager'daki can düşürme metodu gelecek sonra
-
-                gameManager.LoseLife(); 
+                gameManager.TakeDamage(1); 
             }
-           
+           //comment line for error
             Destroy(other.gameObject); 
         }
         else if(other.CompareTag("Coin")){
@@ -81,6 +79,11 @@ public class PlayerCatcher : MonoBehaviour
             if (audioSource != null && coinSound != null)
             {
                 audioSource.PlayOneShot(coinSound);//ses çal
+            }
+
+            if (gameManager != null)
+            {
+                gameManager.AddScore(1); 
             }
             Destroy(other.gameObject); 
         }
