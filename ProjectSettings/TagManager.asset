@@ -45,5 +45,8 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Assat
+    uniqueID: 3119952147
+    locked: 0
   m_RenderingLayers:
   - Default

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1182431027326128356}
   - component: {fileID: 7410114066353000130}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DestroyOffscreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267bfe36bb1b11b44afe5fcedd591a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffscreen
-  extraLeft: 2
+  player: {fileID: 0}
+  destroyBehindX: 20
 --- !u!1 &3031452390759690871
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,7 @@ GameObject:
   - component: {fileID: 5956602773880085185}
   - component: {fileID: 8106874589790637521}
   - component: {fileID: 4711249312108830262}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bird
   m_TagString: Obstacle
   m_Icon: {fileID: 0}

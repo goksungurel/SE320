@@ -3,66 +3,51 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     [Header("Prefabs")]
-    public GameObject[] obstaclePrefabs;
+    public GameObject[] groundObstacles; // Taþ ve Çalýyý buraya at
+    public GameObject[] airObstacles;    // Kuþ ve Yarasayý buraya at
 
     [Header("Spawn Points")]
-    public Transform[] spawnPoints;
+    public Transform spLow;  // Sadece yere yakýn nokta
+    public Transform spMid;  // Orta yükseklik
+    public Transform spHigh; // En yüksek nokta
 
     [Header("Timing")]
-    public float spawnInterval = 1.2f;
-
-    [Header("Anti-overlap")]
-    public LayerMask obstacleLayer;
-    public Vector2 checkSize = new Vector2(2.5f, 2.0f);
-    public int maxAttempts = 10;
+    public float spawnInterval = 2.0f;
 
     private float timer;
 
     void Update()
     {
-        if (obstaclePrefabs == null || obstaclePrefabs.Length == 0) return;
-        if (spawnPoints == null || spawnPoints.Length == 0) return;
-
         timer += Time.deltaTime;
+
         if (timer >= spawnInterval)
         {
+            SpawnSmart();
             timer = 0f;
-            TrySpawn();
         }
     }
 
-    void TrySpawn()
+    void SpawnSmart()
     {
-        for (int attempt = 0; attempt < maxAttempts; attempt++)
-        {
-            Transform p = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            if (p == null) continue;
+        bool spawnGround = Random.value > 0.5f;
 
-            if (IsAreaFree(p.position))
-            {
-                GameObject prefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
-                Instantiate(prefab, p.position, Quaternion.identity);
-                return;
-            }
+        if (spawnGround && groundObstacles.Length > 0)
+        {
+            
+            GameObject prefab = groundObstacles[Random.Range(0, groundObstacles.Length)];
+            Instantiate(prefab, spLow.position, Quaternion.identity);
+            Debug.Log("Yer engeli (Taþ/Çalý) SP_Low'da doðdu.");
         }
-
-    }
-
-    bool IsAreaFree(Vector2 pos)
-    {
-        Collider2D hit = Physics2D.OverlapBox(pos, checkSize, 0f, obstacleLayer);
-        return hit == null;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        if (spawnPoints == null) return;
-        Gizmos.color = Color.cyan;
-
-        foreach (var p in spawnPoints)
+        else if (airObstacles.Length > 0)
         {
-            if (p == null) continue;
-            Gizmos.DrawWireCube(p.position, checkSize);
+           
+            GameObject prefab = airObstacles[Random.Range(0, airObstacles.Length)];
+            
+            
+            Transform airPoint = (Random.value > 0.5f) ? spMid : spHigh;
+            
+            Instantiate(prefab, airPoint.position, Quaternion.identity);
+            Debug.Log("Hava engeli (Kuþ/Yarasa) havada doðdu.");
         }
     }
 }
