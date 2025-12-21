@@ -1070,11 +1070,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-<<<<<<< Updated upstream:Assets/Scenes/CardGermany.unity
   m_AnchoredPosition: {x: 256, y: 264}
-=======
-  m_AnchoredPosition: {x: 748, y: 286}
->>>>>>> Stashed changes:Assets/Scenes/Germany.unity
   m_SizeDelta: {x: 177.2616, y: 50}
   m_Pivot: {x: 0.38844123, y: 0.57605714}
 --- !u!222 &1744554445
@@ -1170,11 +1166,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-<<<<<<< Updated upstream:Assets/Scenes/CardGermany.unity
   m_margin: {x: -54.13983, y: -61.917763, z: 0, w: 0}
-=======
-  m_margin: {x: -54.13983, y: 2.616333, z: 0, w: 0}
->>>>>>> Stashed changes:Assets/Scenes/Germany.unity
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -504,13 +504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e54aa4772d647a49a31cd586ca2482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-<<<<<<< Updated upstream:Assets/Scenes/CardItaly.unity
   levelTime: 45
   timerText: {fileID: 1508144540}
-=======
-  levelTime: 30
-  timerText: {fileID: 0}
->>>>>>> Stashed changes:Assets/Scenes/İtaly.unity
   gridParent: {fileID: 1152013655}
   cardPrefab: {fileID: 8058887638080993889, guid: 3070e89284bd845c4b1a69e1783855ec, type: 3}
   backSprite: {fileID: 4579240053916074417, guid: a420d33546a8048569b4a0a924d01e35, type: 3}
@@ -737,13 +732,8 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-<<<<<<< Updated upstream:Assets/Scenes/CardItaly.unity
   m_CellSize: {x: 100, y: 100}
   m_Spacing: {x: 100, y: 100}
-=======
-  m_CellSize: {x: 150, y: 150}
-  m_Spacing: {x: 50, y: 50}
->>>>>>> Stashed changes:Assets/Scenes/İtaly.unity
   m_Constraint: 1
   m_ConstraintCount: 4
 --- !u!1 &1508144537
