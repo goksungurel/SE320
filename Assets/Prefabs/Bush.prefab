@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 576804988364708891}
   - component: {fileID: 6371430410516511844}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DestroyOffscreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267bfe36bb1b11b44afe5fcedd591a39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOffscreen
-  extraLeft: 2
+  player: {fileID: 0}
+  destroyBehindX: 20
 --- !u!1 &7279840858669794201
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,7 @@ GameObject:
   - component: {fileID: 180141462198491367}
   - component: {fileID: 5473905524254754174}
   - component: {fileID: 9092515857914813437}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bush
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
