@@ -8,6 +8,8 @@ TagManager:
   - Coin
   - BadItem
   - Obstacle
+  - GoodItem
+  - BadItem
   layers:
   - Default
   - TransparentFX
@@ -16,7 +18,11 @@ TagManager:
   - Water
   - UI
   - Ground
+<<<<<<< Updated upstream
   - Obstacle
+=======
+  - card
+>>>>>>> Stashed changes
   - 
   - 
   - 
