@@ -43,7 +43,7 @@ public class PlayerController2D : MonoBehaviour
             isGrounded = false;
         }
 
-        // Koþma
+        
         rb.linearVelocity = new Vector2(forwardSpeed, rb.linearVelocity.y);
 
         

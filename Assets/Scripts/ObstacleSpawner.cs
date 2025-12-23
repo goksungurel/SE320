@@ -3,13 +3,13 @@ using UnityEngine;
 public class ObstacleSpawner : MonoBehaviour
 {
     [Header("Prefabs")]
-    public GameObject[] groundObstacles; // Taþ ve Çalýyý buraya at
-    public GameObject[] airObstacles;    // Kuþ ve Yarasayý buraya at
+    public GameObject[] groundObstacles; 
+    public GameObject[] airObstacles;    
 
     [Header("Spawn Points")]
-    public Transform spLow;  // Sadece yere yakýn nokta
-    public Transform spMid;  // Orta yükseklik
-    public Transform spHigh; // En yüksek nokta
+    public Transform spLow;  
+    public Transform spMid;  
+    public Transform spHigh; 
 
     [Header("Timing")]
     public float spawnInterval = 2.0f;
