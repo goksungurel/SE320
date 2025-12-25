@@ -19,6 +19,9 @@ public class GameManagerC : MonoBehaviour
     public TextMeshProUGUI finalScoreText;
     private bool isGameActive = true;
 
+    public AudioSource audioSource; 
+    public AudioClip victorySound;
+
     void Start()
     {
         // Set current lives to maximum at start
@@ -54,21 +57,31 @@ public class GameManagerC : MonoBehaviour
         }
     }
 
-    void WinGame()
+   void WinGame()
+{
+    isGameActive = false;
+    Debug.Log("Victory!");
+
+    
+    if (audioSource != null && victorySound != null)
     {
-        isGameActive = false;
-        Debug.Log("Victory!");
-        if (victoryPanel != null)
-        {
-            victoryPanel.SetActive(true); // Paneli aktif et
-            // Son skoru Victory panelindeki yazıya yazdır
-            if (finalScoreText != null)
-            {
-                finalScoreText.text = "Total Coins: " + score.ToString(); 
-            }
-        }
-        Time.timeScale = 0f; // Oyunu durdur
+        audioSource.PlayOneShot(victorySound);
     }
+
+    if (victoryPanel != null)
+    {
+        victoryPanel.SetActive(true); 
+        
+  
+        if (finalScoreText != null)
+        {
+            finalScoreText.text = "Total Coins: " + score.ToString(); 
+        }
+    }
+
+
+    Time.timeScale = 0f; 
+}
     void GameOver()
     {
         isGameActive = false;

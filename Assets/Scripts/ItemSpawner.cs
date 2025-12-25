@@ -9,7 +9,7 @@ public class ItemSpawner : MonoBehaviour
     
 
     public float gameDuration = 40f; //game duration
-    public float spawnInterval = 1.0f; // eşya düşme sıklığı
+    public float spawnInterval = 4f; // eşya düşme sıklığı
     public int minSpawnCount = 4; // min number for fallen objects
     
     public float screenWidthUnits = 8.89f; //screen width
