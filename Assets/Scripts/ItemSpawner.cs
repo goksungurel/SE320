@@ -4,110 +4,113 @@ using System.Collections.Generic;
 
 public class ItemSpawner : MonoBehaviour
 {
- 
-    public GameObject[] itemPrefabs; // Düşecek tüm eşya Prefab'ları
-    
+    public GameObject[] itemPrefabs; 
+    public int coinIndex = 6;
+    public int bombIndex = 5;
 
-    public float gameDuration = 40f; //game duration
-    public float spawnInterval = 4f; // eşya düşme sıklığı
-    public int minSpawnCount = 4; // min number for fallen objects
+    public float spawnInterval = 3f; 
+    public int minSpawnForEachItem = 5; 
     
-    public float screenWidthUnits = 8.89f; //screen width
-    
-    public float safetyPadding = 4.0f; // padding for objects preventing them being half inside of screen
-
-
     private Dictionary<int, int> spawnCounts = new Dictionary<int, int>();
-    private float startTime;
-    private float spawnRangeX; 
+    private int lastSpawnedIndex = -1; 
 
     void Start()
     {
-        // control for preventing NullReferenceException
-        if (itemPrefabs.Length == 0)
-        {
-             Debug.LogError("Item Prefabs list is empty");
-             return;
-        }
+        if (itemPrefabs.Length < 1) return;
 
-
-        spawnRangeX = screenWidthUnits; 
-
-        if (safetyPadding >= spawnRangeX)
-        {
-            safetyPadding = 0.5f; 
-            Debug.LogWarning("Safety Padding value is bigger than expected! system uses predicted value");
-        }
-
-
-        startTime = Time.time;
-        
-
+        // Sözlüğü başlat
         for (int i = 0; i < itemPrefabs.Length; i++)
         {
             spawnCounts.Add(i, 0);
         }
 
-        StopAllCoroutines(); 
-
+        // Rutini başlat, Time.timeScale 0 iken beklemede kalacak
         StartCoroutine(SpawnItemsRoutine());
     }
 
     IEnumerator SpawnItemsRoutine()
     {
-        // Oyun süresi boyunca döngüyü sürdür
-        while (Time.time < startTime + gameDuration)
+        while (true) // Oyun aktif olduğu sürece çalışsın
         {
-            if (itemPrefabs.Length > 0)
+            // Zaman durmuşsa (Start/Pause paneli açıksa) bekle
+            if (Time.timeScale == 0f)
             {
-                int itemIndexToSpawn = SelectRandomItem();
+                yield return null; 
+                continue;
+            }
+
+            int itemIndexToSpawn = SelectRandomItem();
             
-                if (itemIndexToSpawn != -1)
-                {
+            if (itemIndexToSpawn != -1)
+            {
+                float spawnLimitX = 6.0f; 
+                float randomX = Random.Range(-spawnLimitX, spawnLimitX);
+                Vector3 spawnPosition = new Vector3(randomX, transform.position.y, 0);
 
-                    float minX = -spawnRangeX + safetyPadding;
-                    float maxX = spawnRangeX - safetyPadding;
-                    
-              
-                    float randomX = Random.Range(minX, maxX);
-
-
-                    Vector3 spawnPosition = new Vector3(
-                        randomX,
-                        transform.position.y,
-                        0
-                    );
-
-                    Instantiate(itemPrefabs[itemIndexToSpawn], spawnPosition, Quaternion.identity);
-                    spawnCounts[itemIndexToSpawn]++;
-                }
+                Instantiate(itemPrefabs[itemIndexToSpawn], spawnPosition, Quaternion.identity);
+                spawnCounts[itemIndexToSpawn]++;
+                lastSpawnedIndex = itemIndexToSpawn;
             }
 
             yield return new WaitForSeconds(spawnInterval); 
         }
-        
-        Debug.Log("Time is over!");
     }
-    
+
     private int SelectRandomItem()
+{
+    List<int> pool = new List<int>();
+
+    // 1. ADIM: Eksik olan (kotası dolmamış) eşyaları tespit et
+    List<int> missingItems = new List<int>();
+    for (int i = 0; i < itemPrefabs.Length; i++)
     {
-        List<int> availableIndices = new List<int>();
+        if (i == bombIndex) continue;
 
-        for (int i = 0; i < itemPrefabs.Length; i++)
+        int target = (i == coinIndex) ? 8 : minSpawnForEachItem;
+        if (spawnCounts[i] < target)
         {
-            if (spawnCounts[i] < minSpawnCount)
-            {
-                availableIndices.Add(i);
-            }
+            missingItems.Add(i);
+        }
+    }
+
+    // 2. ADIM: Havuzu Akıllıca Doldur
+    if (missingItems.Count > 0)
+    {
+        // Eksik olan her eşyayı havuza ekle (Öncelik veriyoruz)
+        foreach (int index in missingItems)
+        {
+            // Şansını artırmak için 3'er kez ekliyoruz
+            pool.Add(index);
+            pool.Add(index);
+            pool.Add(index);
         }
 
-        if (availableIndices.Count > 0)
-        {
-            int randomIndex = Random.Range(0, availableIndices.Count);
-            return availableIndices[randomIndex];
-        }
-        
+        // Bombayı her zaman havuza ekle (Ama çok boğmasın diye 2 kez)
+        pool.Add(bombIndex);
+        pool.Add(bombIndex);
+    }
+    else
+    {
+        // Eğer her şey toplandıysa, tamamen rastgele bir moda geç
         return Random.Range(0, itemPrefabs.Length);
     }
 
+    // 3. ADIM: Seçim ve Üst Üste Aynı Şeyin Gelmesini Engelleme
+    int choice = pool[Random.Range(0, pool.Count)];
+
+    // Eğer seçilen şey bir öncekiyle aynıysa, %70 ihtimalle tekrar seç (Çeşitlilik sağlar)
+    if (choice == lastSpawnedIndex && Random.value < 0.7f)
+    {
+        choice = pool[Random.Range(0, pool.Count)];
+    }
+
+    // Üst üste bomba koruması (Katı kural)
+    if (choice == bombIndex && lastSpawnedIndex == bombIndex)
+    {
+        // Bombayı listedeki bir sonraki geçerli eşyaya kaydır
+        choice = missingItems[Random.Range(0, missingItems.Count)];
+    }
+
+    return choice;
+}
 }

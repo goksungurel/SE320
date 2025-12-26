@@ -44,48 +44,63 @@ public class PlayerCatcher : MonoBehaviour
     }
     
     void OnTriggerEnter2D(Collider2D other)
+{
+    
+    if (other.CompareTag("GoodItem"))
     {
+        Debug.Log("Good Item Catched: " + other.gameObject.name);
 
-        if (other.CompareTag("GoodItem"))
+       
+        string itemName = other.gameObject.name;
+
+        if (itemName.Contains("Eiffel")) { gameManager.eiffelCount++; }
+        else if (itemName.Contains("Louvre")) { gameManager.louvreCount++; }
+        else if (itemName.Contains("Paris")) { gameManager.parisCount++; }
+        else if (itemName.Contains("Baguette")) { gameManager.baguetteCount++; }
+        else if (itemName.Contains("Croissant")) { gameManager.croissantCount++; }
+        else if (itemName.Contains("France")) { gameManager.franceCount++; }
+     
+        
+        
+        if (audioSource != null && goodItemSound != null)
         {
-            Debug.Log("Good Item Catched! Score added!");
-            // Burada skor ekleme kodu gelecek
-            if (audioSource != null && goodItemSound != null)
-            {
-                audioSource.PlayOneShot(goodItemSound);//ses çal
-            }
-
-            Destroy(other.gameObject); 
+            audioSource.PlayOneShot(goodItemSound);
         }
-        else if (other.CompareTag("BadItem"))
+
+        Destroy(other.gameObject); 
+    }
+   
+    else if (other.CompareTag("BadItem"))
+    {
+        Debug.Log("Bad Item catched!");
+        
+        if (audioSource != null && badItemSound != null)
         {
-            Debug.Log("Bad Item catched! Loss of heart :(");
-            
-          
-            if (audioSource != null && badItemSound != null)
-            {
-                audioSource.PlayOneShot(badItemSound, 0.5f); // ses çal
-            }
-
-            if (gameManager != null)
-            {
-                gameManager.TakeDamage(1); 
-            }
-           //comment line for error
-            Destroy(other.gameObject); 
+            audioSource.PlayOneShot(badItemSound, 0.5f);
         }
-        else if(other.CompareTag("Coin")){
-            Debug.Log("Coin catched! Coin added");
-            if (audioSource != null && coinSound != null)
-            {
-                audioSource.PlayOneShot(coinSound);//ses çal
-            }
 
-            if (gameManager != null)
-            {
-                gameManager.AddScore(1); 
-            }
-            Destroy(other.gameObject); 
+        if (gameManager != null)
+        {
+            gameManager.TakeDamage(1); 
         }
+
+        Destroy(other.gameObject); 
     }
+   
+    else if (other.CompareTag("Coin"))
+    {
+        Debug.Log("Coin catched!");
+        
+        if (audioSource != null && coinSound != null)
+        {
+            audioSource.PlayOneShot(coinSound);
+        }
+
+        if (gameManager != null)
+        {
+            gameManager.AddScore(1); 
+        }
+        
+        Destroy(other.gameObject); 
     }
+}}

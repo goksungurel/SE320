@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6795547816451204335}
   - component: {fileID: 3948613494034177436}
   m_Layer: 0
-  m_Name: Baugette
+  m_Name: Baguette
   m_TagString: GoodItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
