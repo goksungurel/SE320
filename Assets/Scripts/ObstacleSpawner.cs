@@ -14,8 +14,23 @@ public class ObstacleSpawner : MonoBehaviour
     [Header("Timing")]
     public float spawnInterval = 2.0f;
 
-    private float timer;
+    [Header("Coin Settings")]
+    public GameObject coinPrefab;
 
+    private float timer;
+    void Start()
+    {
+        if (spHigh == null)
+        {
+            spHigh = transform.Find("SP_High"); 
+        }
+
+        if (coinPrefab == null)
+        {
+            
+            Debug.LogError("Coin Prefab hala bulunamadý! Lütfen Inspector'dan sürükle.");
+        }
+    }
     void Update()
     {
         timer += Time.deltaTime;
@@ -49,5 +64,20 @@ public class ObstacleSpawner : MonoBehaviour
             Instantiate(prefab, airPoint.position, Quaternion.identity);
             Debug.Log("Hava engeli (Kuþ/Yarasa) havada doðdu.");
         }
+
+        if (Random.value > 0.5f) 
+        {
+            // spMid dolu mu kontrol et, boþsa hata verme (koruma)
+            if (spHigh != null && coinPrefab != null)
+            {
+                // Engelin biraz önüne veya arkasýna atmak için Vector3.right kullanabilirsin
+                Instantiate(coinPrefab, spHigh.position + Vector3.right * 2f, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("DÝKKAT: spMid veya coinPrefab atanmamýþ!");
+            }
+        }
     }
+
 }

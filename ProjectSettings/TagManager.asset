@@ -18,7 +18,7 @@ TagManager:
   - Ground
   - Obstacle
   - Backgorund
-  - 
+  - coin
   - 
   - 
   - 
@@ -47,6 +47,9 @@ TagManager:
     locked: 0
   - name: Assat
     uniqueID: 3119952147
+    locked: 0
+  - name: coin
+    uniqueID: 3089276143
     locked: 0
   m_RenderingLayers:
   - Default
