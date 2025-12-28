@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +8,16 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(1);
     }
+    public void OpenWorldMap()
+    {
+        SceneManager.LoadSceneAsync("WorldMap");
+    }
+    public void QuitGame()
+    {
+    Application.Quit();
+    Debug.Log("Game Quit"); // Editor'da görmek için
+    }
+
 
 
 }
