@@ -175,7 +175,7 @@ public void PauseGame()
         timeRemaining = 0;
         
         bool allItemsCollected = (eiffelCount >= 5 && louvreCount >= 5 && parisCount >= 5 && 
-                                  baguetteCount >= 5 && croissantCount >= 5 && franceCount >= 5);
+            baguetteCount >= 5 && croissantCount >= 5 && franceCount >= 5);
 
         if (score >= 7 && allItemsCollected) 
         {
@@ -214,7 +214,7 @@ public void PauseGame()
     bool isParisOk = parisCount >= 5;
 
     bool allItemsGoalReached = isFranceOk && isLouvreOk && isEiffelOk && 
-                               isCroissantOk && isBaguetteOk && isParisOk;
+        isCroissantOk && isBaguetteOk && isParisOk;
 
 
     if (score >= requiredCoins && allItemsGoalReached)

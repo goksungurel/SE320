@@ -4,7 +4,14 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager Instance { get; private set; }
+
+    // ================= MONEY =================
+    [Header("Money")]
+    public int money = 0;
+    public TextMeshProUGUI moneyText;
+
 
     // ================= LEVEL SETTINGS =================
     [Header("Level Settings")]
@@ -52,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
         if (winPanel != null)
             winPanel.SetActive(false);
 
@@ -59,6 +67,8 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
 
         BuildBoard();
+
+        UpdateMoneyUI();
     }
 
     void Update()
@@ -77,6 +87,17 @@ public class GameManager : MonoBehaviour
             TimeIsUp();
         }
     }
+    void UpdateMoneyUI()
+    {
+        if (moneyText != null)
+            moneyText.text = money.ToString() ;
+    }
+
+public void AddMoney(int amount)
+{
+    money += amount;
+    UpdateMoneyUI();
+}
 
     // ================= TIMER METHODS =================
 
@@ -173,6 +194,8 @@ public class GameManager : MonoBehaviour
             first.SetMatched();
             second.SetMatched();
             foundPairs++;
+
+            AddMoney(1);
 
             if (foundPairs >= totalPairs)
                 Win();

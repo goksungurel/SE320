@@ -28,7 +28,7 @@ public class ObstacleSpawner : MonoBehaviour
         if (coinPrefab == null)
         {
             
-            Debug.LogError("Coin Prefab hala bulunamadý! Lütfen Inspector'dan sürükle.");
+            Debug.LogError("Coin Prefab hala bulunamadï¿½! Lï¿½tfen Inspector'dan sï¿½rï¿½kle.");
         }
     }
     void Update()
@@ -51,31 +51,31 @@ public class ObstacleSpawner : MonoBehaviour
             
             GameObject prefab = groundObstacles[Random.Range(0, groundObstacles.Length)];
             Instantiate(prefab, spLow.position, Quaternion.identity);
-            Debug.Log("Yer engeli (Taþ/Çalý) SP_Low'da doðdu.");
+            Debug.Log("Yer engeli (Taï¿½/ï¿½alï¿½) SP_Low'da doï¿½du.");
         }
         else if (airObstacles.Length > 0)
         {
-           
+        
             GameObject prefab = airObstacles[Random.Range(0, airObstacles.Length)];
             
             
             Transform airPoint = (Random.value > 0.5f) ? spMid : spHigh;
             
             Instantiate(prefab, airPoint.position, Quaternion.identity);
-            Debug.Log("Hava engeli (Kuþ/Yarasa) havada doðdu.");
+            Debug.Log("Hava engeli (Kuï¿½/Yarasa) havada doï¿½du.");
         }
 
         if (Random.value > 0.5f) 
         {
-            // spMid dolu mu kontrol et, boþsa hata verme (koruma)
+            // spMid dolu mu kontrol et, boï¿½sa hata verme (koruma)
             if (spHigh != null && coinPrefab != null)
             {
-                // Engelin biraz önüne veya arkasýna atmak için Vector3.right kullanabilirsin
+                // Engelin biraz ï¿½nï¿½ne veya arkasï¿½na atmak iï¿½in Vector3.right kullanabilirsin
                 Instantiate(coinPrefab, spHigh.position + Vector3.right * 2f, Quaternion.identity);
             }
             else
             {
-                Debug.LogWarning("DÝKKAT: spMid veya coinPrefab atanmamýþ!");
+                Debug.LogWarning("Dï¿½KKAT: spMid veya coinPrefab atanmamï¿½ï¿½!");
             }
         }
     }
