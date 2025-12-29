@@ -130,7 +130,7 @@ public class GameManager3 : MonoBehaviour
 
         if (finalCoinText != null)
         {
-            finalCoinText.text = "Toplam Toplanan Coin: " + totalCoins.ToString();
+            finalCoinText.text = "Total Collected Coin: " + totalCoins.ToString();
         }
 
         if (timeUpPanel != null)

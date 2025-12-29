@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\PlayerController2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\PlayerController2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|c:\\users\\asus\\documents\\github\\se320\\assets\\textmesh pro\\shaders\\tmp_sdf-mobile.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\textmesh pro\\shaders\\tmp_sdf-mobile.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\ObstacleSpawner.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\ObstacleSpawner.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\PlayerController2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\PlayerController2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GameManager3.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\GameManager3.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\DestroyOffscreen.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\DestroyOffscreen.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\DestroyOffscreen.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\DestroyOffscreen.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\ObstacleSpawner.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\ObstacleSpawner.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GroundLooper.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\GroundLooper.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GameManager3.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\GameManager3.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\CameraFollow2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\CameraFollow2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\CameraFollow2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\CameraFollow2D.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GroundLooper.cs||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:Assets\\Scripts\\GroundLooper.cs||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "TMP_SDF-Mobile.shader",
+              "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\TextMesh Pro\\Shaders\\TMP_SDF-Mobile.shader",
+              "RelativeDocumentMoniker": "Assets\\TextMesh Pro\\Shaders\\TMP_SDF-Mobile.shader",
+              "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\TextMesh Pro\\Shaders\\TMP_SDF-Mobile.shader",
+              "RelativeToolTip": "Assets\\TextMesh Pro\\Shaders\\TMP_SDF-Mobile.shader",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002777|",
+              "WhenOpened": "2025-12-27T21:42:03.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "DestroyOffscreen.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\DestroyOffscreen.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\DestroyOffscreen.cs",
@@ -50,7 +67,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "ObstacleSpawner.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\ObstacleSpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ObstacleSpawner.cs",
@@ -62,7 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "GameManager3.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GameManager3.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager3.cs",
@@ -86,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PlayerController2D.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\PlayerController2D.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController2D.cs",
@@ -97,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "GroundLooper.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GroundLooper.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GroundLooper.cs",
