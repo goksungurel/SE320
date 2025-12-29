@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 67ad994db7675443d858547592738289
   - enabled: 1
+    path: Assets/Scenes/MapMenu.unity
+    guid: a54d047cdcbb1cb41bc96d2cc3d0db56
+  - enabled: 1
+    path: Assets/Scenes/CardFrance.unity
+    guid: 57cb81e19d55b46eb8492278b01d737f
+  - enabled: 1
+    path: Assets/Scenes/FranceCatch.unity
+    guid: eb2c7bbec10884dab8ce427e3ab6b288
+  - enabled: 1
+    path: Assets/Scenes/FranceRunner.unity
+    guid: 1897d7a17a2aa584aae1725d78d50479
+  - enabled: 1
     path: Assets/Scenes/CardGermany.unity
     guid: 2a363b350e3874e18a83af4beb1373e6
   - enabled: 0

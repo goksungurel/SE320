@@ -17,6 +17,10 @@ public class GameManager3 : MonoBehaviour
 
     [Header("Coin Settings")]
     public TextMeshProUGUI coinText;
+    public GameObject coinPrefab;
+    public Transform[] spawnPoints;
+    public float spawnInterval = 1.5f;
+    public float obstacleCheckRadius = 0.5f; 
     private int totalCoins = 0;
 
     [Header("Timer Settings")]
@@ -40,6 +44,7 @@ public class GameManager3 : MonoBehaviour
             return;
         }
 
+        // Zaman yönetimi
         if (isFirstStart)
         {
             timeRemaining = 30f;
@@ -59,6 +64,9 @@ public class GameManager3 : MonoBehaviour
 
         if (timeUpPanel != null)
             timeUpPanel.SetActive(false);
+
+        
+        InvokeRepeating("SpawnCoin", 1f, spawnInterval);
     }
 
     void Update()
@@ -76,7 +84,25 @@ public class GameManager3 : MonoBehaviour
                 timeRemaining = 0;
                 savedTime = 30f;
                 isTimerRunning = false;
+                CancelInvoke("SpawnCoin");
                 LevelFinished();
+            }
+        }
+    }
+
+    void SpawnCoin()
+    {
+        if (isTimerRunning && spawnPoints.Length > 0 && coinPrefab != null)
+        {
+            int randomIndex = Random.Range(0, spawnPoints.Length);
+            Vector3 spawnPos = spawnPoints[randomIndex].position;
+
+            
+            Collider2D hit = Physics2D.OverlapCircle(spawnPos, obstacleCheckRadius, LayerMask.GetMask("Obstacle"));
+
+            if (hit == null) 
+            {
+                Instantiate(coinPrefab, spawnPos, Quaternion.identity);
             }
         }
     }
@@ -137,6 +163,13 @@ public class GameManager3 : MonoBehaviour
         {
             timeUpPanel.SetActive(true);
         }
+    }
+
+   
+    public void BackToMap()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("WorldMap"); 
     }
 
     public void RestartLevel()
