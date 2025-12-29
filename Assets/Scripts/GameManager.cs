@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 
+
+
 public class GameManager : MonoBehaviour
 {
 
@@ -233,4 +235,5 @@ public void AddMoney(int amount)
         if (winSound != null)
             winSound.Play();
     }
+
 }

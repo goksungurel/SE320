@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 919a9582b573d46a3b1da5fe1d7459ec
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4037703764899022085
+    second: Europe-Map-PNG-Picture_0
+  - first:
+      213: -6708731434012940457
+    second: Europe-Map-PNG-Picture_1
+  - first:
+      213: -8317217039481219775
+    second: Europe-Map-PNG-Picture_2
+  - first:
+      213: -168526064815885966
+    second: Europe-Map-PNG-Picture_3
+  - first:
+      213: 2231357517100325527
+    second: Europe-Map-PNG-Picture_4
+  - first:
+      213: 5435370121216092472
+    second: Europe-Map-PNG-Picture_5
+  - first:
+      213: 5392779545498409204
+    second: Europe-Map-PNG-Picture_6
+  - first:
+      213: -8470017603123344111
+    second: Europe-Map-PNG-Picture_7
+  - first:
+      213: -7971407353368820900
+    second: Europe-Map-PNG-Picture_8
+  - first:
+      213: 6249178587040012589
+    second: Europe-Map-PNG-Picture_9
+  - first:
+      213: 7114517230778639174
+    second: Europe-Map-PNG-Picture_10
+  - first:
+      213: 8007250398019248102
+    second: Europe-Map-PNG-Picture_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1000
+        width: 223
+        height: 293
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50540177e2ec80830800000000000000
+      internalID: 4037703764899022085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 17
+        width: 2172
+        height: 1623
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 757692e1e4cc5e2a0800000000000000
+      internalID: -6708731434012940457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_2
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 54
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14555e94b2f439c80800000000000000
+      internalID: -8317217039481219775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_3
+      rect:
+        serializedVersion: 2
+        x: 1076
+        y: 50
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 271314bdf6649adf0800000000000000
+      internalID: -168526064815885966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_4
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 53
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79a99ade6df57fe10800000000000000
+      internalID: 2231357517100325527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_5
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 30
+        width: 11
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8396bd1d3505e6b40800000000000000
+      internalID: 5435370121216092472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_6
+      rect:
+        serializedVersion: 2
+        x: 1666
+        y: 56
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f8dc69ac6007da40800000000000000
+      internalID: 5392779545498409204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_7
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 34
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11d0784bdd3747a80800000000000000
+      internalID: -8470017603123344111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_8
+      rect:
+        serializedVersion: 2
+        x: 1484
+        y: 5
+        width: 126
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c53c3861f3fdf5190800000000000000
+      internalID: -7971407353368820900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_9
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 26
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d295f7ab0da89b650800000000000000
+      internalID: 6249178587040012589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_10
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 23
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 643e4f02ab7dbb260800000000000000
+      internalID: 7114517230778639174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Europe-Map-PNG-Picture_11
+      rect:
+        serializedVersion: 2
+        x: 1507
+        y: 0
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6efda8110d77f1f60800000000000000
+      internalID: 8007250398019248102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Europe-Map-PNG-Picture_0: 4037703764899022085
+      Europe-Map-PNG-Picture_1: -6708731434012940457
+      Europe-Map-PNG-Picture_10: 7114517230778639174
+      Europe-Map-PNG-Picture_11: 8007250398019248102
+      Europe-Map-PNG-Picture_2: -8317217039481219775
+      Europe-Map-PNG-Picture_3: -168526064815885966
+      Europe-Map-PNG-Picture_4: 2231357517100325527
+      Europe-Map-PNG-Picture_5: 5435370121216092472
+      Europe-Map-PNG-Picture_6: 5392779545498409204
+      Europe-Map-PNG-Picture_7: -8470017603123344111
+      Europe-Map-PNG-Picture_8: -7971407353368820900
+      Europe-Map-PNG-Picture_9: 6249178587040012589
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
