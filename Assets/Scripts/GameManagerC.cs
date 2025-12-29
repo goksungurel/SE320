@@ -53,6 +53,8 @@ public class GameManagerC : MonoBehaviour
     public TextMeshProUGUI loseReasonTop;
     public GameObject itemStatsGroup;
     public AudioClip loseSound;
+    public GameObject restartButtonTop; 
+    public GameObject restartButtonMid; 
 
     [Header("Start Settings")]
     public GameObject startPanel;
@@ -173,7 +175,7 @@ public void PauseGame()
         timeRemaining = 0;
         
         bool allItemsCollected = (eiffelCount >= 5 && louvreCount >= 5 && parisCount >= 5 && 
-                                  baguetteCount >= 5 && croissantCount >= 5 && franceCount >= 5);
+            baguetteCount >= 5 && croissantCount >= 5 && franceCount >= 5);
 
         if (score >= 7 && allItemsCollected) 
         {
@@ -212,7 +214,7 @@ public void PauseGame()
     bool isParisOk = parisCount >= 5;
 
     bool allItemsGoalReached = isFranceOk && isLouvreOk && isEiffelOk && 
-                               isCroissantOk && isBaguetteOk && isParisOk;
+        isCroissantOk && isBaguetteOk && isParisOk;
 
 
     if (score >= requiredCoins && allItemsGoalReached)
@@ -251,46 +253,50 @@ public void PauseGame()
     }
 
     void GameOver(string reason, bool showStats)
-{
-    isGameActive = false;
-
-    if (audioSource != null && loseSound != null)
     {
-        audioSource.PlayOneShot(loseSound);
-    }
+        isGameActive = false;
 
-    if (losePanel != null)
-    {
-        losePanel.SetActive(true);
-
-
-        if (loseReasonMid != null) loseReasonMid.gameObject.SetActive(false);
-        if (loseReasonTop != null) loseReasonTop.gameObject.SetActive(false);
-
-        if (showStats) 
+        if (audioSource != null && loseSound != null)
         {
-            // not enough item
-            if (loseReasonTop != null) 
-            {
-                loseReasonTop.gameObject.SetActive(true);
-                loseReasonTop.text = reason;
-            }
-            if (itemStatsGroup != null) itemStatsGroup.SetActive(true);
-            UpdateLosePanelStats();
+            audioSource.PlayOneShot(loseSound);
         }
-        else 
+
+        if (losePanel != null)
         {
-            // loss of heart
-            if (loseReasonMid != null) 
+            losePanel.SetActive(true);
+
+            // Önce tüm metinleri ve butonları kapat
+            if (loseReasonMid != null) loseReasonMid.gameObject.SetActive(false);
+            if (loseReasonTop != null) loseReasonTop.gameObject.SetActive(false);
+            if (restartButtonTop != null) restartButtonTop.SetActive(false);
+            if (restartButtonMid != null) restartButtonMid.SetActive(false);
+
+            if (showStats) 
             {
-                loseReasonMid.gameObject.SetActive(true);
-                loseReasonMid.text = reason;
+                // not enough item
+                if (loseReasonTop != null) 
+                {
+                    loseReasonTop.gameObject.SetActive(true);
+                    loseReasonTop.text = reason;
+                }
+                if (restartButtonTop != null) restartButtonTop.SetActive(true); 
+                if (itemStatsGroup != null) itemStatsGroup.SetActive(true);
+                UpdateLosePanelStats();
             }
-            if (itemStatsGroup != null) itemStatsGroup.SetActive(false);
+            else 
+            {
+                // not enough heart
+                if (loseReasonMid != null) 
+                {
+                    loseReasonMid.gameObject.SetActive(true);
+                    loseReasonMid.text = reason;
+                }
+                if (restartButtonMid != null) restartButtonMid.SetActive(true); 
+                if (itemStatsGroup != null) itemStatsGroup.SetActive(false);
+            }
         }
+        Time.timeScale = 0f; 
     }
-    Time.timeScale = 0f;
-}
     void UpdateLosePanelStats()
     {
         if (eiffeltext != null) loseEiffelText.text = eiffelCount.ToString() + "/5";
@@ -345,7 +351,7 @@ public void PauseGame()
         }
     }
 
-    void RestartGame()
+    public void RestartGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
