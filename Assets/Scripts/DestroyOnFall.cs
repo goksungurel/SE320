@@ -8,33 +8,33 @@ public class DestroyOnFall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // 1. GoodItem etiketi kontrolü
+        // item control
         if (other.CompareTag("GoodItem"))
         {
-            // Çift tetiklemeyi önlemek için collider'ı hemen kapatıyoruz
+            // disable the collider immediately to prevent double triggering
             other.enabled = false; 
 
             Debug.Log(other.gameObject.name + " missed!");
 
-            // Ses çalma
+            // sound
             if (audioSource != null && missSound != null)
             {
                 audioSource.PlayOneShot(missSound);
             }
 
-            // Can düşürme
+            // takedamage part
             if (gameManager != null)
             {
                 gameManager.TakeDamage(1); 
             }
 
-            // Objeyi yok et
+            // destroy object
             Destroy(other.gameObject); 
         }
-        // 2. BadItem etiketi kontrolü
+        // item control
         else if (other.CompareTag("BadItem"))
         {
-            // Bomba düştüğünde ceza yok, sadece yok et
+            // when bomb falls, just destroy
             other.enabled = false;
             Destroy(other.gameObject);
         }
