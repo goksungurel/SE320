@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 711461052383175994}
   - component: {fileID: -1039775020937514302}
   - component: {fileID: 8429417332053000419}
+  - component: {fileID: 235477652347158128}
   m_Layer: 0
   m_Name: Paris-2
   m_TagString: GoodItem
@@ -166,6 +167,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &235477652347158128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5337806970641247602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: e055094ce162b45f0a73f673b7f364f8, type: 2}
 --- !u!1 &9122383272710691294
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,23 +45,16 @@ public class PlayerCatcher : MonoBehaviour
     
     void OnTriggerEnter2D(Collider2D other)
 {
-    
     if (other.CompareTag("GoodItem"))
     {
-        Debug.Log("Good Item Catched: " + other.gameObject.name);
+        // ARTIK İSİM KONTROLÜNE (Eiffel vs) GEREK YOK!
+        // Merkezi sisteme objeyi gönderiyoruz, o kimliğinden (ItemData) her şeyi anlayacak.
+        if (gameManager != null)
+        {
+            gameManager.CollectItem(other.tag, other.gameObject); // GameObject'i gönderiyoruz
+        }
 
-       
-        string itemName = other.gameObject.name;
-
-        if (itemName.Contains("Eiffel")) { gameManager.eiffelCount++; }
-        else if (itemName.Contains("Louvre")) { gameManager.louvreCount++; }
-        else if (itemName.Contains("Paris")) { gameManager.parisCount++; }
-        else if (itemName.Contains("Baguette")) { gameManager.baguetteCount++; }
-        else if (itemName.Contains("Croissant")) { gameManager.croissantCount++; }
-        else if (itemName.Contains("France")) { gameManager.franceCount++; }
-     
-        
-        
+        // Genel toplama sesi (Eğer ItemData'da özel ses yoksa bu çalmaya devam eder)
         if (audioSource != null && goodItemSound != null)
         {
             audioSource.PlayOneShot(goodItemSound);
@@ -69,11 +62,8 @@ public class PlayerCatcher : MonoBehaviour
 
         Destroy(other.gameObject); 
     }
-   
     else if (other.CompareTag("BadItem"))
     {
-        Debug.Log("Bad Item catched!");
-        
         if (audioSource != null && badItemSound != null)
         {
             audioSource.PlayOneShot(badItemSound, 0.5f);
@@ -86,19 +76,17 @@ public class PlayerCatcher : MonoBehaviour
 
         Destroy(other.gameObject); 
     }
-   
     else if (other.CompareTag("Coin"))
     {
-        Debug.Log("Coin catched!");
+        // Coin toplandığında GameManager'a haber veriyoruz
+        if (gameManager != null)
+        {
+            gameManager.CollectItem("Coin", other.gameObject); 
+        }
         
         if (audioSource != null && coinSound != null)
         {
             audioSource.PlayOneShot(coinSound);
-        }
-
-        if (gameManager != null)
-        {
-            gameManager.AddScore(1); 
         }
         
         Destroy(other.gameObject); 

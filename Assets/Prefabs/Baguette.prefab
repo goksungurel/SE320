@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4420010420102966103}
   - component: {fileID: 6795547816451204335}
   - component: {fileID: 3948613494034177436}
+  - component: {fileID: 1923037607336247534}
   m_Layer: 0
   m_Name: Baguette
   m_TagString: GoodItem
@@ -165,3 +166,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1923037607336247534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6829528116975631614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: 8dfb1c11632fb4699b92d378080041a1, type: 2}

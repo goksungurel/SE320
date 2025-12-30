@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7328137540173105792}
   - component: {fileID: 5393075049057280499}
   - component: {fileID: 5338085427994880642}
+  - component: {fileID: -4942285630657257567}
   m_Layer: 0
   m_Name: oktoberfest
   m_TagString: GoodItem
@@ -165,3 +166,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5.12, y: 4.8}
   m_EdgeRadius: 0
+--- !u!114 &-4942285630657257567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3265954713287628063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: 19a864390ed5b403c97cd3a42a332910, type: 2}

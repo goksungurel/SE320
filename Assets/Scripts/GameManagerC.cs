@@ -29,24 +29,9 @@ public class GameManagerC : MonoBehaviour
     [Header("Win Conditions")]
     public int requiredCoins = 7;
     public int requiredEachItem = 5;
+    // Dictionary'yi hala tag takibi için kullanabilirsin ama asıl kontrolü listelerle yapacağız
     private Dictionary<string, int> collectionTracker = new Dictionary<string, int>();
     private int coinsCollected = 0;
-
-    [Header("Item UI Texts")]
-    public TextMeshProUGUI eiffeltext;
-    public TextMeshProUGUI louvretext;
-    public TextMeshProUGUI baguettetext;
-    public TextMeshProUGUI paristext;
-    public TextMeshProUGUI francetext;
-    public TextMeshProUGUI croissanttext;
-
-    [Header("Item Counts")]
-    public int eiffelCount;
-    public int louvreCount;
-    public int baguetteCount;
-    public int parisCount;
-    public int franceCount;
-    public int croissantCount;
 
     [Header("Lose Settings")]
     public GameObject losePanel; 
@@ -69,93 +54,78 @@ public class GameManagerC : MonoBehaviour
     [Header("Countdown Settings")]
     public TextMeshProUGUI countdownText;
 
-    [Header("Lose Panel UI")]
-    public TextMeshProUGUI loseFranceText;
-    public TextMeshProUGUI loseLouvreText;
-    public TextMeshProUGUI loseEiffelText;
-    public TextMeshProUGUI loseCroissantText;
-    public TextMeshProUGUI loseBaguetteText;
-    public TextMeshProUGUI loseParisText;
-    public TextMeshProUGUI loseCoinText;
+    [Header("Flexible Item Counters")]
+    public List<int> itemCounts = new List<int>();
+
+    [Header("Main UI Text List")]
+    public List<TMPro.TextMeshProUGUI> itemUITexts = new List<TMPro.TextMeshProUGUI>();
+
+    [Header("Lose Panel UI Text List")]
+    public List<TMPro.TextMeshProUGUI> losePanelItemTexts = new List<TMPro.TextMeshProUGUI>();
+
+    public TMPro.TextMeshProUGUI loseCoinText; 
 
     void Start()
-{   Time.timeScale = 0f; 
-    
-    
-    if (startPanel != null) startPanel.SetActive(true);
-
-    isGameActive = false;
-    
-    
-    timeRemaining = levelDuration;
-    currentLives = maxLives;
-
-    isGameActive = false; 
-
-
-    if (victoryPanel != null) victoryPanel.SetActive(false);
-    if (losePanel != null) losePanel.SetActive(false);
-    
-
-    
-
-    UpdateHeartsUI();
-    UpdateScoreUI();
-}
-
-
-
-public void StartGame()
-{
-    if (startPanel != null) startPanel.SetActive(false);
-    
-    // isGameActive burada true olabilir ama zamanı başlatmıyor
-    isGameActive = true; 
-    
-    StartCoroutine(CountdownRoutine()); 
-}
-
-
-public void ResumeGame()
-{
-    if (pausePanel != null) pausePanel.SetActive(false);
-    StartCoroutine(CountdownRoutine()); 
-}
-
-
-IEnumerator CountdownRoutine()
-{
-    // game hala pause da
-    if (countdownText != null)
-    {
-        countdownText.gameObject.SetActive(true);
+    {   
+        Time.timeScale = 0f; 
+        if (startPanel != null) startPanel.SetActive(true);
+        isGameActive = false;
         
-        int count = 3;
-        while (count > 0)
+        timeRemaining = levelDuration;
+        currentLives = maxLives;
+
+        if (victoryPanel != null) victoryPanel.SetActive(false);
+        if (losePanel != null) losePanel.SetActive(false);
+
+        // LİSTE HAZIRLIĞI: itemCounts listesini UI sayısı kadar 0 ile doldur
+        itemCounts.Clear();
+        for (int i = 0; i < itemUITexts.Count; i++)
         {
-            countdownText.text = count.ToString();
-            // wait
-            yield return new WaitForSecondsRealtime(1f); 
-            count--;
+            itemCounts.Add(0);
         }
-        
-        countdownText.text = "GO!";
-        yield return new WaitForSecondsRealtime(0.5f);
-        countdownText.gameObject.SetActive(false);
+
+        UpdateHeartsUI();
+        UpdateScoreUI();
+        UpdateUI(); // Başlangıçta 0/5 yazması için
     }
 
-    // time goes on
-    Time.timeScale = 1f; 
-}
+    public void StartGame()
+    {
+        if (startPanel != null) startPanel.SetActive(false);
+        isGameActive = true; 
+        StartCoroutine(CountdownRoutine()); 
+    }
 
-public void PauseGame()
-{
-    Time.timeScale = 0f; // pause
-    if (pausePanel != null) pausePanel.SetActive(true); // open panel
-}
+    public void ResumeGame()
+    {
+        if (pausePanel != null) pausePanel.SetActive(false);
+        StartCoroutine(CountdownRoutine()); 
+    }
 
+    IEnumerator CountdownRoutine()
+    {
+        if (countdownText != null)
+        {
+            countdownText.gameObject.SetActive(true);
+            int count = 3;
+            while (count > 0)
+            {
+                countdownText.text = count.ToString();
+                yield return new WaitForSecondsRealtime(1f); 
+                count--;
+            }
+            countdownText.text = "GO!";
+            yield return new WaitForSecondsRealtime(0.5f);
+            countdownText.gameObject.SetActive(false);
+        }
+        Time.timeScale = 1f; 
+    }
 
-
+    public void PauseGame()
+    {
+        Time.timeScale = 0f; 
+        if (pausePanel != null) pausePanel.SetActive(true); 
+    }
 
     void Update()
     {
@@ -166,159 +136,138 @@ public void PauseGame()
     } 
 
     void HandleTimer()
-{
-    if (timeRemaining > 0)
     {
-        timeRemaining -= Time.deltaTime;
-        if (timerText != null)
-            timerText.text = "Time: " + Mathf.Ceil(timeRemaining).ToString();
-    }
-    else
-    {
-        timeRemaining = 0;
-        
-        bool allItemsCollected = (eiffelCount >= 5 && louvreCount >= 5 && parisCount >= 5 && 
-            baguetteCount >= 5 && croissantCount >= 5 && franceCount >= 5);
-
-        if (score >= 7 && allItemsCollected) 
+        if (timeRemaining > 0)
         {
-            WinGame();
-        } 
-        else 
+            timeRemaining -= Time.deltaTime;
+            if (timerText != null)
+                timerText.text = "Time: " + Mathf.Ceil(timeRemaining).ToString();
+        }
+        else
         {
-            GameOver("You did not collect all required items!", true); 
+            timeRemaining = 0;
+            // ESNEK KONTROL: Listeye göre kazanma kontrolü
+            if (score >= requiredCoins && CheckAllItemsCollected()) 
+            {
+                WinGame();
+            }
+            else 
+            {
+                GameOver("You did not collect all required items!", true); 
+            }
         }
     }
-}
-    public void CollectItem(string itemTag)
+
+    // YENİ YARDIMCI FONKSİYON: Tüm eşyalar toplandı mı?
+    bool CheckAllItemsCollected()
+    {
+        if (itemCounts.Count == 0) return false;
+        foreach (int count in itemCounts)
+        {
+            if (count < requiredEachItem) return false;
+        }
+        return true;
+    }
+
+    public void CollectItem(string itemTag, GameObject hitObject)
     {
         if (itemTag == "Coin")
         {
             coinsCollected++;
+            score++; // Score'u da artırıyoruz
+            UpdateScoreUI();
         }
-        else if (itemTag != "BadItem") 
+        else if (itemTag == "GoodItem") 
         {
-            if (!collectionTracker.ContainsKey(itemTag)) 
-                collectionTracker[itemTag] = 0;
-            
-            collectionTracker[itemTag]++;
+            ItemHolder holder = hitObject.GetComponent<ItemHolder>();
+            if (holder != null && holder.data != null)
+            {
+                int index = holder.data.itemIndex;
+                if (index >= 0 && index < itemCounts.Count)
+                {
+                    itemCounts[index]++;
+                    UpdateUI();
+                    if (holder.data.collectSound != null)
+                        audioSource.PlayOneShot(holder.data.collectSound);
+                }
+            }
         }
-
         CheckWinCondition();
     }
 
     void CheckWinCondition()
-{
-    bool isFranceOk = franceCount >= 5;
-    bool isLouvreOk = louvreCount >= 5;
-    bool isEiffelOk = eiffelCount >= 5;
-    bool isCroissantOk = croissantCount >= 5;
-    bool isBaguetteOk = baguetteCount >= 5;
-    bool isParisOk = parisCount >= 5;
-
-    bool allItemsGoalReached = isFranceOk && isLouvreOk && isEiffelOk && 
-        isCroissantOk && isBaguetteOk && isParisOk;
-
-
-    if (score >= requiredCoins && allItemsGoalReached)
     {
-        WinGame();
+        if (score >= requiredCoins && CheckAllItemsCollected())
+        {
+            WinGame();
+        }
     }
-}
+
+    public void UpdateUI()
+    {
+        for (int i = 0; i < itemUITexts.Count; i++)
+        {
+            if (i < itemCounts.Count)
+                itemUITexts[i].text = itemCounts[i].ToString() + " / " + requiredEachItem.ToString();
+        }
+    }
 
     void WinGame()
     {
         isGameActive = false;
-        Debug.Log("Victory!");
-
         if (audioSource != null && victorySound != null)
-        {
             audioSource.PlayOneShot(victorySound);
-        }
 
         if (victoryPanel != null)
         {
             victoryPanel.SetActive(true); 
             if (finalScoreText != null)
-            {
                 finalScoreText.text = "Total Coins: " + score.ToString(); 
-            }
-
-            if (francetext != null) francetext.text = franceCount.ToString();
-            if (eiffeltext != null) eiffeltext.text = eiffelCount.ToString();
-            if (louvretext != null) louvretext.text = louvreCount.ToString();
-            if (paristext != null) paristext.text = parisCount.ToString();
-            if (baguettetext != null) baguettetext.text = baguetteCount.ToString();
-            if (croissanttext != null) croissanttext.text = croissantCount.ToString();
         }
-
         Time.timeScale = 0f; 
     }
 
     void GameOver(string reason, bool showStats)
-{
-    isGameActive = false;
-
-    if (audioSource != null && loseSound != null)
     {
-        audioSource.PlayOneShot(loseSound);
-    }
+        isGameActive = false;
+        if (audioSource != null && loseSound != null)
+            audioSource.PlayOneShot(loseSound);
 
-    if (losePanel != null)
-    {
-        losePanel.SetActive(true);
-
-        // 1. ADIM: Önce HER ŞEYİ kapatıyoruz (Temiz sayfa)
-        if (loseReasonMid != null) loseReasonMid.gameObject.SetActive(false);
-        if (loseReasonTop != null) loseReasonTop.gameObject.SetActive(false);
-        
-        if (restartButtonTop != null) restartButtonTop.SetActive(false);
-        if (quitButtonTop != null) quitButtonTop.SetActive(false);
-        
-        if (restartButtonMid != null) restartButtonMid.SetActive(false);
-        if (quitButtonMid != null) quitButtonMid.SetActive(false);
-
-        // 2. ADIM: Senaryoya göre ilgili butonları açıyoruz
-        if (showStats) 
+        if (losePanel != null)
         {
-            // SENARYO: YETERSİZ EŞYA (Üstteki buton grubu açılır)
-            if (loseReasonTop != null) 
-            {
-                loseReasonTop.gameObject.SetActive(true);
-                loseReasonTop.text = reason;
-            }
-            if (restartButtonTop != null) restartButtonTop.SetActive(true); 
-            if (quitButtonTop != null) quitButtonTop.SetActive(true); // Quit butonu eklendi
+            losePanel.SetActive(true);
+            if (loseReasonMid != null) loseReasonMid.gameObject.SetActive(!showStats);
+            if (loseReasonTop != null) loseReasonTop.gameObject.SetActive(showStats);
             
-            if (itemStatsGroup != null) itemStatsGroup.SetActive(true);
-            UpdateLosePanelStats();
-        }
-        else 
-        {
-            // SENARYO: CAN BİTTİ (Ortadaki buton grubu açılır)
-            if (loseReasonMid != null) 
+            if (restartButtonTop != null) restartButtonTop.SetActive(showStats);
+            if (quitButtonTop != null) quitButtonTop.SetActive(showStats);
+            if (restartButtonMid != null) restartButtonMid.SetActive(!showStats);
+            if (quitButtonMid != null) quitButtonMid.SetActive(!showStats);
+
+            if (itemStatsGroup != null) itemStatsGroup.SetActive(showStats);
+            
+            if (showStats)
             {
-                loseReasonMid.gameObject.SetActive(true);
+                UpdateLosePanelStats();
+                if (loseReasonTop != null) loseReasonTop.text = reason;
+            }
+            else if (loseReasonMid != null)
+            {
                 loseReasonMid.text = reason;
             }
-            if (restartButtonMid != null) restartButtonMid.SetActive(true); 
-            if (quitButtonMid != null) quitButtonMid.SetActive(true); // Quit butonu eklendi
-            
-            if (itemStatsGroup != null) itemStatsGroup.SetActive(false);
         }
+        Time.timeScale = 0f; 
     }
-    Time.timeScale = 0f; 
-}
+
     void UpdateLosePanelStats()
     {
-        if (eiffeltext != null) loseEiffelText.text = eiffelCount.ToString() + "/5";
-        if (louvretext != null) loseLouvreText.text = louvreCount.ToString() + "/5";
-        if (paristext != null) loseParisText.text = parisCount.ToString() + "/5";
-        if (baguettetext != null) loseBaguetteText.text = baguetteCount.ToString() + "/5";
-        if (croissanttext != null) loseCroissantText.text = croissantCount.ToString() + "/5";
-        if (francetext != null) loseFranceText.text = franceCount.ToString() + "/5";
+        for (int i = 0; i < losePanelItemTexts.Count; i++)
+        {
+            if (i < itemCounts.Count)
+                losePanelItemTexts[i].text = itemCounts[i].ToString() + " / " + requiredEachItem;
+        }
 
-        if (loseCoinText != null) loseCoinText.text = score + " / 7";
+        if (loseCoinText != null) loseCoinText.text = score + " / " + requiredCoins;
     }
 
     public void AddScore(int amount)
@@ -330,10 +279,7 @@ public void PauseGame()
 
     void UpdateScoreUI()
     {
-        if (scoreText != null)
-        {
-            scoreText.text = score.ToString(); 
-        }
+        if (scoreText != null) scoreText.text = score.ToString(); 
     }
 
     public void TakeDamage(int amount)
@@ -341,25 +287,18 @@ public void PauseGame()
         if (!isGameActive) return;
         currentLives -= amount;
         if (currentLives < 0) currentLives = 0;
-
         UpdateHeartsUI();
 
         if (currentLives <= 0)
-        {
-            GameOver("You've run out of lives!",false);
-        }
+            GameOver("You've run out of lives!", false);
     }
 
     void UpdateHeartsUI()
     {
         if (hearts == null) return;
-
         for (int i = 0; i < hearts.Length; i++)
         {
-            if (hearts[i] != null)
-            {
-                hearts[i].enabled = i < currentLives;
-            }
+            if (hearts[i] != null) hearts[i].enabled = i < currentLives;
         }
     }
 
@@ -367,5 +306,10 @@ public void PauseGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

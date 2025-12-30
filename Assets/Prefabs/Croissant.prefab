@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 1115904692200430469}
   - component: {fileID: 2103851680597193833}
   - component: {fileID: 2225191667746342946}
+  - component: {fileID: 8181033975081202036}
   m_Layer: 0
   m_Name: Croissant
   m_TagString: GoodItem
@@ -256,3 +257,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8181033975081202036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737355023274440120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: bdbb239f7a4a64b73b25b9d6bcfcc8f8, type: 2}

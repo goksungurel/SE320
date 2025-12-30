@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3962822419904304037}
   - component: {fileID: 789325102648188074}
   - component: {fileID: 8337620953027272573}
+  - component: {fileID: 5255328383790039603}
   m_Layer: 0
   m_Name: tart
   m_TagString: GoodItem
@@ -165,3 +166,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &5255328383790039603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246020767395147763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: 485d6f8b8703e4b86bd4f73a86de49bb, type: 2}

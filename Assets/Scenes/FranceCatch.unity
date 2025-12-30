@@ -3420,20 +3420,8 @@ MonoBehaviour:
   finalScoreText: {fileID: 1811886072}
   audioSource: {fileID: 907594124}
   victorySound: {fileID: 8300000, guid: fe04dc5fb9bc04103b5031054ccb45b8, type: 3}
-  requiredCoins: 5
-  requiredEachItem: 2
-  eiffeltext: {fileID: 1767751751}
-  louvretext: {fileID: 565944959}
-  baguettetext: {fileID: 1168253152}
-  paristext: {fileID: 1303537575}
-  francetext: {fileID: 1203463744}
-  croissanttext: {fileID: 1034791266}
-  eiffelCount: 0
-  louvreCount: 0
-  baguetteCount: 0
-  parisCount: 0
-  franceCount: 0
-  croissantCount: 0
+  requiredCoins: 7
+  requiredEachItem: 5
   losePanel: {fileID: 267986355}
   loseReasonMid: {fileID: 873096360}
   loseReasonTop: {fileID: 1568768617}
@@ -3446,12 +3434,21 @@ MonoBehaviour:
   startPanel: {fileID: 1675812893}
   pausePanel: {fileID: 1182212823}
   countdownText: {fileID: 1563887611}
-  loseFranceText: {fileID: 560723437}
-  loseLouvreText: {fileID: 965245552}
-  loseEiffelText: {fileID: 93350763}
-  loseCroissantText: {fileID: 1172985106}
-  loseBaguetteText: {fileID: 1338807632}
-  loseParisText: {fileID: 314961654}
+  itemCounts: 000000000000000000000000000000000000000000000000
+  itemUITexts:
+  - {fileID: 1168253152}
+  - {fileID: 1034791266}
+  - {fileID: 1767751751}
+  - {fileID: 1203463744}
+  - {fileID: 565944959}
+  - {fileID: 1303537575}
+  losePanelItemTexts:
+  - {fileID: 1338807632}
+  - {fileID: 1172985106}
+  - {fileID: 93350763}
+  - {fileID: 560723437}
+  - {fileID: 965245552}
+  - {fileID: 314961654}
   loseCoinText: {fileID: 1008857463}
 --- !u!4 &907594123
 Transform:

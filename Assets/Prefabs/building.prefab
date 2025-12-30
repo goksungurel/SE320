@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6540785347154765837}
   - component: {fileID: 1970615888516953038}
   - component: {fileID: 4698615401855299835}
+  - component: {fileID: -8905019305179203889}
   m_Layer: 0
   m_Name: building
   m_TagString: GoodItem
@@ -165,3 +166,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-8905019305179203889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5902605394996115938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: f38d6514e68bd44db83499cf56a33c21, type: 2}

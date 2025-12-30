@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 1630823282239601704}
   - component: {fileID: -8324560073465344824}
   - component: {fileID: 3928274580011175019}
+  - component: {fileID: -7221593822530749865}
   m_Layer: 0
   m_Name: Louvre
   m_TagString: GoodItem
@@ -256,3 +257,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7221593822530749865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7335164321337097824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: 59e712dc8bf774d37b1de6b4b55f1ee1, type: 2}

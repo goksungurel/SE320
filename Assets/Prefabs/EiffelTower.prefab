@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6446371683545139628}
   - component: {fileID: 5251052375582961781}
   - component: {fileID: 1675309922387217884}
+  - component: {fileID: -8841904822536274190}
   m_Layer: 0
   m_Name: EiffelTower
   m_TagString: GoodItem
@@ -166,6 +167,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-8841904822536274190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431294138150348416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
+  data: {fileID: 11400000, guid: a9883b8ba7757435abdf74e3ed04060a, type: 2}
 --- !u!1 &3458551666723521033
 GameObject:
   m_ObjectHideFlags: 0
