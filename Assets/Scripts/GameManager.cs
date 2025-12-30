@@ -2,11 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 
-
-
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Instance { get; private set; }
 
     // ================= MONEY =================
@@ -14,10 +11,9 @@ public class GameManager : MonoBehaviour
     public int money = 0;
     public TextMeshProUGUI moneyText;
 
-
     // ================= LEVEL SETTINGS =================
     [Header("Level Settings")]
-    public float levelTime = 30f;   // Scene 1: 30 | Scene 2: 60 | Scene 3: 90
+    public float levelTime = 30f;
 
     // ================= TIMER =================
     [Header("Timer")]
@@ -38,7 +34,6 @@ public class GameManager : MonoBehaviour
     // ================= WIN UI =================
     [Header("Win UI")]
     public GameObject winPanel;
-    public TextMeshProUGUI winText;
     public AudioSource winSound;
 
     public bool InputLocked { get; private set; }
@@ -46,8 +41,6 @@ public class GameManager : MonoBehaviour
     Card first, second;
     int foundPairs = 0;
     int totalPairs = 0;
-
-    // ================= UNITY LIFECYCLE =================
 
     void Awake()
     {
@@ -61,15 +54,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
         if (winPanel != null)
             winPanel.SetActive(false);
 
-        timeLeft = levelTime;     // ⬅️ SAHNEYE ÖZEL SÜRE
+        timeLeft = levelTime;
         UpdateTimerUI();
-
         BuildBoard();
-
         UpdateMoneyUI();
     }
 
@@ -86,58 +76,31 @@ public class GameManager : MonoBehaviour
         {
             timeLeft = 0f;
             timerRunning = false;
-            TimeIsUp();
+            InputLocked = true;
+            timerText.text = "TIME UP!";
+            timerText.color = Color.red;
         }
     }
+
     void UpdateMoneyUI()
     {
         if (moneyText != null)
-            moneyText.text = money.ToString() ;
+            moneyText.text = money.ToString();
     }
 
-public void AddMoney(int amount)
-{
-    money += amount;
-    UpdateMoneyUI();
-}
-
-    // ================= TIMER METHODS =================
+    public void AddMoney(int amount)
+    {
+        money += amount;
+        UpdateMoneyUI();
+    }
 
     void UpdateTimerUI()
-{
-    if (timerText == null) return;
-
-    int seconds = Mathf.CeilToInt(timeLeft);
-
-    // Süre bittiyse
-    if (seconds <= 0)
     {
-        timerText.text = "TIME UP!";
-        timerText.color = Color.red;
-        return;
-    }
+        if (timerText == null) return;
 
-    // Son 5 saniye → kırmızı
-    if (seconds <= 5)
-    {
-        timerText.color = Color.red;
-    }
-    else
-    {
-        timerText.color = Color.white; // normal renk
-    }
-
-    timerText.text = "TIME: 00:" + seconds.ToString("00");
-}
-
-
-    void TimeIsUp()
-    {
-        Debug.Log("Süre bitti!");
-        InputLocked = true;
-        timerRunning = false;
-
-        // burada istersen Lose Panel / Restart logic eklenir
+        int seconds = Mathf.CeilToInt(timeLeft);
+        timerText.text = "TIME: 00:" + seconds.ToString("00");
+        timerText.color = seconds <= 5 ? Color.red : Color.white;
     }
 
     // ================= GAME LOGIC =================
@@ -196,7 +159,6 @@ public void AddMoney(int amount)
             first.SetMatched();
             second.SetMatched();
             foundPairs++;
-
             AddMoney(1);
 
             if (foundPairs >= totalPairs)
@@ -204,6 +166,8 @@ public void AddMoney(int amount)
         }
         else
         {
+            first.FlashWrong();
+            second.FlashWrong();
             yield return new WaitForSeconds(hideDelay);
             first.Hide();
             second.Hide();
@@ -216,24 +180,12 @@ public void AddMoney(int amount)
 
     void Win()
     {
-        timerRunning = false;   // ⏸ süre durur
+        timerRunning = false;
 
         if (winPanel != null)
-        {
             winPanel.SetActive(true);
-            winPanel.transform.SetAsLastSibling();
-
-            var img = winPanel.GetComponent<UnityEngine.UI.Image>();
-            if (img != null)
-            {
-                Color c = img.color;
-                c.a = 0.75f;
-                img.color = c;
-            }
-        }
 
         if (winSound != null)
             winSound.Play();
     }
-
 }

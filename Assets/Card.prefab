@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 4117636935699413595}
   - component: {fileID: 399900181441565834}
   - component: {fileID: -8353987064662932900}
+  - component: {fileID: 4397527848520586620}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -364,6 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   image: {fileID: 6438235155519021802}
+  wrongSound: {fileID: 8300000, guid: 3ebaf42a8b0d04782ae11980820b7230, type: 3}
 --- !u!82 &399900181441565834
 AudioSource:
   m_ObjectHideFlags: 0
@@ -479,3 +481,25 @@ MonoBehaviour:
   minPitch: 0.96
   maxPitch: 1.003
   cooldown: 0.05
+--- !u!95 &4397527848520586620
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8058887638080993889}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9d47e699aa0b84ebdac14decc1828ca7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
