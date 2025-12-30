@@ -599,7 +599,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.94509804, g: 0.9372549, b: 0.90588236, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2632,7 +2632,7 @@ Transform:
   m_GameObject: {fileID: 650598104}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.41, y: 0.2, z: 0}
+  m_LocalPosition: {x: 0.18, y: 0.02, z: 0}
   m_LocalScale: {x: 0.39628324, y: 0.34174573, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3413,6 +3413,7 @@ MonoBehaviour:
   - {fileID: 1677008227}
   score: 0
   scoreText: {fileID: 1599890574}
+  levelDuration: 60
   timeRemaining: 60
   timerText: {fileID: 915828743}
   victoryPanel: {fileID: 1715817398}
@@ -3440,6 +3441,8 @@ MonoBehaviour:
   loseSound: {fileID: 8300000, guid: 4b4dd7245f6104c8c8eb07ccf6b386ed, type: 3}
   restartButtonTop: {fileID: 878268683}
   restartButtonMid: {fileID: 1296691226}
+  quitButtonTop: {fileID: 1207874741}
+  quitButtonMid: {fileID: 1916824784}
   startPanel: {fileID: 1675812893}
   pausePanel: {fileID: 1182212823}
   countdownText: {fileID: 1563887611}
@@ -4133,18 +4136,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSpawner
   itemPrefabs:
-  - {fileID: 5337806970641247602, guid: 6ac6642a484e6487e9f7cb6f571a3f7b, type: 3}
-  - {fileID: 7335164321337097824, guid: dc33341b0b59c48deb28cda66f93e7dc, type: 3}
+  - {fileID: 6786150081227909834, guid: 7694359ef53234590a4beb969c2e25a1, type: 3}
+  - {fileID: 932338716130906021, guid: 8cc2bd04c8be64c418b8f3f7c9a8f14d, type: 3}
   - {fileID: 1431294138150348416, guid: c2a64be774ac941f8abdfa28d2a1ce0a, type: 3}
   - {fileID: 4737355023274440120, guid: 78146b6257d914156a7b40dae36ad4e4, type: 3}
   - {fileID: 6829528116975631614, guid: 6ceaef58762aa4c9f90aa3b10efb2786, type: 3}
-  - {fileID: 932338716130906021, guid: 8cc2bd04c8be64c418b8f3f7c9a8f14d, type: 3}
-  - {fileID: 6786150081227909834, guid: 7694359ef53234590a4beb969c2e25a1, type: 3}
+  - {fileID: 7335164321337097824, guid: dc33341b0b59c48deb28cda66f93e7dc, type: 3}
+  - {fileID: 5337806970641247602, guid: 6ac6642a484e6487e9f7cb6f571a3f7b, type: 3}
   - {fileID: 1884829377425945214, guid: 40397b80bba734c1eac4cd80423252d0, type: 3}
-  coinIndex: 6
-  bombIndex: 5
-  spawnInterval: 1
-  minSpawnForEachItem: 4
+  coinIndex: 0
+  bombIndex: 1
+  countPerItem: 6
+  totalCoins: 9
+  totalBombs: 5
+  minX: -6
+  maxX: 6
+  gameManager: {fileID: 907594122}
 --- !u!4 &969045120
 Transform:
   m_ObjectHideFlags: 0
@@ -5048,7 +5055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7137255, b: 0.80784315, a: 1}
+  m_Color: {r: 1, g: 0.7137255, b: 0.80784315, a: 0.40392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6673,7 +6680,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: To pass this level, you must collect 5 coins and 4 of each item within
+  m_text: To pass this level, you must collect 7 coins and 5 of each item within
     60 seconds. Good luck!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

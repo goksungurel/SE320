@@ -6,26 +6,32 @@ public class ItemSpawner : MonoBehaviour
 {
     [Header("Item Prefabs")]
     public GameObject[] itemPrefabs; 
-    public int coinIndex = 6;
-    public int bombIndex = 5;
+    public int coinIndex = 0;
+    public int bombIndex = 1;
 
-    [Header("Spawn Settings")]
-    public float spawnInterval = 1.2f; 
+    [Header("Spawn Settings ")]
+    // they will change for every scene
+    public int countPerItem = 5; 
+    public int totalCoins = 7;   
+    public int totalBombs = 5;   
+    
     public float minX = -6.0f;
     public float maxX = 6.0f;
 
+    [Header("References")]
+    public GameManagerC gameManager; 
+    
     private List<int> plannedSpawns = new List<int>();
     private bool isSpawning = false;
 
     void Start()
     {
 
-        PrepareLevel2List();
+        PrepareSpawnList();
     }
 
     void Update()
     {
-
         if (!isSpawning && Time.timeScale > 0f)
         {
             StartCoroutine(SpawnRoutine());
@@ -33,23 +39,23 @@ public class ItemSpawner : MonoBehaviour
         }
     }
 
-    void PrepareLevel2List()
+    void PrepareSpawnList()
     {
         plannedSpawns.Clear();
 
-        // 6 ana itemdan 6'şar tane (Toplam 36)
+        // it can work on different item arrays
         for (int i = 0; i < itemPrefabs.Length; i++)
         {
             if (i == bombIndex || i == coinIndex) continue;
-            for (int j = 0; j < 6; j++) plannedSpawns.Add(i);
+            // variables from inspector for flexibility
+            for (int j = 0; j < countPerItem; j++) plannedSpawns.Add(i);
         }
 
-        // 9 coin (7 for winning)
-        for (int j = 0; j < 9; j++) plannedSpawns.Add(coinIndex);
+        // coins
+        for (int j = 0; j < totalCoins; j++) plannedSpawns.Add(coinIndex);
 
-        // 5 bomb
-        for (int j = 0; j < 5; j++) plannedSpawns.Add(bombIndex);
-
+        // bombs
+        for (int j = 0; j < totalBombs; j++) plannedSpawns.Add(bombIndex);
 
         for (int i = 0; i < plannedSpawns.Count; i++)
         {
@@ -61,26 +67,30 @@ public class ItemSpawner : MonoBehaviour
     }
 
     IEnumerator SpawnRoutine()
-{
-
-    float calculatedInterval = 60f / plannedSpawns.Count; 
-
-    while (plannedSpawns.Count > 0)
     {
+        // control for nullreference error
+        if (gameManager == null) {
+            Debug.LogError("nullreference");
+            yield break;
+        }
 
-        int nextItemIndex = plannedSpawns[0];
-        plannedSpawns.RemoveAt(0);
+        float calculatedInterval = gameManager.levelDuration / plannedSpawns.Count;
 
-        float randomX = Random.Range(minX, maxX);
-        Vector3 spawnPos = new Vector3(randomX, transform.position.y, -1f);
-        Instantiate(itemPrefabs[nextItemIndex], spawnPos, Quaternion.identity);
-
-        yield return new WaitForSeconds(calculatedInterval);
-
-        while (Time.timeScale == 0f)
+        while (plannedSpawns.Count > 0)
         {
-            yield return null;
+            int nextItemIndex = plannedSpawns[0];
+            plannedSpawns.RemoveAt(0);
+
+            float randomX = Random.Range(minX, maxX);
+            Vector3 spawnPos = new Vector3(randomX, transform.position.y, -1f);
+            Instantiate(itemPrefabs[nextItemIndex], spawnPos, Quaternion.identity);
+
+            yield return new WaitForSeconds(calculatedInterval);
+
+            while (Time.timeScale == 0f)
+            {
+                yield return null;
+            }
         }
     }
-}
 }

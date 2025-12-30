@@ -15,7 +15,8 @@ public class GameManagerC : MonoBehaviour
     [Header("Score & Timer")]
     public int score = 0; 
     public TextMeshProUGUI scoreText; 
-    public float timeRemaining = 60f;
+    public float levelDuration = 60f;
+    public float timeRemaining;
     public TextMeshProUGUI timerText;
 
     [Header("Victory Settings")]
@@ -55,6 +56,8 @@ public class GameManagerC : MonoBehaviour
     public AudioClip loseSound;
     public GameObject restartButtonTop; 
     public GameObject restartButtonMid; 
+    public GameObject quitButtonTop; 
+    public GameObject quitButtonMid; 
 
     [Header("Start Settings")]
     public GameObject startPanel;
@@ -84,7 +87,7 @@ public class GameManagerC : MonoBehaviour
     isGameActive = false;
     
     
-    timeRemaining = 60f;
+    timeRemaining = levelDuration;
     currentLives = maxLives;
 
     isGameActive = false; 
@@ -253,50 +256,59 @@ public void PauseGame()
     }
 
     void GameOver(string reason, bool showStats)
+{
+    isGameActive = false;
+
+    if (audioSource != null && loseSound != null)
     {
-        isGameActive = false;
-
-        if (audioSource != null && loseSound != null)
-        {
-            audioSource.PlayOneShot(loseSound);
-        }
-
-        if (losePanel != null)
-        {
-            losePanel.SetActive(true);
-
-            // Önce tüm metinleri ve butonları kapat
-            if (loseReasonMid != null) loseReasonMid.gameObject.SetActive(false);
-            if (loseReasonTop != null) loseReasonTop.gameObject.SetActive(false);
-            if (restartButtonTop != null) restartButtonTop.SetActive(false);
-            if (restartButtonMid != null) restartButtonMid.SetActive(false);
-
-            if (showStats) 
-            {
-                // not enough item
-                if (loseReasonTop != null) 
-                {
-                    loseReasonTop.gameObject.SetActive(true);
-                    loseReasonTop.text = reason;
-                }
-                if (restartButtonTop != null) restartButtonTop.SetActive(true); 
-                if (itemStatsGroup != null) itemStatsGroup.SetActive(true);
-                UpdateLosePanelStats();
-            }
-            else 
-            {
-                // not enough heart
-                if (loseReasonMid != null) 
-                {
-                    loseReasonMid.gameObject.SetActive(true);
-                    loseReasonMid.text = reason;
-                }
-                if (restartButtonMid != null) restartButtonMid.SetActive(true); 
-                if (itemStatsGroup != null) itemStatsGroup.SetActive(false);
-            }
-        }
-        Time.timeScale = 0f; 
+        audioSource.PlayOneShot(loseSound);
     }
+
+    if (losePanel != null)
+    {
+        losePanel.SetActive(true);
+
+        // 1. ADIM: Önce HER ŞEYİ kapatıyoruz (Temiz sayfa)
+        if (loseReasonMid != null) loseReasonMid.gameObject.SetActive(false);
+        if (loseReasonTop != null) loseReasonTop.gameObject.SetActive(false);
+        
+        if (restartButtonTop != null) restartButtonTop.SetActive(false);
+        if (quitButtonTop != null) quitButtonTop.SetActive(false);
+        
+        if (restartButtonMid != null) restartButtonMid.SetActive(false);
+        if (quitButtonMid != null) quitButtonMid.SetActive(false);
+
+        // 2. ADIM: Senaryoya göre ilgili butonları açıyoruz
+        if (showStats) 
+        {
+            // SENARYO: YETERSİZ EŞYA (Üstteki buton grubu açılır)
+            if (loseReasonTop != null) 
+            {
+                loseReasonTop.gameObject.SetActive(true);
+                loseReasonTop.text = reason;
+            }
+            if (restartButtonTop != null) restartButtonTop.SetActive(true); 
+            if (quitButtonTop != null) quitButtonTop.SetActive(true); // Quit butonu eklendi
+            
+            if (itemStatsGroup != null) itemStatsGroup.SetActive(true);
+            UpdateLosePanelStats();
+        }
+        else 
+        {
+            // SENARYO: CAN BİTTİ (Ortadaki buton grubu açılır)
+            if (loseReasonMid != null) 
+            {
+                loseReasonMid.gameObject.SetActive(true);
+                loseReasonMid.text = reason;
+            }
+            if (restartButtonMid != null) restartButtonMid.SetActive(true); 
+            if (quitButtonMid != null) quitButtonMid.SetActive(true); // Quit butonu eklendi
+            
+            if (itemStatsGroup != null) itemStatsGroup.SetActive(false);
+        }
+    }
+    Time.timeScale = 0f; 
+}
     void UpdateLosePanelStats()
     {
         if (eiffeltext != null) loseEiffelText.text = eiffelCount.ToString() + "/5";
