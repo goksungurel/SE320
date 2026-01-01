@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 7773195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.68, y: 1.22, z: 0}
+  m_LocalPosition: {x: 24.68, y: 1.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2014,7 +2014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1248415526}
   m_Layer: 0
-  m_Name: SP_EiffelTower
+  m_Name: SP_Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2029,7 +2029,7 @@ Transform:
   m_GameObject: {fileID: 1248415525}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.19, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2173,6 +2173,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1147011586}
   m_LocalEulerAnglesHint: {x: -4.454, y: 0, z: 0}
+--- !u!1 &1288136748 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2585032582345966886, guid: 272a8b9bc8c7aed41b7770e07ca64c26, type: 3}
+  m_PrefabInstance: {fileID: 353917543444842227}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1356222483 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1580413721188027305, guid: aacd685e427160c4b9f118848e59f289, type: 3}
@@ -2573,20 +2578,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1439188838}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e380b6c27b1e8d46b1868639bf40201, type: 3}
+  m_Script: {fileID: 11500000, guid: f55513b8dbaa0af4282dfad693245fb0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner
-  groundObstacles:
-  - {fileID: 1356222483}
-  - {fileID: 1184134956}
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleSpawner_Germany
+  groundObstacle: {fileID: 1184134956}
+  tower: {fileID: 1356222483}
   airObstacles:
   - {fileID: 577413257}
   - {fileID: 844542041}
   spLow: {fileID: 7773196}
+  spTower: {fileID: 1248415526}
   spMid: {fileID: 1485977495}
   spHigh: {fileID: 952754383}
-  spawnInterval: 2
-  coinPrefab: {fileID: 6786150081227909834, guid: 7694359ef53234590a4beb969c2e25a1, type: 3}
+  coinPrefab: {fileID: 1288136748}
 --- !u!1 &1485977494
 GameObject:
   m_ObjectHideFlags: 0
@@ -3566,7 +3570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5956602773880085185, guid: 3366d8d5d4064ae44abc20ec37e07b1b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.32
+      value: -1.59
       objectReference: {fileID: 0}
     - target: {fileID: 5956602773880085185, guid: 3366d8d5d4064ae44abc20ec37e07b1b, type: 3}
       propertyPath: m_LocalPosition.z

@@ -67,8 +67,8 @@ public class ObstacleSpawner : MonoBehaviour
             Debug.Log("Air obstacle spawned in sky.");
         }
 
-        // maybe spawn a coin too? 50% chance
-        if (Random.value > 0.4f)
+        
+        if (Random.value > 0.9f)
         {
             if (spHigh != null && coinPrefab != null)
             {
