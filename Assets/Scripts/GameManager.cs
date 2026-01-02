@@ -62,25 +62,25 @@ public class GameManager : MonoBehaviour
         BuildBoard();
         UpdateMoneyUI();
     }
-
-    void Update()
+void Update()
+{
+    if (timerRunning && timeLeft > 0f)
     {
-        if (!timerRunning) return;
-
-        if (timeLeft > 0f)
-        {
-            timeLeft -= Time.deltaTime;
-            UpdateTimerUI();
-        }
-        else
-        {
-            timeLeft = 0f;
-            timerRunning = false;
-            InputLocked = true;
-            timerText.text = "TIME UP!";
-            timerText.color = Color.red;
-        }
+        timeLeft -= Time.unscaledDeltaTime;
+        if (timeLeft < 0f) timeLeft = 0f;
     }
+
+    UpdateTimerUI();
+
+    if (timerRunning && timeLeft <= 0f)
+    {
+        timerRunning = false;
+        InputLocked = true;
+        timerText.text = "TIME UP!";
+        timerText.color = Color.red;
+    }
+}
+
 
     void UpdateMoneyUI()
     {
@@ -181,6 +181,7 @@ public class GameManager : MonoBehaviour
     void Win()
     {
         timerRunning = false;
+        UpdateTimerUI();
 
         if (winPanel != null)
             winPanel.SetActive(true);

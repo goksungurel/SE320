@@ -711,7 +711,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   money: 0
   moneyText: {fileID: 658268639}
-  levelTime: 20
+  levelTime: 15
   timerText: {fileID: 1744554446}
   gridParent: {fileID: 65506111}
   cardPrefab: {fileID: 8058887638080993889, guid: 3070e89284bd845c4b1a69e1783855ec, type: 3}
@@ -721,7 +721,7 @@ MonoBehaviour:
   - {fileID: -1574683900729279712, guid: 33ab73c4a44354f879cd1c68853eeaf1, type: 3}
   - {fileID: -4808505331019995094, guid: 53fda749bf0334357a73486211645950, type: 3}
   - {fileID: -2956171557150641070, guid: 2a4111883001e4e80aa284b273a2d784, type: 3}
-  pairs: 7
+  pairs: 4
   hideDelay: 0.6
   winPanel: {fileID: 2054945810}
   winSound: {fileID: 861818635}
