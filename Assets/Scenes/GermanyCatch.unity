@@ -598,7 +598,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4293390321
   m_fontColor: {r: 0.94509804, g: 0.9372549, b: 0.90588236, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -1128,7 +1128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7137255, b: 0.7568628, a: 1}
+  m_Color: {r: 1, g: 0.7607843, b: 0.015686275, a: 0.8862745}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1826,7 +1826,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8308919515608295340, guid: ea613a6036fbd42e9b05966ef5ab3112, type: 3}
+  m_Sprite: {fileID: -344964647248887165, guid: dd0dac5434c20438fad8204e36ed2501, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1857,6 +1857,7 @@ GameObject:
   - component: {fileID: 523513715}
   - component: {fileID: 523513718}
   - component: {fileID: 523513719}
+  - component: {fileID: 523513720}
   m_Layer: 0
   m_Name: PlayerCatcher
   m_TagString: Untagged
@@ -2002,6 +2003,7 @@ MonoBehaviour:
   badItemSound: {fileID: 8300000, guid: cd99601e4efd35948adc5ed9f8e6c108, type: 3}
   goodItemSound: {fileID: 8300000, guid: 13080dc9f84824b65ad233427adf53a8, type: 3}
   coinSound: {fileID: 8300000, guid: 6fede028ba58b48d08e05b2bff883359, type: 3}
+  dustEffect: {fileID: 104829970813648393, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
 --- !u!82 &523513719
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2099,6 +2101,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &523513720
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523513713}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d231aef09ff9d4231842761f2a0170e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &560723435
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,6 +2430,7 @@ MonoBehaviour:
   gameManager: {fileID: 907594122}
   audioSource: {fileID: 639303679}
   missSound: {fileID: 8300000, guid: cd99601e4efd35948adc5ed9f8e6c108, type: 3}
+  dustEffect: {fileID: 104829970813648393, guid: d3015b7eea383f64d8b81f965cc466e7, type: 3}
 --- !u!212 &639303676
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4774,7 +4799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.7137255, b: 0.80784315, a: 0.40392157}
+  m_Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.22745098}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7104,7 +7129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1715817399
 RectTransform:
   m_ObjectHideFlags: 0

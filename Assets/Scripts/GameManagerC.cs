@@ -29,7 +29,7 @@ public class GameManagerC : MonoBehaviour
     [Header("Win Conditions")]
     public int requiredCoins = 7;
     public int requiredEachItem = 5;
-    // Dictionary'yi hala tag takibi için kullanabilirsin ama asıl kontrolü listelerle yapacağız
+    // Dictionary for tag control
     private Dictionary<string, int> collectionTracker = new Dictionary<string, int>();
     private int coinsCollected = 0;
 
@@ -77,7 +77,6 @@ public class GameManagerC : MonoBehaviour
         if (victoryPanel != null) victoryPanel.SetActive(false);
         if (losePanel != null) losePanel.SetActive(false);
 
-        // LİSTE HAZIRLIĞI: itemCounts listesini UI sayısı kadar 0 ile doldur
         itemCounts.Clear();
         for (int i = 0; i < itemUITexts.Count; i++)
         {
@@ -86,7 +85,7 @@ public class GameManagerC : MonoBehaviour
 
         UpdateHeartsUI();
         UpdateScoreUI();
-        UpdateUI(); // Başlangıçta 0/5 yazması için
+        UpdateUI(); 
     }
 
     public void StartGame()
@@ -146,7 +145,6 @@ public class GameManagerC : MonoBehaviour
         else
         {
             timeRemaining = 0;
-            // ESNEK KONTROL: Listeye göre kazanma kontrolü
             if (score >= requiredCoins && CheckAllItemsCollected()) 
             {
                 WinGame();
@@ -158,7 +156,7 @@ public class GameManagerC : MonoBehaviour
         }
     }
 
-    // YENİ YARDIMCI FONKSİYON: Tüm eşyalar toplandı mı?
+
     bool CheckAllItemsCollected()
     {
         if (itemCounts.Count == 0) return false;
@@ -208,7 +206,7 @@ public class GameManagerC : MonoBehaviour
         for (int i = 0; i < itemUITexts.Count; i++)
         {
             if (i < itemCounts.Count)
-                itemUITexts[i].text = itemCounts[i].ToString() + " / " + requiredEachItem.ToString();
+                itemUITexts[i].text = itemCounts[i].ToString() ;
         }
     }
 

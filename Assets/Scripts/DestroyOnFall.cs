@@ -4,13 +4,16 @@ public class DestroyOnFall : MonoBehaviour
 {
     public GameManagerC gameManager;   
     public AudioSource audioSource;    
-    public AudioClip missSound;       
+    public AudioClip missSound;     
+    public GameObject dustEffect;  
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         // item control
         if (other.CompareTag("GoodItem"))
         {
+            if (dustEffect != null)
+            Instantiate(dustEffect, other.transform.position, Quaternion.identity);
             // disable the collider immediately to prevent double triggering
             other.enabled = false; 
 
@@ -37,6 +40,11 @@ public class DestroyOnFall : MonoBehaviour
             // when bomb falls, just destroy
             other.enabled = false;
             Destroy(other.gameObject);
+        }
+        else if(other.CompareTag("Coin"))
+        {
+            if (dustEffect != null)
+            Instantiate(dustEffect, other.transform.position, Quaternion.identity);
         }
     }
 }
