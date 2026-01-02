@@ -15,8 +15,11 @@ public class PlayerCatcher : MonoBehaviour
     private float screenLeft;
     private float screenRight;
 
+    private Animator animator;
+    public GameObject dustEffect;
     void Start()
     {
+        animator = GetComponent<Animator>();
         float screenHeight = Camera.main.orthographicSize; 
         float screenWidth = screenHeight * Camera.main.aspect;
 
@@ -47,6 +50,7 @@ public class PlayerCatcher : MonoBehaviour
 {
     if (other.CompareTag("GoodItem"))
     {
+        if (animator != null) animator.SetTrigger("Catch");
         // ARTIK İSİM KONTROLÜNE (Eiffel vs) GEREK YOK!
         // Merkezi sisteme objeyi gönderiyoruz, o kimliğinden (ItemData) her şeyi anlayacak.
         if (gameManager != null)
@@ -64,6 +68,8 @@ public class PlayerCatcher : MonoBehaviour
     }
     else if (other.CompareTag("BadItem"))
     {
+        if (dustEffect != null)
+            Instantiate(dustEffect, transform.position, Quaternion.identity);
         if (audioSource != null && badItemSound != null)
         {
             audioSource.PlayOneShot(badItemSound, 0.5f);
@@ -78,6 +84,7 @@ public class PlayerCatcher : MonoBehaviour
     }
     else if (other.CompareTag("Coin"))
     {
+        if (animator != null) animator.SetTrigger("Catch");
         // Coin toplandığında GameManager'a haber veriyoruz
         if (gameManager != null)
         {

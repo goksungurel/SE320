@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7899b627016804f7aaf9a49c1ed241d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemHolder
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 870b2b5b8bb914bed86dc44ecec73bb0, type: 2}
 --- !u!50 &8651456510555828761
 Rigidbody2D:
   serializedVersion: 5
