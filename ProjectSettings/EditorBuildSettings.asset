@@ -12,6 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/MapMenu.unity
     guid: a54d047cdcbb1cb41bc96d2cc3d0db56
   - enabled: 1
+    path: Assets/Scenes/CardGermany.unity
+    guid: 2a363b350e3874e18a83af4beb1373e6
+  - enabled: 1
+    path: Assets/Scenes/GermanyCatch.unity
+    guid: ead7a135e94644ab5bc8b1d4c2d7e222
+  - enabled: 1
+    path: Assets/Scenes/GermanyRunner.unity
+    guid: 82338b5677c840b4a91c4bd05796f504
+  - enabled: 1
     path: Assets/Scenes/CardFrance.unity
     guid: 57cb81e19d55b46eb8492278b01d737f
   - enabled: 1
@@ -21,17 +30,26 @@ EditorBuildSettings:
     path: Assets/Scenes/FranceRunner.unity
     guid: 1897d7a17a2aa584aae1725d78d50479
   - enabled: 1
-    path: Assets/Scenes/CardGermany.unity
-    guid: 2a363b350e3874e18a83af4beb1373e6
-  - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/CardItaly.unity
+    guid: 209e07d423d9d4e69b3ed1f66032d480
   - enabled: 1
-    path: Assets/Scenes/WorldMap.unity
-    guid: 133dba6da1455470a9b8084b4b5a00d6
+    path: Assets/Scenes/ItalyCatch.unity
+    guid: 3cc63166c9ee540ab96ffea9586915e1
+  - enabled: 1
+    path: Assets/Scenes/CardSpain.unity
+    guid: 7d8b633eb06e24e709a1ef49b8e0a5a6
+  - enabled: 1
+    path: Assets/Scenes/SpainCatch.unity
+    guid: 0071d493d61824f1993d825b81da2e4d
+  - enabled: 1
+    path: Assets/Scenes/SpainRunner.unity
+    guid: 8c5c44dac9cc83944b44e11c36c59907
   - enabled: 1
     path: Assets/Scenes/MapMenu.unity
     guid: a54d047cdcbb1cb41bc96d2cc3d0db56
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
