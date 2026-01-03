@@ -310,4 +310,9 @@ public class GameManagerC : MonoBehaviour
     {
         Application.Quit();
     }
+    public void GoToNextScene()
+{
+    Time.timeScale = 1f; // durdurduysan geri aç
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+}
 }
