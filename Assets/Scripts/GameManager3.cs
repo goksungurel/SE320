@@ -9,6 +9,7 @@ public class GameManager3 : MonoBehaviour
 
     private static float savedTime = 60f;
     private static bool isFirstStart = true;
+    private static bool shouldShowStartPanel = true;
 
     [Header("Life Settings")]
     public int maxLives = 3;
@@ -17,10 +18,6 @@ public class GameManager3 : MonoBehaviour
 
     [Header("Coin Settings")]
     public TextMeshProUGUI coinText;
-    public GameObject coinPrefab;
-    public Transform[] spawnPoints;
-    public float spawnInterval = 1.5f;
-    public float obstacleCheckRadius = 0.5f;
     private int totalCoins = 0;
 
     [Header("Timer Settings")]
@@ -30,21 +27,28 @@ public class GameManager3 : MonoBehaviour
     public float timeRemaining;
     private bool isTimerRunning = true;
 
+    [Header("Pause Settings")]
+    public GameObject pausePanel;
+    private bool isPaused = false;
+
+    [Header("Start Settings")]
+    public GameObject startPanel;
+
     void Awake()
     {
-        Time.timeScale = 1f;
-
-        // make sure there is only one manager
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); return; }
 
-        // check if game started first time or restarted
-        if (isFirstStart)
+        timeRemaining = savedTime;
+
+        if (shouldShowStartPanel)
         {
-            timeRemaining = 60f;
-            isFirstStart = false;
+            Time.timeScale = 0f;
         }
-        else { timeRemaining = savedTime; }
+        else
+        {
+            Time.timeScale = 1f;
+        }
     }
 
     void Start()
@@ -54,18 +58,26 @@ public class GameManager3 : MonoBehaviour
         UpdateCoinUI();
 
         if (timeUpPanel != null) timeUpPanel.SetActive(false);
+        if (pausePanel != null) pausePanel.SetActive(false);
 
-        // start making coins every few seconds
-        InvokeRepeating("SpawnCoin", 1f, spawnInterval);
+        if (startPanel != null)
+        {
+            startPanel.SetActive(shouldShowStartPanel);
+        }
     }
 
     void Update()
     {
-        if (isTimerRunning)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
+
+        if (isTimerRunning && Time.timeScale > 0)
         {
             if (timeRemaining > 0)
             {
-                timeRemaining -= Time.deltaTime; // time goes down here
+                timeRemaining -= Time.deltaTime;
                 savedTime = timeRemaining;
                 UpdateTimerUI();
             }
@@ -74,28 +86,38 @@ public class GameManager3 : MonoBehaviour
                 timeRemaining = 0;
                 savedTime = 60f;
                 isTimerRunning = false;
-                CancelInvoke("SpawnCoin"); // stop coin spawner
                 LevelFinished();
             }
         }
     }
 
-    void SpawnCoin()
+    public void StartGame()
     {
-        if (isTimerRunning && spawnPoints.Length > 0 && coinPrefab != null)
+        shouldShowStartPanel = false;
+        Time.timeScale = 1f;
+        if (startPanel != null) startPanel.SetActive(false);
+    }
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        if (isPaused)
         {
-            // choose a random place for coin
-            int randomIndex = Random.Range(0, spawnPoints.Length);
-            Vector3 spawnPos = spawnPoints[randomIndex].position;
-
-            // check if there is an obstacle so coins dont spawn inside them
-            Collider2D hit = Physics2D.OverlapCircle(spawnPos, obstacleCheckRadius, LayerMask.GetMask("Obstacle"));
-
-            if (hit == null)
-            {
-                Instantiate(coinPrefab, spawnPos, Quaternion.identity);
-            }
+            Time.timeScale = 0f;
+            if (pausePanel != null) pausePanel.SetActive(true);
         }
+        else
+        {
+            Time.timeScale = 1f;
+            if (pausePanel != null) pausePanel.SetActive(false);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        if (pausePanel != null) pausePanel.SetActive(false);
     }
 
     public void TakeDamage(int amount)
@@ -112,7 +134,7 @@ public class GameManager3 : MonoBehaviour
         for (int i = 0; i < hearts.Length; i++)
         {
             if (hearts[i] != null)
-                hearts[i].enabled = i < currentLives; // update heart images
+                hearts[i].enabled = i < currentLives;
         }
     }
 
@@ -124,7 +146,7 @@ public class GameManager3 : MonoBehaviour
 
     void UpdateCoinUI()
     {
-        if (coinText != null) { coinText.text = "Coins: " + totalCoins.ToString(); }
+        if (coinText != null) { coinText.text = "        " + totalCoins.ToString(); }
     }
 
     void UpdateTimerUI()
@@ -134,28 +156,34 @@ public class GameManager3 : MonoBehaviour
 
     void LevelFinished()
     {
-        Time.timeScale = 0f; // stop everything
-
+        Time.timeScale = 0f;
         if (finalCoinText != null) { finalCoinText.text = "Total Collected Coin: " + totalCoins.ToString(); }
         if (timeUpPanel != null) { timeUpPanel.SetActive(true); }
     }
 
-    public void BackToMap()
+    public void MapMenu()
     {
+        shouldShowStartPanel = true;
+        savedTime = 60f;
         Time.timeScale = 1f;
-        SceneManager.LoadScene("WorldMap"); // go back to main menu map
+        SceneManager.LoadScene("MapMenu");
     }
 
     public void RestartLevel()
     {
+        shouldShowStartPanel = false;
+        savedTime = timeRemaining; 
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // reload scene if dead
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void ResetGameFully()
     {
-        isFirstStart = true;
-        savedTime = 60f;
-        RestartLevel();
+        isTimerRunning = false;     
+        shouldShowStartPanel = true;
+        savedTime = 60f;            
+        timeRemaining = 60f;        
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
