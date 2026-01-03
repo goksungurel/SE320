@@ -192,7 +192,13 @@ void Update()
     }
     public void GoToNextScene()
 {
-    Time.timeScale = 1f; // durdurduysan geri aç
+   int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+    PlayerPrefs.SetInt("totalCoins", currentTotal + 5); 
+    PlayerPrefs.Save();
+
+    Debug.Log("Total coins " + (currentTotal + 5));
+
+    Time.timeScale = 1f; 
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 }
 
