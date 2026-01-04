@@ -17,7 +17,11 @@ public class GameManager3 : MonoBehaviour
 
     [Header("Coin Settings")]
     public TextMeshProUGUI coinText;
-    private int totalCoins = 0;
+    private int totalCoins = 0; 
+
+    [Header("Global Money System")]
+    public TextMeshProUGUI globalMoneyText; 
+    public TextMeshProUGUI winGlobalMoneyText; 
 
     [Header("Timer Settings")]
     public TextMeshProUGUI timerText;
@@ -42,7 +46,6 @@ public class GameManager3 : MonoBehaviour
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); return; }
 
-        
         timeRemaining = savedTime;
 
         if (shouldShowStartPanel) { Time.timeScale = 0f; }
@@ -54,10 +57,27 @@ public class GameManager3 : MonoBehaviour
         currentLives = maxLives;
         UpdateHeartsUI();
         UpdateCoinUI();
+        UpdateGlobalMoneyUI(); 
 
         if (timeUpPanel != null) timeUpPanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
         if (startPanel != null) startPanel.SetActive(shouldShowStartPanel);
+    }
+
+    public void UpdateGlobalMoneyUI()
+    {
+
+        int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
+
+        if (globalMoneyText != null)
+        {
+            globalMoneyText.text = currentMoney.ToString();
+        }
+
+        if (winGlobalMoneyText != null)
+        {
+            winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
     }
 
     void Update()
@@ -87,6 +107,7 @@ public class GameManager3 : MonoBehaviour
         shouldShowStartPanel = false;
         Time.timeScale = 1f;
         if (startPanel != null) startPanel.SetActive(false);
+        UpdateGlobalMoneyUI(); 
     }
 
     public void PlayCoinSound()
@@ -139,6 +160,14 @@ public class GameManager3 : MonoBehaviour
 
     void LevelFinished()
     {
+
+        int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+        int yeniToplam = currentTotal + totalCoins;
+        PlayerPrefs.SetInt("totalCoins", yeniToplam);
+        PlayerPrefs.Save();
+
+        UpdateGlobalMoneyUI();
+
         Time.timeScale = 0f;
         if (finalCoinText != null) finalCoinText.text = "Total Collected Coin: " + totalCoins.ToString();
         if (timeUpPanel != null) timeUpPanel.SetActive(true);
@@ -156,7 +185,7 @@ public class GameManager3 : MonoBehaviour
         shouldShowStartPanel = true;
         savedTime = 60f;
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MapMenu");
+        SceneManager.LoadScene(1); 
     }
 
     public void RestartLevel()

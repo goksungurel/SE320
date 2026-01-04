@@ -29,7 +29,6 @@ public class GameManagerC : MonoBehaviour
     [Header("Win Conditions")]
     public int requiredCoins = 7;
     public int requiredEachItem = 5;
-    // Dictionary for tag control
     private Dictionary<string, int> collectionTracker = new Dictionary<string, int>();
     private int coinsCollected = 0;
 
@@ -49,7 +48,6 @@ public class GameManagerC : MonoBehaviour
 
     [Header("Pause Settings")]
     public GameObject pausePanel; 
-    private bool isPaused = false;
 
     [Header("Countdown Settings")]
     public TextMeshProUGUI countdownText;
@@ -65,71 +63,68 @@ public class GameManagerC : MonoBehaviour
     public TMPro.TextMeshProUGUI loseCoinText; 
 
     [Header("Money System")]
-    public int entryFee = 5;
-    public TextMeshProUGUI globalMoneyText;
-    public TextMeshProUGUI winGlobalMoneyText;
+    // EntryFee kaldırıldı
+    public TextMeshProUGUI globalMoneyText; 
+    public TextMeshProUGUI winGlobalMoneyText; 
+    public TextMeshProUGUI loseGlobalMoneyMid; 
+    public TextMeshProUGUI loseGlobalMoneyTop; 
     
 
     void Start()
-{   
-    UpdateGlobalMoneyUI();
+    {   
+        UpdateGlobalMoneyUI();
 
-    Time.timeScale = 0f; 
-    if (startPanel != null) startPanel.SetActive(true);
-    isGameActive = false;
-    
-    timeRemaining = levelDuration;
-    currentLives = maxLives;
+        Time.timeScale = 0f; 
+        if (startPanel != null) startPanel.SetActive(true);
+        isGameActive = false;
+        
+        timeRemaining = levelDuration;
+        currentLives = maxLives;
 
-    if (victoryPanel != null) victoryPanel.SetActive(false);
-    if (losePanel != null) losePanel.SetActive(false);
+        if (victoryPanel != null) victoryPanel.SetActive(false);
+        if (losePanel != null) losePanel.SetActive(false);
 
-    itemCounts.Clear();
-    for (int i = 0; i < itemUITexts.Count; i++)
-    {
-        itemCounts.Add(0);
+        itemCounts.Clear();
+        for (int i = 0; i < itemUITexts.Count; i++)
+        {
+            itemCounts.Add(0);
+        }
+
+        UpdateHeartsUI();
+        UpdateScoreUI();
+        UpdateUI(); 
     }
 
-    UpdateHeartsUI();
-    UpdateScoreUI();
-    UpdateUI(); 
-}
-
-public void UpdateGlobalMoneyUI()
-{
-    int currentMoney = PlayerPrefs.GetInt("ToplamPara", 0);
-
-    if (globalMoneyText != null)
+    public void UpdateGlobalMoneyUI()
     {
-        globalMoneyText.text =  currentMoney.ToString();
-    }
+        int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
 
-    if (winGlobalMoneyText != null)
-    {
-        winGlobalMoneyText.text =  "Total Coins:" + currentMoney.ToString();
+        if (globalMoneyText != null)
+        {
+            globalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
+
+        if (winGlobalMoneyText != null)
+        {
+            winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
+        if (loseGlobalMoneyMid != null)
+        {
+        loseGlobalMoneyMid.text = "Total Coins: " + currentMoney.ToString();
+        }
+        if (loseGlobalMoneyTop != null)
+        {
+        loseGlobalMoneyTop.text = "Total Coins: " + currentMoney.ToString();
+        }
     }
-}
 
     public void StartGame()
     {
-    int currentGlobalMoney = PlayerPrefs.GetInt("totalCoins", 0);
-
-    if (currentGlobalMoney >= entryFee)
-    {
-        PlayerPrefs.SetInt("totalCoins", currentGlobalMoney - entryFee);
-        PlayerPrefs.Save();
-
-        Debug.Log("cuurent coins " + (currentGlobalMoney - entryFee));
-
-        // 4. Paneli kapat ve oyunu başlat
         if (startPanel != null) startPanel.SetActive(false);
         isGameActive = true; 
-        StartCoroutine(CountdownRoutine());
-    }
-    else
-    {
-        Debug.Log("not enough coins");
-    }
+        StartCoroutine(CountdownRoutine()); 
+        
+        UpdateGlobalMoneyUI();
     }
 
     public void ResumeGame()
@@ -193,7 +188,6 @@ public void UpdateGlobalMoneyUI()
         }
     }
 
-
     bool CheckAllItemsCollected()
     {
         if (itemCounts.Count == 0) return false;
@@ -243,37 +237,41 @@ public void UpdateGlobalMoneyUI()
         for (int i = 0; i < itemUITexts.Count; i++)
         {
             if (i < itemCounts.Count)
-                itemUITexts[i].text = itemCounts[i].ToString() ;
+                itemUITexts[i].text = itemCounts[i].ToString();
         }
     }
 
     void WinGame()
-{
-    isGameActive = false;
-    int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-    int yeniToplam = currentTotal + score; 
-    PlayerPrefs.SetInt("totalCoins", yeniToplam);
-    PlayerPrefs.Save();
-    UpdateGlobalMoneyUI(); 
-
-    Debug.Log("total coins " + yeniToplam);
-
-    if (audioSource != null && victorySound != null)
-        audioSource.PlayOneShot(victorySound);
-
-    if (victoryPanel != null)
     {
-        victoryPanel.SetActive(true); 
-        if (finalScoreText != null)
-            finalScoreText.text = "Collected Coins: " + score.ToString(); 
+        isGameActive = false;
+        
+        // Bu bölümde toplanan paraları genel bakiyeye ekle
+        int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+        int yeniToplam = currentTotal + score; 
+        PlayerPrefs.SetInt("totalCoins", yeniToplam);
+        PlayerPrefs.Save();
+        
+        UpdateGlobalMoneyUI(); 
+
+        Debug.Log("Total coins updated: " + yeniToplam);
+
+        if (audioSource != null && victorySound != null)
+            audioSource.PlayOneShot(victorySound);
+
+        if (victoryPanel != null)
+        {
+            victoryPanel.SetActive(true); 
+            if (finalScoreText != null)
+                finalScoreText.text = "Collected Coins: " + score.ToString(); 
+        }
+        
+        Time.timeScale = 0f; 
     }
-    
-    Time.timeScale = 0f; 
-}
 
     void GameOver(string reason, bool showStats)
     {
         isGameActive = false;
+        UpdateGlobalMoneyUI();
         if (audioSource != null && loseSound != null)
             audioSource.PlayOneShot(loseSound);
 
@@ -353,14 +351,15 @@ public void UpdateGlobalMoneyUI()
     }
 
     public void QuitGame()
-{
-    Time.timeScale = 1f;
-    UnityEngine.SceneManagement.SceneManager.LoadScene(1);
-}
+    {
+        Time.timeScale = 1f;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+    }
+
     public void GoToNextScene()
-{
-    Time.timeScale = 1f; 
-    PlayerPrefs.Save();
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-}
+    {
+        Time.timeScale = 1f; 
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }

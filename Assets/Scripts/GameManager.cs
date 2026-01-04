@@ -7,10 +7,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    // ================= MONEY =================
-    [Header("Money")]
-    public int money = 0;
-    public TextMeshProUGUI moneyText;
+    // ================= MONEY & ECONOMY =================
+    [Header("Money & Economy")]
+    public int money = 0; 
+    public TextMeshProUGUI moneyText; 
+    public TextMeshProUGUI globalMoneyText; 
+    public int entryFee = 0; 
 
     // ================= LEVEL SETTINGS =================
     [Header("Level Settings")]
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        ApplyEntryFee();
+        
         if (winPanel != null)
             winPanel.SetActive(false);
 
@@ -62,31 +66,56 @@ public class GameManager : MonoBehaviour
         UpdateTimerUI();
         BuildBoard();
         UpdateMoneyUI();
+        UpdateGlobalMoneyUI(); 
     }
-void Update()
-{
-    if (timerRunning && timeLeft > 0f)
+
+    void ApplyEntryFee()
     {
-        timeLeft -= Time.unscaledDeltaTime;
-        if (timeLeft < 0f) timeLeft = 0f;
+        if (entryFee > 0)
+        {
+            int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+            if (currentTotal >= entryFee)
+            {
+                PlayerPrefs.SetInt("totalCoins", currentTotal - entryFee);
+                PlayerPrefs.Save();
+                Debug.Log(entryFee + "Entry fee paid. ");
+            }
+            else
+            {
+                Debug.LogWarning("not enough coin.");
+            }
+        }
     }
 
-    UpdateTimerUI();
-
-    if (timerRunning && timeLeft <= 0f)
+    void Update()
     {
-        timerRunning = false;
-        InputLocked = true;
-        timerText.text = "TIME UP!";
-        timerText.color = Color.red;
-    }
-}
+        if (timerRunning && timeLeft > 0f)
+        {
+            timeLeft -= Time.unscaledDeltaTime;
+            if (timeLeft < 0f) timeLeft = 0f;
+        }
 
+        UpdateTimerUI();
+
+        if (timerRunning && timeLeft <= 0f)
+        {
+            timerRunning = false;
+            InputLocked = true;
+            timerText.text = "TIME UP!";
+            timerText.color = Color.red;
+        }
+    }
 
     void UpdateMoneyUI()
     {
         if (moneyText != null)
             moneyText.text = money.ToString();
+    }
+
+    void UpdateGlobalMoneyUI()
+    {
+        if (globalMoneyText != null)
+            globalMoneyText.text = "Ttotal Coins:: " + PlayerPrefs.GetInt("totalCoins", 0).ToString();
     }
 
     public void AddMoney(int amount)
@@ -109,7 +138,6 @@ void Update()
     void BuildBoard()
     {
         foundPairs = 0;
-
         var deck = new List<(Sprite spr, int id)>();
         int usable = Mathf.Min(pairs, fronts.Count);
         totalPairs = usable;
@@ -137,13 +165,11 @@ void Update()
     public void OnCardRevealed(Card c)
     {
         if (InputLocked) return;
-
         if (first == null)
         {
             first = c;
             return;
         }
-
         if (second == null && c != first)
         {
             second = c;
@@ -154,14 +180,12 @@ void Update()
     System.Collections.IEnumerator CheckMatch()
     {
         InputLocked = true;
-
         if (first.Id == second.Id)
         {
             first.SetMatched();
             second.SetMatched();
             foundPairs++;
             AddMoney(1);
-
             if (foundPairs >= totalPairs)
                 Win();
         }
@@ -173,7 +197,6 @@ void Update()
             first.Hide();
             second.Hide();
         }
-
         first = null;
         second = null;
         InputLocked = false;
@@ -190,17 +213,20 @@ void Update()
         if (winSound != null)
             winSound.Play();
     }
+
     public void GoToNextScene()
 {
-   int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-    PlayerPrefs.SetInt("totalCoins", currentTotal + 5); 
-    PlayerPrefs.Save();
 
-    Debug.Log("Total coins " + (currentTotal + 5));
+    int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+    
+    int newTotal = currentTotal + money;
+    
+    PlayerPrefs.SetInt("totalCoins", newTotal);
+    PlayerPrefs.Save(); 
+
+    Debug.Log("Gained Coins: " + money + " | New Total Coins: " + newTotal);
 
     Time.timeScale = 1f; 
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 }
-
-
 }
