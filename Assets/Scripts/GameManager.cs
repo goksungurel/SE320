@@ -6,6 +6,12 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    
+    // ================= START PANEL =================
+    [Header("Start Panel")]
+    public GameObject startPanel;
+    bool gameStarted = false;
+
 
     // ================= MONEY & ECONOMY =================
     [Header("Money & Economy")]
@@ -58,16 +64,37 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         ApplyEntryFee();
-        
+
         if (winPanel != null)
             winPanel.SetActive(false);
 
+        if (startPanel != null)
+            startPanel.SetActive(true);
+
+        gameStarted = false;
+        InputLocked = true;
+        timerRunning = false;
+
         timeLeft = levelTime;
         UpdateTimerUI();
-        BuildBoard();
         UpdateMoneyUI();
-        UpdateGlobalMoneyUI(); 
+        UpdateGlobalMoneyUI();
     }
+    // ================= START GAME =================
+
+    public void StartGame()
+    {
+        if (startPanel != null)
+            startPanel.SetActive(false);
+
+        BuildBoard();
+
+        gameStarted = true;
+        InputLocked = false;
+        timerRunning = true;
+    }
+
+
 
     void ApplyEntryFee()
     {
