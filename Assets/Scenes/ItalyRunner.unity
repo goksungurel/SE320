@@ -991,8 +991,6 @@ MonoBehaviour:
   flickerDuration: 0.1
   flickerAmount: 6
   jumpSound: {fileID: 8300000, guid: 9f177528842484246b98f1e5294e10c0, type: 3}
-  hitSound: {fileID: 8300000, guid: 0d1b6ccfcda114c1b811aeef15454a0c, type: 3}
-  coinSound: {fileID: 8300000, guid: 5b0fc0908cc328d419b73b95480265b1, type: 3}
   isGrounded: 0
 --- !u!50 &486640921
 Rigidbody2D:
@@ -2532,8 +2530,6 @@ MonoBehaviour:
   flickerDuration: 0.1
   flickerAmount: 6
   jumpSound: {fileID: 0}
-  hitSound: {fileID: 0}
-  coinSound: {fileID: 0}
   isGrounded: 0
 --- !u!61 &1147011583
 BoxCollider2D:
@@ -3407,7 +3403,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 28.999939, y: -34}
+  m_AnchoredPosition: {x: 29, y: -34}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1300872156
@@ -4325,11 +4321,12 @@ MonoBehaviour:
   airObstacles:
   - {fileID: 577413257}
   - {fileID: 844542041}
+  projectilePrefab: {fileID: 2886141804627210986, guid: 4bd6f7d300bc53341836d3bbeb6c92f9, type: 3}
   spLow: {fileID: 7773196}
   spMid: {fileID: 1485977495}
   spHigh: {fileID: 952754383}
   spawnInterval: 2
-  coinPrefab: {fileID: 6786150081227909834, guid: 7694359ef53234590a4beb969c2e25a1, type: 3}
+  coinPrefab: {fileID: 2201697647519085217, guid: 85e6bda5bc47aad409ab53ff61d3eb5a, type: 3}
   coinSpawnInterval: 4
 --- !u!1 &1484758398
 GameObject:
@@ -4805,6 +4802,7 @@ GameObject:
   - component: {fileID: 1769573925}
   - component: {fileID: 1769573928}
   - component: {fileID: 1769573927}
+  - component: {fileID: 1769573929}
   m_Layer: 0
   m_Name: GameManager3
   m_TagString: Untagged
@@ -4824,6 +4822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f1d55ae114e5047863be9f348df0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager3
+  currentForwardSpeed: 5
+  speedIncreaseRate: 0.05
   maxLives: 3
   currentLives: 0
   hearts:
@@ -4831,12 +4831,19 @@ MonoBehaviour:
   - {fileID: 854484382}
   - {fileID: 1656457840}
   coinText: {fileID: 840318490}
+  globalMoneyText: {fileID: 0}
+  winGlobalMoneyText: {fileID: 0}
   timerText: {fileID: 1416244702}
   timeUpPanel: {fileID: 1702495003}
   finalCoinText: {fileID: 805546207}
   timeRemaining: 30
   pausePanel: {fileID: 1000721459}
   startPanel: {fileID: 1842994054}
+  audioSource: {fileID: 1769573929}
+  coinSound: {fileID: 8300000, guid: 6fede028ba58b48d08e05b2bff883359, type: 3}
+  damageSound: {fileID: 8300000, guid: cd99601e4efd35948adc5ed9f8e6c108, type: 3}
+  jumpSound: {fileID: 8300000, guid: 388265e19e308014ea71cb8bbea22975, type: 3}
+  bulletHitSound: {fileID: 8300000, guid: 18175530522587b40b5b3c92a9e9b9bd, type: 3}
 --- !u!224 &1769573926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4955,6 +4962,103 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769573924}
   m_CullTransparentMesh: 1
+--- !u!82 &1769573929
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769573924}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1842994054
 GameObject:
   m_ObjectHideFlags: 0
@@ -5313,7 +5417,7 @@ GameObject:
   - component: {fileID: 1990758696}
   - component: {fileID: 1990758695}
   m_Layer: 0
-  m_Name: JapanBackground
+  m_Name: ItalyBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

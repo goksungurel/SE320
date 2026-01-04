@@ -8,6 +8,7 @@ TagManager:
   - Coin
   - BadItem
   - Obstacle
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -50,6 +51,9 @@ TagManager:
     locked: 0
   - name: coin
     uniqueID: 3089276143
+    locked: 0
+  - name: 
+    uniqueID: 1460002361
     locked: 0
   m_RenderingLayers:
   - Default

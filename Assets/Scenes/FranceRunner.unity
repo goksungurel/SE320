@@ -3937,11 +3937,12 @@ MonoBehaviour:
   airObstacles:
   - {fileID: 577413257}
   - {fileID: 844542041}
+  projectilePrefab: {fileID: 0}
   spLow: {fileID: 7773196}
   spMid: {fileID: 1485977495}
   spHigh: {fileID: 952754383}
   spawnInterval: 2
-  coinPrefab: {fileID: 6786150081227909834, guid: 7694359ef53234590a4beb969c2e25a1, type: 3}
+  coinPrefab: {fileID: 2201697647519085217, guid: 85e6bda5bc47aad409ab53ff61d3eb5a, type: 3}
   coinSpawnInterval: 4
 --- !u!1 &1452865983
 GameObject:
@@ -4570,6 +4571,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f1d55ae114e5047863be9f348df0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager3
+  currentForwardSpeed: 4
+  speedIncreaseRate: 0.1
   maxLives: 3
   currentLives: 0
   hearts:
@@ -4577,6 +4580,8 @@ MonoBehaviour:
   - {fileID: 854484382}
   - {fileID: 1656457840}
   coinText: {fileID: 840318490}
+  globalMoneyText: {fileID: 0}
+  winGlobalMoneyText: {fileID: 0}
   timerText: {fileID: 1416244702}
   timeUpPanel: {fileID: 1702495003}
   finalCoinText: {fileID: 805546207}
@@ -4587,6 +4592,7 @@ MonoBehaviour:
   coinSound: {fileID: 8300000, guid: 6fede028ba58b48d08e05b2bff883359, type: 3}
   damageSound: {fileID: 8300000, guid: cd99601e4efd35948adc5ed9f8e6c108, type: 3}
   jumpSound: {fileID: 8300000, guid: 388265e19e308014ea71cb8bbea22975, type: 3}
+  bulletHitSound: {fileID: 0}
 --- !u!224 &1769573926
 RectTransform:
   m_ObjectHideFlags: 0

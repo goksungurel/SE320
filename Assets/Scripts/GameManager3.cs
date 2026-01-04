@@ -10,6 +10,10 @@ public class GameManager3 : MonoBehaviour
     private static float savedTime = 60f;
     private static bool shouldShowStartPanel = true;
 
+    [Header("Movement Settings")]
+    public float currentForwardSpeed = 7f; // Player hýzý buraya bakacak
+    public float speedIncreaseRate = 0.05f; // Fransa için saniyelik artýþ
+
     [Header("Life Settings")]
     public int maxLives = 3;
     public int currentLives;
@@ -17,11 +21,11 @@ public class GameManager3 : MonoBehaviour
 
     [Header("Coin Settings")]
     public TextMeshProUGUI coinText;
-    private int totalCoins = 0; 
+    private int totalCoins = 0;
 
     [Header("Global Money System")]
-    public TextMeshProUGUI globalMoneyText; 
-    public TextMeshProUGUI winGlobalMoneyText; 
+    public TextMeshProUGUI globalMoneyText;
+    public TextMeshProUGUI winGlobalMoneyText;
 
     [Header("Timer Settings")]
     public TextMeshProUGUI timerText;
@@ -37,19 +41,34 @@ public class GameManager3 : MonoBehaviour
 
     [Header("Sound Settings")]
     public AudioSource audioSource;
-    public AudioClip coinSound;
-    public AudioClip damageSound;
-    public AudioClip jumpSound;
+    public AudioClip coinSound;     // Coin toplayýnca
+    public AudioClip damageSound;   // Engele çarpýnca
+    public AudioClip jumpSound;     // Zýplayýnca
+    public AudioClip bulletHitSound; // Mermi çarpýnca (Ýtalya)
 
     void Awake()
     {
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); return; }
 
-        timeRemaining = savedTime;
+        // LEVEL BAZLI SÜRE AYARI
+        if (shouldShowStartPanel)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            if (sceneName.Contains("Germany")) savedTime = 45f;
+            else if (sceneName.Contains("France")) savedTime = 60f;
+            else if (sceneName.Contains("Spain")) savedTime = 90f;
+            else if (sceneName.Contains("Italy")) savedTime = 120f;
+            else savedTime = 60f;
 
-        if (shouldShowStartPanel) { Time.timeScale = 0f; }
-        else { Time.timeScale = 1f; }
+            timeRemaining = savedTime;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            timeRemaining = savedTime;
+            Time.timeScale = 1f;
+        }
     }
 
     void Start()
@@ -57,7 +76,7 @@ public class GameManager3 : MonoBehaviour
         currentLives = maxLives;
         UpdateHeartsUI();
         UpdateCoinUI();
-        UpdateGlobalMoneyUI(); 
+        UpdateGlobalMoneyUI();
 
         if (timeUpPanel != null) timeUpPanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
@@ -66,18 +85,9 @@ public class GameManager3 : MonoBehaviour
 
     public void UpdateGlobalMoneyUI()
     {
-
         int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
-
-        if (globalMoneyText != null)
-        {
-            globalMoneyText.text = currentMoney.ToString();
-        }
-
-        if (winGlobalMoneyText != null)
-        {
-            winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
-        }
+        if (globalMoneyText != null) globalMoneyText.text = currentMoney.ToString();
+        if (winGlobalMoneyText != null) winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
     }
 
     void Update()
@@ -86,6 +96,12 @@ public class GameManager3 : MonoBehaviour
 
         if (isTimerRunning && Time.timeScale > 0)
         {
+            // FRANSA HIZLANMA MEKANÝÐÝ
+            if (SceneManager.GetActiveScene().name.Contains("France"))
+            {
+                currentForwardSpeed += speedIncreaseRate * Time.deltaTime;
+            }
+
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
@@ -107,35 +123,21 @@ public class GameManager3 : MonoBehaviour
         shouldShowStartPanel = false;
         Time.timeScale = 1f;
         if (startPanel != null) startPanel.SetActive(false);
-        UpdateGlobalMoneyUI(); 
+        UpdateGlobalMoneyUI();
     }
 
-    public void PlayCoinSound()
-    {
-        if (audioSource != null && coinSound != null)
-            audioSource.PlayOneShot(coinSound); 
-    }
-
-    public void PlayDamageSound()
-    {
-        if (audioSource != null && damageSound != null)
-            audioSource.PlayOneShot(damageSound); 
-    }
-
-    public void PlayJumpSound()
-    {
-        if (audioSource != null && jumpSound != null)
-            audioSource.PlayOneShot(jumpSound);
-    }
+    // SES ÇALMA FONKSÝYONLARI
+    public void PlayCoinSound() { if (audioSource && coinSound) audioSource.PlayOneShot(coinSound); }
+    public void PlayDamageSound() { if (audioSource && damageSound) audioSource.PlayOneShot(damageSound); }
+    public void PlayJumpSound() { if (audioSource && jumpSound) audioSource.PlayOneShot(jumpSound); }
+    public void PlayBulletHitSound() { if (audioSource && bulletHitSound) audioSource.PlayOneShot(bulletHitSound); }
 
     public void TakeDamage(int amount)
     {
         currentLives -= amount;
-        PlayDamageSound(); 
-
+        PlayDamageSound();
         if (currentLives < 0) currentLives = 0;
         UpdateHeartsUI();
-
         if (currentLives <= 0) { RestartLevel(); }
     }
 
@@ -143,29 +145,18 @@ public class GameManager3 : MonoBehaviour
     {
         totalCoins += amount;
         UpdateCoinUI();
-        PlayCoinSound(); 
+        PlayCoinSound();
     }
 
-    void UpdateHeartsUI()
-    {
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if (hearts[i] != null) hearts[i].enabled = i < currentLives;
-        }
-    }
-
+    void UpdateHeartsUI() { for (int i = 0; i < hearts.Length; i++) { if (hearts[i] != null) hearts[i].enabled = i < currentLives; } }
     void UpdateCoinUI() { if (coinText != null) coinText.text = "        " + totalCoins.ToString(); }
-
     void UpdateTimerUI() { if (timerText != null) timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining).ToString(); }
 
     void LevelFinished()
     {
-
         int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-        int yeniToplam = currentTotal + totalCoins;
-        PlayerPrefs.SetInt("totalCoins", yeniToplam);
+        PlayerPrefs.SetInt("totalCoins", currentTotal + totalCoins);
         PlayerPrefs.Save();
-
         UpdateGlobalMoneyUI();
 
         Time.timeScale = 0f;
@@ -180,19 +171,26 @@ public class GameManager3 : MonoBehaviour
         if (pausePanel != null) pausePanel.SetActive(isPaused);
     }
 
+    public void ResumeGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1f;
+        if (pausePanel != null) pausePanel.SetActive(false);
+    }
+
     public void MapMenu()
     {
         shouldShowStartPanel = true;
         savedTime = 60f;
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1); 
+        SceneManager.LoadScene(1);
     }
 
     public void RestartLevel()
     {
-        isTimerRunning = false; 
+        isTimerRunning = false;
         shouldShowStartPanel = false;
-        savedTime = timeRemaining; 
+        savedTime = timeRemaining;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

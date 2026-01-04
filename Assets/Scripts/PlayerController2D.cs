@@ -45,12 +45,13 @@ public class PlayerController2D : MonoBehaviour
     void FixedUpdate()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-        rb.linearVelocity = new Vector2(forwardSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(GameManager3.Instance.currentForwardSpeed, rb.linearVelocity.y);
 
         if (wantJump)
         {
             if (isGrounded)
             {
+                GameManager3.Instance.PlayJumpSound();
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
@@ -65,15 +66,27 @@ public class PlayerController2D : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        // 1. NORMAL ENGEL ÇARPIÞMASI
         if (col.CompareTag("Obstacle") && !isInvincible)
         {
             if (GameManager3.Instance != null)
             {
-                GameManager3.Instance.TakeDamage(1);
+                GameManager3.Instance.TakeDamage(1); // Bu fonksiyon zaten normal damage sesini çalar
 
                 SpriteRenderer obstacleSprite = col.GetComponent<SpriteRenderer>();
                 if (obstacleSprite != null) StartCoroutine(ObstacleFlicker(obstacleSprite));
                 StartCoroutine(InvincibilityCooldown());
+            }
+        }
+
+        // 2. MERMÝ ÇARPIÞMASI (BURASI YENÝ)
+        if (col.CompareTag("Bullet"))
+        {
+            if (GameManager3.Instance != null)
+            {
+                GameManager3.Instance.TakeDamage(1); // Caný azalt
+                GameManager3.Instance.PlayBulletHitSound(); // ÖZEL MERMÝ SESÝNÝ ÇAL
+                Destroy(col.gameObject); // Mermiyi yok et
             }
         }
 
