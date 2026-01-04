@@ -8,7 +8,6 @@ public class GameManager3 : MonoBehaviour
     public static GameManager3 Instance;
 
     private static float savedTime = 60f;
-    private static bool isFirstStart = true;
     private static bool shouldShowStartPanel = true;
 
     [Header("Life Settings")]
@@ -27,28 +26,27 @@ public class GameManager3 : MonoBehaviour
     public float timeRemaining;
     private bool isTimerRunning = true;
 
-    [Header("Pause Settings")]
+    [Header("Pause/Start Settings")]
     public GameObject pausePanel;
+    public GameObject startPanel;
     private bool isPaused = false;
 
-    [Header("Start Settings")]
-    public GameObject startPanel;
+    [Header("Sound Settings")]
+    public AudioSource audioSource;
+    public AudioClip coinSound;
+    public AudioClip damageSound;
+    public AudioClip jumpSound;
 
     void Awake()
     {
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); return; }
 
+        
         timeRemaining = savedTime;
 
-        if (shouldShowStartPanel)
-        {
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            Time.timeScale = 1f;
-        }
+        if (shouldShowStartPanel) { Time.timeScale = 0f; }
+        else { Time.timeScale = 1f; }
     }
 
     void Start()
@@ -59,19 +57,12 @@ public class GameManager3 : MonoBehaviour
 
         if (timeUpPanel != null) timeUpPanel.SetActive(false);
         if (pausePanel != null) pausePanel.SetActive(false);
-
-        if (startPanel != null)
-        {
-            startPanel.SetActive(shouldShowStartPanel);
-        }
+        if (startPanel != null) startPanel.SetActive(shouldShowStartPanel);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
+        if (Input.GetKeyDown(KeyCode.Escape)) { TogglePause(); }
 
         if (isTimerRunning && Time.timeScale > 0)
         {
@@ -98,67 +89,66 @@ public class GameManager3 : MonoBehaviour
         if (startPanel != null) startPanel.SetActive(false);
     }
 
-    public void TogglePause()
+    public void PlayCoinSound()
     {
-        isPaused = !isPaused;
-        if (isPaused)
-        {
-            Time.timeScale = 0f;
-            if (pausePanel != null) pausePanel.SetActive(true);
-        }
-        else
-        {
-            Time.timeScale = 1f;
-            if (pausePanel != null) pausePanel.SetActive(false);
-        }
+        if (audioSource != null && coinSound != null)
+            audioSource.PlayOneShot(coinSound); 
     }
 
-    public void ResumeGame()
+    public void PlayDamageSound()
     {
-        isPaused = false;
-        Time.timeScale = 1f;
-        if (pausePanel != null) pausePanel.SetActive(false);
+        if (audioSource != null && damageSound != null)
+            audioSource.PlayOneShot(damageSound); 
+    }
+
+    public void PlayJumpSound()
+    {
+        if (audioSource != null && jumpSound != null)
+            audioSource.PlayOneShot(jumpSound);
     }
 
     public void TakeDamage(int amount)
     {
         currentLives -= amount;
+        PlayDamageSound(); 
+
         if (currentLives < 0) currentLives = 0;
         UpdateHeartsUI();
 
         if (currentLives <= 0) { RestartLevel(); }
     }
 
-    void UpdateHeartsUI()
-    {
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if (hearts[i] != null)
-                hearts[i].enabled = i < currentLives;
-        }
-    }
-
     public void AddCoin(int amount)
     {
         totalCoins += amount;
         UpdateCoinUI();
+        PlayCoinSound(); 
     }
 
-    void UpdateCoinUI()
+    void UpdateHeartsUI()
     {
-        if (coinText != null) { coinText.text = "        " + totalCoins.ToString(); }
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (hearts[i] != null) hearts[i].enabled = i < currentLives;
+        }
     }
 
-    void UpdateTimerUI()
-    {
-        if (timerText != null) { timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining).ToString(); }
-    }
+    void UpdateCoinUI() { if (coinText != null) coinText.text = "        " + totalCoins.ToString(); }
+
+    void UpdateTimerUI() { if (timerText != null) timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining).ToString(); }
 
     void LevelFinished()
     {
         Time.timeScale = 0f;
-        if (finalCoinText != null) { finalCoinText.text = "Total Collected Coin: " + totalCoins.ToString(); }
-        if (timeUpPanel != null) { timeUpPanel.SetActive(true); }
+        if (finalCoinText != null) finalCoinText.text = "Total Collected Coin: " + totalCoins.ToString();
+        if (timeUpPanel != null) timeUpPanel.SetActive(true);
+    }
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0f : 1f;
+        if (pausePanel != null) pausePanel.SetActive(isPaused);
     }
 
     public void MapMenu()
@@ -171,6 +161,7 @@ public class GameManager3 : MonoBehaviour
 
     public void RestartLevel()
     {
+        isTimerRunning = false; 
         shouldShowStartPanel = false;
         savedTime = timeRemaining; 
         Time.timeScale = 1f;
@@ -179,10 +170,9 @@ public class GameManager3 : MonoBehaviour
 
     public void ResetGameFully()
     {
-        isTimerRunning = false;     
+        isTimerRunning = false;
         shouldShowStartPanel = true;
-        savedTime = 60f;            
-        timeRemaining = 60f;        
+        savedTime = 60f;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

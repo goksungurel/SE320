@@ -13,59 +13,55 @@ public class ObstacleSpawner : MonoBehaviour
 
     [Header("Timing")]
     public float spawnInterval = 2.5f;
-    private float timer;
+    private float obstacleTimer;
 
     [Header("Coin Settings")]
     public GameObject coinPrefab;
-    private int obstacleCounter = 0;
-    public int spawnCoinEveryXObstacles = 2;
-
-    void Start()
-    {
-        if (spHigh == null) spHigh = transform.Find("SP_High");
-    }
+    public float coinSpawnInterval = 4.0f; 
+    private float coinTimer;
 
     void Update()
     {
         if (Time.timeScale <= 0) return;
 
-        timer += Time.deltaTime;
-
-        if (timer >= spawnInterval)
+        // 1. ENGEL ZAMANLAYICISI
+        obstacleTimer += Time.deltaTime;
+        if (obstacleTimer >= spawnInterval)
         {
-            SpawnSmart();
-            timer = 0f;
+            SpawnObstacle();
+            obstacleTimer = 0f;
+        }
+
+        
+        coinTimer += Time.deltaTime;
+        if (coinTimer >= coinSpawnInterval)
+        {
+            SpawnCoinIndependent();
+            coinTimer = 0f;
         }
     }
 
-    void SpawnSmart()
+    void SpawnObstacle()
     {
-        obstacleCounter++;
-
         bool spawnGround = Random.value > 0.5f;
-
         if (spawnGround && groundObstacles.Length > 0)
         {
-            GameObject prefab = groundObstacles[Random.Range(0, groundObstacles.Length)];
-            Instantiate(prefab, spLow.position, Quaternion.identity);
+            Instantiate(groundObstacles[Random.Range(0, groundObstacles.Length)], spLow.position, Quaternion.identity);
         }
         else if (airObstacles.Length > 0)
         {
-            GameObject prefab = airObstacles[Random.Range(0, airObstacles.Length)];
             Transform airPoint = (Random.value > 0.5f) ? spMid : spHigh;
-            Instantiate(prefab, airPoint.position, Quaternion.identity);
+            Instantiate(airObstacles[Random.Range(0, airObstacles.Length)], airPoint.position, Quaternion.identity);
         }
+    }
 
-        if (obstacleCounter >= spawnCoinEveryXObstacles)
-        {
-            if (coinPrefab != null)
-            {
-                
-                Vector3 coinPos = spMid.position + Vector3.right * 12f;
+    void SpawnCoinIndependent()
+    {
+        if (coinPrefab == null) return;
 
-                Instantiate(coinPrefab, coinPos, Quaternion.identity);
-                obstacleCounter = 0; 
-            }
-        }
+        float randomY = Random.Range(spLow.position.y + 1.5f, spHigh.position.y);
+        Vector3 coinPos = new Vector3(spLow.position.x + 25f, randomY, 0);
+
+        Instantiate(coinPrefab, coinPos, Quaternion.identity);
     }
 }

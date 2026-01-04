@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(AudioSource))] // AudioSource yoksa otomatik ekler
+[RequireComponent(typeof(AudioSource))]
 public class PlayerController2D : MonoBehaviour
 {
     [Header("Movement")]
@@ -21,9 +21,7 @@ public class PlayerController2D : MonoBehaviour
 
     [Header("Sound Settings")]
     private AudioSource audioSource;
-    public AudioClip jumpSound;     // Zýplama sesi
-    public AudioClip hitSound;      // Engele çarpma sesi
-    public AudioClip coinSound;     // Coin toplama sesi
+    public AudioClip jumpSound; 
 
     private Rigidbody2D rb;
     public bool isGrounded;
@@ -32,7 +30,7 @@ public class PlayerController2D : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioSource = GetComponent<AudioSource>(); // Sesi buradan yöneteceðiz
+        audioSource = GetComponent<AudioSource>();
 
         if (characterSprite == null)
             characterSprite = GetComponentInChildren<SpriteRenderer>();
@@ -56,8 +54,10 @@ public class PlayerController2D : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-                // --- SES: ZIPLAMA ---
-                PlaySound(jumpSound);
+                if (jumpSound != null && audioSource != null)
+                {
+                    audioSource.PlayOneShot(jumpSound);
+                }
             }
             wantJump = false;
         }
@@ -65,15 +65,11 @@ public class PlayerController2D : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        // 1. ENGEL ETKÝLEÞÝMÝ
         if (col.CompareTag("Obstacle") && !isInvincible)
         {
             if (GameManager3.Instance != null)
             {
                 GameManager3.Instance.TakeDamage(1);
-
-                // --- SES: ÇARPMA ---
-                PlaySound(hitSound);
 
                 SpriteRenderer obstacleSprite = col.GetComponent<SpriteRenderer>();
                 if (obstacleSprite != null) StartCoroutine(ObstacleFlicker(obstacleSprite));
@@ -81,27 +77,13 @@ public class PlayerController2D : MonoBehaviour
             }
         }
 
-        // 2. COIN ETKÝLEÞÝMÝ
         if (col.CompareTag("Coin"))
         {
             if (GameManager3.Instance != null)
             {
                 GameManager3.Instance.AddCoin(1);
-
-                // --- SES: COIN ---
-                PlaySound(coinSound);
-
                 Destroy(col.gameObject);
             }
-        }
-    }
-
-    // Ses çalma yardýmcý fonksiyonu
-    void PlaySound(AudioClip clip)
-    {
-        if (clip != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(clip);
         }
     }
 
