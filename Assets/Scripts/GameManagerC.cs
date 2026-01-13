@@ -1,4 +1,5 @@
 using UnityEngine;
+using System; // TimeSpan için gerekli
 using UnityEngine.SceneManagement; 
 using UnityEngine.UI;
 using TMPro;
@@ -171,12 +172,20 @@ public class GameManagerC : MonoBehaviour
         if (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
+
             if (timerText != null)
-                timerText.text = "Time: " + Mathf.Ceil(timeRemaining).ToString();
+            {
+                // Saniyeyi Dakika:Saniye formatına çeviriyoruz
+                TimeSpan time = TimeSpan.FromSeconds(timeRemaining);
+                // "mm\:ss" formatı 00:00 şeklinde görünmesini sağlar
+                timerText.text = "TIME: " + time.ToString(@"mm\:ss");
+            }
         }
         else
         {
             timeRemaining = 0;
+            if (timerText != null) timerText.text = "TIME: 00:00";
+
             if (score >= requiredCoins && CheckAllItemsCollected()) 
             {
                 WinGame();
@@ -253,7 +262,7 @@ public class GameManagerC : MonoBehaviour
         
         UpdateGlobalMoneyUI(); 
 
-        Debug.Log("Total coins updated: " + yeniToplam);
+        Debug.Log("Collected Coins " + yeniToplam);
 
         if (audioSource != null && victorySound != null)
             audioSource.PlayOneShot(victorySound);

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class GameManager3 : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class GameManager3 : MonoBehaviour
     private static bool shouldShowStartPanel = true;
 
     [Header("Movement Settings")]
-    public float currentForwardSpeed = 7f; // Player hýzý buraya bakacak
-    public float speedIncreaseRate = 0.05f; // Fransa için saniyelik artýþ
+    public float currentForwardSpeed = 7f; // Player hï¿½zï¿½ buraya bakacak
+    public float speedIncreaseRate = 0.05f; // Fransa iï¿½in saniyelik artï¿½ï¿½
 
     [Header("Life Settings")]
     public int maxLives = 3;
@@ -41,17 +42,17 @@ public class GameManager3 : MonoBehaviour
 
     [Header("Sound Settings")]
     public AudioSource audioSource;
-    public AudioClip coinSound;     // Coin toplayýnca
-    public AudioClip damageSound;   // Engele çarpýnca
-    public AudioClip jumpSound;     // Zýplayýnca
-    public AudioClip bulletHitSound; // Mermi çarpýnca (Ýtalya)
+    public AudioClip coinSound;     // Coin toplayï¿½nca
+    public AudioClip damageSound;   // Engele ï¿½arpï¿½nca
+    public AudioClip jumpSound;     // Zï¿½playï¿½nca
+    public AudioClip bulletHitSound; // Mermi ï¿½arpï¿½nca (ï¿½talya)
 
     void Awake()
     {
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); return; }
 
-        // LEVEL BAZLI SÜRE AYARI
+        // LEVEL BAZLI Sï¿½RE AYARI
         if (shouldShowStartPanel)
         {
             string sceneName = SceneManager.GetActiveScene().name;
@@ -96,7 +97,7 @@ public class GameManager3 : MonoBehaviour
 
         if (isTimerRunning && Time.timeScale > 0)
         {
-            // FRANSA HIZLANMA MEKANÝÐÝ
+            // FRANSA HIZLANMA MEKANï¿½ï¿½ï¿½
             if (SceneManager.GetActiveScene().name.Contains("France"))
             {
                 currentForwardSpeed += speedIncreaseRate * Time.deltaTime;
@@ -126,7 +127,7 @@ public class GameManager3 : MonoBehaviour
         UpdateGlobalMoneyUI();
     }
 
-    // SES ÇALMA FONKSÝYONLARI
+    // SES ï¿½ALMA FONKSï¿½YONLARI
     public void PlayCoinSound() { if (audioSource && coinSound) audioSource.PlayOneShot(coinSound); }
     public void PlayDamageSound() { if (audioSource && damageSound) audioSource.PlayOneShot(damageSound); }
     public void PlayJumpSound() { if (audioSource && jumpSound) audioSource.PlayOneShot(jumpSound); }
@@ -150,7 +151,15 @@ public class GameManager3 : MonoBehaviour
 
     void UpdateHeartsUI() { for (int i = 0; i < hearts.Length; i++) { if (hearts[i] != null) hearts[i].enabled = i < currentLives; } }
     void UpdateCoinUI() { if (coinText != null) coinText.text = "        " + totalCoins.ToString(); }
-    void UpdateTimerUI() { if (timerText != null) timerText.text = "Time: " + Mathf.CeilToInt(timeRemaining).ToString(); }
+    
+    void UpdateTimerUI() 
+    { 
+    if (timerText != null) 
+    {
+        TimeSpan time = TimeSpan.FromSeconds(timeRemaining);
+        timerText.text = "TIME: " + time.ToString(@"mm\:ss");
+    }
+    }
 
     void LevelFinished()
     {

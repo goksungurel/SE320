@@ -186,8 +186,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -855, y: 342}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -875.3, y: 343}
+  m_SizeDelta: {x: 110.811, y: 32.459}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &68993213
 MonoBehaviour:
@@ -931,8 +931,6 @@ MonoBehaviour:
   flickerDuration: 0.1
   flickerAmount: 6
   jumpSound: {fileID: 8300000, guid: 9f177528842484246b98f1e5294e10c0, type: 3}
-  hitSound: {fileID: 8300000, guid: 0d1b6ccfcda114c1b811aeef15454a0c, type: 3}
-  coinSound: {fileID: 8300000, guid: 5b0fc0908cc328d419b73b95480265b1, type: 3}
   isGrounded: 0
 --- !u!50 &486640921
 Rigidbody2D:
@@ -1166,15 +1164,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8313726, g: 0.4666667, b: 0.69411767, a: 1}
+  m_Color: {r: 0.9433962, g: 0.91224635, b: 0.9316731, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c7f2493f0628b064aa3d2bd3e460f88e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2560,8 +2558,6 @@ MonoBehaviour:
   flickerDuration: 0.1
   flickerAmount: 6
   jumpSound: {fileID: 0}
-  hitSound: {fileID: 0}
-  coinSound: {fileID: 0}
   isGrounded: 0
 --- !u!61 &1147011583
 BoxCollider2D:
@@ -3366,15 +3362,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.90188676, g: 0.50880027, b: 0.7500037, a: 1}
+  m_Color: {r: 0.9622642, g: 0.94864726, b: 0.94864726, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c7f2493f0628b064aa3d2bd3e460f88e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3941,12 +3937,13 @@ MonoBehaviour:
   airObstacles:
   - {fileID: 577413257}
   - {fileID: 844542041}
+  projectilePrefab: {fileID: 0}
   spLow: {fileID: 7773196}
   spMid: {fileID: 1485977495}
   spHigh: {fileID: 952754383}
   spawnInterval: 2
   coinPrefab: {fileID: 6786150081227909834, guid: 7694359ef53234590a4beb969c2e25a1, type: 3}
-  spawnCoinEveryXObstacles: 4
+  coinSpawnInterval: 4
 --- !u!1 &1452865983
 GameObject:
   m_ObjectHideFlags: 0
@@ -4055,15 +4052,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.86666673, g: 0.4901961, b: 0.72156864, a: 1}
+  m_Color: {r: 0.9528302, g: 0.9303578, b: 0.944169, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c7f2493f0628b064aa3d2bd3e460f88e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4355,15 +4352,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8792453, g: 0.3832182, b: 0.8792453, a: 1}
+  m_Color: {r: 0.9716981, g: 0.9671146, b: 0.9716981, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c7f2493f0628b064aa3d2bd3e460f88e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4573,6 +4570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86f1d55ae114e5047863be9f348df0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager3
+  currentForwardSpeed: 7
+  speedIncreaseRate: 0.05
   maxLives: 3
   currentLives: 0
   hearts:
@@ -4580,12 +4579,19 @@ MonoBehaviour:
   - {fileID: 854484382}
   - {fileID: 1656457840}
   coinText: {fileID: 840318490}
+  globalMoneyText: {fileID: 0}
+  winGlobalMoneyText: {fileID: 0}
   timerText: {fileID: 1416244702}
   timeUpPanel: {fileID: 1702495003}
   finalCoinText: {fileID: 805546207}
   timeRemaining: 30
   pausePanel: {fileID: 120672961}
   startPanel: {fileID: 799603341}
+  audioSource: {fileID: 0}
+  coinSound: {fileID: 0}
+  damageSound: {fileID: 0}
+  jumpSound: {fileID: 0}
+  bulletHitSound: {fileID: 0}
 --- !u!224 &1769573926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4847,15 +4853,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.86666673, g: 0.4901961, b: 0.72156864, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9765041, b: 0.97934836, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c7f2493f0628b064aa3d2bd3e460f88e, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5192,8 +5198,8 @@ Transform:
   m_GameObject: {fileID: 1990758694}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.0009135162, w: 0.9999996}
-  m_LocalPosition: {x: -0.2542, y: 0.0396, z: 20}
-  m_LocalScale: {x: 0.23760174, y: 0.23301335, z: 1}
+  m_LocalPosition: {x: -0.1797, y: 0.1619, z: 20}
+  m_LocalScale: {x: 0.2750071, y: 0.24121787, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1957830283}
