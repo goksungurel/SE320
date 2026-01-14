@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [Header("Money & Economy")]
     public int money = 0;
     public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI winGlobalMoneyText; 
+    public TextMeshProUGUI loseGlobalMoneyText;
     public TextMeshProUGUI globalMoneyText;
     public int entryFee = 0;
 
@@ -159,10 +161,26 @@ public class GameManager : MonoBehaviour
             moneyText.text = money.ToString();
     }
 
-    void UpdateGlobalMoneyUI()
+
+        public void UpdateGlobalMoneyUI()
     {
+        int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
+
         if (globalMoneyText != null)
-            globalMoneyText.text = "Total Coins: " + PlayerPrefs.GetInt("totalCoins", 0);
+        {
+            globalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
+
+        if (winGlobalMoneyText != null)
+        {
+            winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
+        if (loseGlobalMoneyText != null)
+        {
+        loseGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
+        
+    
     }
 
     public void AddMoney(int amount)
@@ -258,13 +276,19 @@ public class GameManager : MonoBehaviour
 
     void Win()
     {
-        timerRunning = false;
+    timerRunning = false;
 
-        if (winPanel != null)
-            winPanel.SetActive(true);
+    int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+    PlayerPrefs.SetInt("totalCoins", currentTotal + money);
+    PlayerPrefs.Save();
 
-        if (winSound != null)
-            winSound.Play();
+    UpdateGlobalMoneyUI();
+
+    if (winPanel != null)
+        winPanel.SetActive(true);
+
+    if (winSound != null)
+        winSound.Play();
     }
 
     void Lose()
