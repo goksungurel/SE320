@@ -3,22 +3,22 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using System;
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    
+
     // ================= START PANEL =================
     [Header("Start Panel")]
     public GameObject startPanel;
     bool gameStarted = false;
 
-
     // ================= MONEY & ECONOMY =================
     [Header("Money & Economy")]
-    public int money = 0; 
-    public TextMeshProUGUI moneyText; 
-    public TextMeshProUGUI globalMoneyText; 
-    public int entryFee = 0; 
+    public int money = 0;
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI globalMoneyText;
+    public int entryFee = 0;
 
     // ================= LEVEL SETTINGS =================
     [Header("Level Settings")]
@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     public GameObject winPanel;
     public AudioSource winSound;
 
+    // ================= LOSE UI =================
+    [Header("Lose UI")]
+    public GameObject losePanel;
+
+    // ================= AUDIO =================
     [Header("Background Music")]
     public AudioSource audioSource;
     public AudioClip backgroundMusic;
@@ -73,6 +78,9 @@ public class GameManager : MonoBehaviour
         if (winPanel != null)
             winPanel.SetActive(false);
 
+        if (losePanel != null)
+            losePanel.SetActive(false);
+
         if (startPanel != null)
             startPanel.SetActive(true);
 
@@ -83,28 +91,27 @@ public class GameManager : MonoBehaviour
         timeLeft = levelTime;
 
         if (audioSource != null && backgroundMusic != null)
-    {
-        audioSource.Stop();
-        audioSource.clip = backgroundMusic;
-        audioSource.loop = true;
-        audioSource.ignoreListenerPause = true; 
-        audioSource.volume = 0.3f; 
-        audioSource.Play();
-    }
+        {
+            audioSource.Stop();
+            audioSource.clip = backgroundMusic;
+            audioSource.loop = true;
+            audioSource.ignoreListenerPause = true;
+            audioSource.volume = 0.3f;
+            audioSource.Play();
+        }
 
         UpdateTimerUI();
         UpdateMoneyUI();
         UpdateGlobalMoneyUI();
     }
+
     public void PlayClickSound()
     {
         if (audioSource != null && buttonClickSound != null)
-        {
             audioSource.PlayOneShot(buttonClickSound);
-        }
     }
-    // ================= START GAME =================
 
+    // ================= START GAME =================
     public void StartGame()
     {
         if (startPanel != null)
@@ -117,8 +124,6 @@ public class GameManager : MonoBehaviour
         timerRunning = true;
     }
 
-
-
     void ApplyEntryFee()
     {
         if (entryFee > 0)
@@ -128,11 +133,6 @@ public class GameManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("totalCoins", currentTotal - entryFee);
                 PlayerPrefs.Save();
-                Debug.Log(entryFee + "Entry fee paid. ");
-            }
-            else
-            {
-                Debug.LogWarning("not enough coin.");
             }
         }
     }
@@ -149,10 +149,7 @@ public class GameManager : MonoBehaviour
 
         if (timerRunning && timeLeft <= 0f)
         {
-            timerRunning = false;
-            InputLocked = true;
-            timerText.text = "TIME UP!";
-            timerText.color = Color.red;
+            Lose();
         }
     }
 
@@ -165,7 +162,7 @@ public class GameManager : MonoBehaviour
     void UpdateGlobalMoneyUI()
     {
         if (globalMoneyText != null)
-            globalMoneyText.text = "Total Coins:: " + PlayerPrefs.GetInt("totalCoins", 0).ToString();
+            globalMoneyText.text = "Total Coins: " + PlayerPrefs.GetInt("totalCoins", 0);
     }
 
     public void AddMoney(int amount)
@@ -173,24 +170,20 @@ public class GameManager : MonoBehaviour
         money += amount;
         UpdateMoneyUI();
     }
-    
-    
-    void UpdateTimerUI() 
-    { 
-    if (timerText != null) 
-    {
-        TimeSpan time = TimeSpan.FromSeconds(timeLeft);
-        
-        timerText.text = "TIME: " + time.ToString(@"mm\:ss");
 
-        int currentSeconds = Mathf.CeilToInt(timeLeft);
-        timerText.color = currentSeconds <= 5 ? Color.red : Color.white;
+    void UpdateTimerUI()
+    {
+        if (timerText != null)
+        {
+            TimeSpan time = TimeSpan.FromSeconds(timeLeft);
+            timerText.text = "TIME: " + time.ToString(@"mm\:ss");
+
+            int currentSeconds = Mathf.CeilToInt(timeLeft);
+            timerText.color = currentSeconds <= 5 ? Color.red : Color.white;
+        }
     }
-    }
-    
 
     // ================= GAME LOGIC =================
-
     void BuildBoard()
     {
         foundPairs = 0;
@@ -221,11 +214,13 @@ public class GameManager : MonoBehaviour
     public void OnCardRevealed(Card c)
     {
         if (InputLocked) return;
+
         if (first == null)
         {
             first = c;
             return;
         }
+
         if (second == null && c != first)
         {
             second = c;
@@ -236,12 +231,14 @@ public class GameManager : MonoBehaviour
     System.Collections.IEnumerator CheckMatch()
     {
         InputLocked = true;
+
         if (first.Id == second.Id)
         {
             first.SetMatched();
             second.SetMatched();
             foundPairs++;
             AddMoney(1);
+
             if (foundPairs >= totalPairs)
                 Win();
         }
@@ -253,6 +250,7 @@ public class GameManager : MonoBehaviour
             first.Hide();
             second.Hide();
         }
+
         first = null;
         second = null;
         InputLocked = false;
@@ -261,7 +259,6 @@ public class GameManager : MonoBehaviour
     void Win()
     {
         timerRunning = false;
-        UpdateTimerUI();
 
         if (winPanel != null)
             winPanel.SetActive(true);
@@ -270,19 +267,37 @@ public class GameManager : MonoBehaviour
             winSound.Play();
     }
 
+    void Lose()
+    {
+        timerRunning = false;
+        InputLocked = true;
+
+        if (losePanel != null)
+            losePanel.SetActive(true);
+
+        Time.timeScale = 0f;
+    }
+
+    // ================= UI BUTTONS =================
+    public void RestartLevel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToMapMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(1); 
+    }
+
     public void GoToNextScene()
-{
+    {
+        int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+        PlayerPrefs.SetInt("totalCoins", currentTotal + money);
+        PlayerPrefs.Save();
 
-    int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-    
-    int newTotal = currentTotal + money;
-    
-    PlayerPrefs.SetInt("totalCoins", newTotal);
-    PlayerPrefs.Save(); 
-
-    Debug.Log("Gained Coins: " + money + " | New Total Coins: " + newTotal);
-
-    Time.timeScale = 1f; 
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 }
-} 
