@@ -1328,8 +1328,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1839, y: -152.99985}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 1577.241, y: -196.931}
+  m_SizeDelta: {x: 273.851, y: 68.652}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &840318490
 MonoBehaviour:
@@ -1360,8 +1360,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279045527
-  m_fontColor: {r: 0.5924529, g: 0.052538246, b: 0.052538246, a: 1}
+    rgba: 4278519045
+  m_fontColor: {r: 0.01886791, g: 0.017888915, b: 0.017888915, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1378,8 +1378,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 65
+  m_fontSizeBase: 65
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1483,8 +1483,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -176.071, y: -76.164}
-  m_SizeDelta: {x: 158.283, y: 152.329}
+  m_AnchoredPosition: {x: -213.025, y: -91.045}
+  m_SizeDelta: {x: 192.595, y: 182.092}
   m_Pivot: {x: 0.5, y: 0.49999988}
 --- !u!114 &854484382
 MonoBehaviour:
@@ -1558,8 +1558,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -84.742, y: -76.164}
-  m_SizeDelta: {x: 158.283, y: 152.329}
+  m_AnchoredPosition: {x: -101.898, y: -91.045}
+  m_SizeDelta: {x: 192.595, y: 182.092}
   m_Pivot: {x: 0.5, y: 0.49999988}
 --- !u!114 &948831563
 MonoBehaviour:
@@ -2306,8 +2306,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1827, y: -148}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 1560.81, y: -190.066}
+  m_SizeDelta: {x: 1.369, y: 1.373}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1194610065
 MonoBehaviour:
@@ -2491,6 +2491,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1769573925}
         m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
         m_MethodName: MapMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1769573925}
+        m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3020,6 +3032,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1769573925}
+        m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1302899812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3375,7 +3399,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -799.389, y: 414.96313}
+  m_AnchoredPosition: {x: -642.16, y: 431}
   m_SizeDelta: {x: 416.482, y: 100.075}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1416244701
@@ -3406,7 +3430,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 'TIME: 01:30'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3415,7 +3439,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4280229874
   m_fontColor: {r: 0.94716984, g: 0.119736545, b: 0.119736545, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3959,8 +3983,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -265.343, y: -76.164}
-  m_SizeDelta: {x: 158.283, y: 152.329}
+  m_AnchoredPosition: {x: -321.649, y: -91.045}
+  m_SizeDelta: {x: 192.595, y: 182.092}
   m_Pivot: {x: 0.5, y: 0.49999988}
 --- !u!4 &1685088006 stripped
 Transform:
@@ -4139,6 +4163,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1769573925}
+        m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1753077473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4272,6 +4308,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1769573925}
+        m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1760760205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4364,6 +4412,8 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: cd99601e4efd35948adc5ed9f8e6c108, type: 3}
   jumpSound: {fileID: 8300000, guid: 388265e19e308014ea71cb8bbea22975, type: 3}
   bulletHitSound: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 68555d1896b9aac418853a35be8b19f4, type: 3}
+  buttonClickSound: {fileID: 8300000, guid: 580c45279e0bb9b4fb35e5a97282e87f, type: 3}
 --- !u!224 &1769573926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4495,7 +4545,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.303
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4847,6 +4897,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1769573925}
+        m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
+        m_MethodName: PlayClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1882779259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4921,7 +4983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -952.23, y: 275.16}
+  m_AnchoredPosition: {x: -800, y: 275.16}
   m_SizeDelta: {x: 110.8, y: 32.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1949910714
@@ -4971,6 +5033,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1769573925}
         m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
         m_MethodName: TogglePause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1769573925}
+        m_TargetAssemblyTypeName: GameManager3, Assembly-CSharp
+        m_MethodName: PlayClickSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

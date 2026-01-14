@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-
+using System;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
     public GameObject winPanel;
     public AudioSource winSound;
 
+    [Header("Background Music")]
+    public AudioSource audioSource;
+    public AudioClip backgroundMusic;
+    public AudioClip buttonClickSound;
+
     public bool InputLocked { get; private set; }
 
     Card first, second;
@@ -76,9 +81,27 @@ public class GameManager : MonoBehaviour
         timerRunning = false;
 
         timeLeft = levelTime;
+
+        if (audioSource != null && backgroundMusic != null)
+    {
+        audioSource.Stop();
+        audioSource.clip = backgroundMusic;
+        audioSource.loop = true;
+        audioSource.ignoreListenerPause = true; 
+        audioSource.volume = 0.3f; 
+        audioSource.Play();
+    }
+
         UpdateTimerUI();
         UpdateMoneyUI();
         UpdateGlobalMoneyUI();
+    }
+    public void PlayClickSound()
+    {
+        if (audioSource != null && buttonClickSound != null)
+        {
+            audioSource.PlayOneShot(buttonClickSound);
+        }
     }
     // ================= START GAME =================
 
@@ -142,7 +165,7 @@ public class GameManager : MonoBehaviour
     void UpdateGlobalMoneyUI()
     {
         if (globalMoneyText != null)
-            globalMoneyText.text = "Ttotal Coins:: " + PlayerPrefs.GetInt("totalCoins", 0).ToString();
+            globalMoneyText.text = "Total Coins:: " + PlayerPrefs.GetInt("totalCoins", 0).ToString();
     }
 
     public void AddMoney(int amount)
@@ -150,15 +173,21 @@ public class GameManager : MonoBehaviour
         money += amount;
         UpdateMoneyUI();
     }
-
-    void UpdateTimerUI()
+    
+    
+    void UpdateTimerUI() 
+    { 
+    if (timerText != null) 
     {
-        if (timerText == null) return;
+        TimeSpan time = TimeSpan.FromSeconds(timeLeft);
+        
+        timerText.text = "TIME: " + time.ToString(@"mm\:ss");
 
-        int seconds = Mathf.CeilToInt(timeLeft);
-        timerText.text = "TIME: 00:" + seconds.ToString("00");
-        timerText.color = seconds <= 5 ? Color.red : Color.white;
+        int currentSeconds = Mathf.CeilToInt(timeLeft);
+        timerText.color = currentSeconds <= 5 ? Color.red : Color.white;
     }
+    }
+    
 
     // ================= GAME LOGIC =================
 
@@ -177,7 +206,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = deck.Count - 1; i > 0; i--)
         {
-            int k = Random.Range(0, i + 1);
+            int k = UnityEngine.Random.Range(0, i + 1);
             (deck[i], deck[k]) = (deck[k], deck[i]);
         }
 
@@ -256,4 +285,4 @@ public class GameManager : MonoBehaviour
     Time.timeScale = 1f; 
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 }
-}
+} 

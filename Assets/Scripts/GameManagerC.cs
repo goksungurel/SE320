@@ -70,16 +70,27 @@ public class GameManagerC : MonoBehaviour
     public TextMeshProUGUI loseGlobalMoneyMid; 
     public TextMeshProUGUI loseGlobalMoneyTop; 
     
+    [Header("Background Music")]
+    public AudioClip backgroundMusic;
+    public AudioClip buttonClickSound;
 
     void Start()
     {   
         UpdateGlobalMoneyUI();
 
+        if (audioSource != null && backgroundMusic != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = backgroundMusic;
+            audioSource.loop = true;
+            audioSource.ignoreListenerPause = true; 
+            audioSource.Play();
+        }
+
         Time.timeScale = 0f; 
         if (startPanel != null) startPanel.SetActive(true);
         isGameActive = false;
         
-        timeRemaining = levelDuration;
         currentLives = maxLives;
 
         if (victoryPanel != null) victoryPanel.SetActive(false);
@@ -94,6 +105,25 @@ public class GameManagerC : MonoBehaviour
         UpdateHeartsUI();
         UpdateScoreUI();
         UpdateUI(); 
+    }
+
+    public void PlayClickSound()
+    {
+        if (audioSource != null && buttonClickSound != null)
+        {
+            audioSource.PlayOneShot(buttonClickSound);
+        }
+    }
+    void Awake()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName.Contains("Germany")) levelDuration = 45f;
+        else if (sceneName.Contains("France")) levelDuration = 60f;
+        else if (sceneName.Contains("Spain")) levelDuration = 90f;
+        else if (sceneName.Contains("Italy")) levelDuration = 120f;
+        
+        timeRemaining = levelDuration; 
+
     }
 
     public void UpdateGlobalMoneyUI()
@@ -175,9 +205,7 @@ public class GameManagerC : MonoBehaviour
 
             if (timerText != null)
             {
-                // Saniyeyi Dakika:Saniye formatına çeviriyoruz
                 TimeSpan time = TimeSpan.FromSeconds(timeRemaining);
-                // "mm\:ss" formatı 00:00 şeklinde görünmesini sağlar
                 timerText.text = "TIME: " + time.ToString(@"mm\:ss");
             }
         }
@@ -254,7 +282,7 @@ public class GameManagerC : MonoBehaviour
     {
         isGameActive = false;
         
-        // Bu bölümde toplanan paraları genel bakiyeye ekle
+        // bu bölümde toplanan paraları genel bakiyeye ekle
         int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
         int yeniToplam = currentTotal + score; 
         PlayerPrefs.SetInt("totalCoins", yeniToplam);

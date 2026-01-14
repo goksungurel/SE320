@@ -47,6 +47,10 @@ public class GameManager3 : MonoBehaviour
     public AudioClip jumpSound;     // Z�play�nca
     public AudioClip bulletHitSound; // Mermi �arp�nca (�talya)
 
+    [Header("Background Music")]
+    public AudioClip backgroundMusic;
+    public AudioClip buttonClickSound;
+
     void Awake()
     {
         if (Instance == null) { Instance = this; }
@@ -71,18 +75,36 @@ public class GameManager3 : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+    public void PlayClickSound()
+    {
+        if (audioSource != null && buttonClickSound != null)
+        {
+            audioSource.PlayOneShot(buttonClickSound);
+        }
+    }
 
     void Start()
-    {
-        currentLives = maxLives;
-        UpdateHeartsUI();
-        UpdateCoinUI();
-        UpdateGlobalMoneyUI();
+{
+    currentLives = maxLives;
+    UpdateHeartsUI();
+    UpdateCoinUI();
+    UpdateGlobalMoneyUI();
 
-        if (timeUpPanel != null) timeUpPanel.SetActive(false);
-        if (pausePanel != null) pausePanel.SetActive(false);
-        if (startPanel != null) startPanel.SetActive(shouldShowStartPanel);
+    //background music added
+    if (audioSource != null && backgroundMusic != null)
+    {
+        audioSource.Stop();
+        audioSource.clip = backgroundMusic;
+        audioSource.loop = true;
+        audioSource.ignoreListenerPause = true; 
+        audioSource.volume = 0.3f; 
+        audioSource.Play();
     }
+
+    if (timeUpPanel != null) timeUpPanel.SetActive(false);
+    if (pausePanel != null) pausePanel.SetActive(false);
+    if (startPanel != null) startPanel.SetActive(shouldShowStartPanel);
+}
 
     public void UpdateGlobalMoneyUI()
     {
