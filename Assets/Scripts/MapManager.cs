@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class MapManager : MonoBehaviour
 {
@@ -8,6 +9,24 @@ public class MapManager : MonoBehaviour
     public AudioSource audioSource; 
     public AudioClip clickSound;    
 
+    [Header("Global Money Settings")]
+    public TMP_Text moneyText;
+
+    void Start()
+    {
+        UpdateMoneyDisplay();
+    }
+
+    public void UpdateMoneyDisplay()
+    {
+        
+        int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
+        
+        if (moneyText != null)
+        {
+            moneyText.text = currentMoney.ToString();
+        }
+    }
 
     public void StartFranceQuest()
     {
