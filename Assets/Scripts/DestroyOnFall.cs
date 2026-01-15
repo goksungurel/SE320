@@ -22,7 +22,7 @@ public class DestroyOnFall : MonoBehaviour
             // sound
             if (audioSource != null && missSound != null)
             {
-                audioSource.PlayOneShot(missSound);
+                audioSource.PlayOneShot(missSound,0.3f);
             }
 
             // takedamage part

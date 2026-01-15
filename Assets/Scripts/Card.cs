@@ -44,7 +44,7 @@ public class Card : MonoBehaviour
 
         audioSource.playOnAwake = false;
         audioSource.spatialBlend = 0f; // 🔴 2D SES
-        audioSource.volume = 1f;
+        audioSource.volume = 0.5f;
     }
 
     void OnClick()

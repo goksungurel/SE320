@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 public class GameManagerC : MonoBehaviour
 {
+    //inspectora tanımlamak için
     [Header("Life Settings")]
     public int currentLives; 
     public int maxLives = 3; 
@@ -30,7 +31,6 @@ public class GameManagerC : MonoBehaviour
     [Header("Win Conditions")]
     public int requiredCoins = 7;
     public int requiredEachItem = 5;
-    private Dictionary<string, int> collectionTracker = new Dictionary<string, int>();
     private int coinsCollected = 0;
 
     [Header("Lose Settings")]
@@ -74,19 +74,21 @@ public class GameManagerC : MonoBehaviour
     public AudioClip backgroundMusic;
     public AudioClip buttonClickSound;
 
+    //-----START OF LEVEL------
     void Start()
     {   
         UpdateGlobalMoneyUI();
-
+        //bgm çalması
         if (audioSource != null && backgroundMusic != null)
         {
             audioSource.Stop();
             audioSource.clip = backgroundMusic;
             audioSource.loop = true;
             audioSource.ignoreListenerPause = true; 
+            audioSource.volume = 0.25f;
             audioSource.Play();
         }
-
+        //start paneli açıp item arrayini temizliyoruz.
         Time.timeScale = 0f; 
         if (startPanel != null) startPanel.SetActive(true);
         isGameActive = false;
@@ -101,19 +103,12 @@ public class GameManagerC : MonoBehaviour
         {
             itemCounts.Add(0);
         }
-
+        //ui updateleri
         UpdateHeartsUI();
         UpdateScoreUI();
         UpdateUI(); 
     }
-
-    public void PlayClickSound()
-    {
-        if (audioSource != null && buttonClickSound != null)
-        {
-            audioSource.PlayOneShot(buttonClickSound);
-        }
-    }
+    //time intervals for all levels
     void Awake()
     {
         string sceneName = SceneManager.GetActiveScene().name;
@@ -126,48 +121,33 @@ public class GameManagerC : MonoBehaviour
 
     }
 
-    public void UpdateGlobalMoneyUI()
+    //if game is active, timer starts
+    void Update()
     {
-        int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
-
-        if (globalMoneyText != null)
+        if (isGameActive)
         {
-            globalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+            HandleTimer();
         }
+    } 
 
-        if (winGlobalMoneyText != null)
-        {
-            winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
-        }
-        if (loseGlobalMoneyMid != null)
-        {
-        loseGlobalMoneyMid.text = "Total Coins: " + currentMoney.ToString();
-        }
-        if (loseGlobalMoneyTop != null)
-        {
-        loseGlobalMoneyTop.text = "Total Coins: " + currentMoney.ToString();
-        }
-    }
 
-    public void StartGame()
-    {
-        if (startPanel != null) startPanel.SetActive(false);
-        isGameActive = true; 
-        StartCoroutine(CountdownRoutine()); 
-        
-        UpdateGlobalMoneyUI();
-    }
-
-    public void ResumeGame()
-    {
-        if (pausePanel != null) pausePanel.SetActive(false);
-        StartCoroutine(CountdownRoutine()); 
-    }
-
+    //en baştaki geriye sayma kodu
     IEnumerator CountdownRoutine()
     {
         if (countdownText != null)
         {
+            string sceneName = SceneManager.GetActiveScene().name;
+
+            // color settings for scenes
+            if (sceneName.Contains("Spain") || sceneName.Contains("Italy"))
+            {
+                countdownText.color = Color.white;
+            }
+            else if (sceneName.Contains("Germany") || sceneName.Contains("France"))
+            {
+                countdownText.color = Color.black;
+            }
+
             countdownText.gameObject.SetActive(true);
             int count = 3;
             while (count > 0)
@@ -183,19 +163,6 @@ public class GameManagerC : MonoBehaviour
         Time.timeScale = 1f; 
     }
 
-    public void PauseGame()
-    {
-        Time.timeScale = 0f; 
-        if (pausePanel != null) pausePanel.SetActive(true); 
-    }
-
-    void Update()
-    {
-        if (isGameActive)
-        {
-            HandleTimer();
-        }
-    } 
 
     void HandleTimer()
     {
@@ -225,6 +192,9 @@ public class GameManagerC : MonoBehaviour
         }
     }
 
+    //------LOGIC------
+
+    //checks item constraints for win
     bool CheckAllItemsCollected()
     {
         if (itemCounts.Count == 0) return false;
@@ -235,6 +205,7 @@ public class GameManagerC : MonoBehaviour
         return true;
     }
 
+    //counts items from their tags
     public void CollectItem(string itemTag, GameObject hitObject)
     {
         if (itemTag == "Coin")
@@ -261,6 +232,7 @@ public class GameManagerC : MonoBehaviour
         CheckWinCondition();
     }
 
+    //checks contition
     void CheckWinCondition()
     {
         if (score >= requiredCoins && CheckAllItemsCollected())
@@ -269,28 +241,21 @@ public class GameManagerC : MonoBehaviour
         }
     }
 
-    public void UpdateUI()
-    {
-        for (int i = 0; i < itemUITexts.Count; i++)
-        {
-            if (i < itemCounts.Count)
-                itemUITexts[i].text = itemCounts[i].ToString();
-        }
-    }
-
+    
+    //it is about what will code do after conditions provided
     void WinGame()
     {
         isGameActive = false;
         
         // bu bölümde toplanan paraları genel bakiyeye ekle
         int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-        int yeniToplam = currentTotal + score; 
-        PlayerPrefs.SetInt("totalCoins", yeniToplam);
+        int newTotal = currentTotal + score; 
+        PlayerPrefs.SetInt("totalCoins", newTotal);
         PlayerPrefs.Save();
         
         UpdateGlobalMoneyUI(); 
 
-        Debug.Log("Collected Coins " + yeniToplam);
+        Debug.Log("Collected Coins " + newTotal); //konsola seviyede toplanan coinleri yazdırıyoruz
 
         if (audioSource != null && victorySound != null)
             audioSource.PlayOneShot(victorySound);
@@ -305,6 +270,7 @@ public class GameManagerC : MonoBehaviour
         Time.timeScale = 0f; 
     }
 
+    //these are for losing game
     void GameOver(string reason, bool showStats)
     {
         isGameActive = false;
@@ -314,6 +280,8 @@ public class GameManagerC : MonoBehaviour
 
         if (losePanel != null)
         {
+            if (loseGlobalMoneyMid != null) loseGlobalMoneyMid.gameObject.SetActive(!showStats); 
+        
             losePanel.SetActive(true);
             if (loseReasonMid != null) loseReasonMid.gameObject.SetActive(!showStats);
             if (loseReasonTop != null) loseReasonTop.gameObject.SetActive(showStats);
@@ -338,17 +306,9 @@ public class GameManagerC : MonoBehaviour
         Time.timeScale = 0f; 
     }
 
-    void UpdateLosePanelStats()
-    {
-        for (int i = 0; i < losePanelItemTexts.Count; i++)
-        {
-            if (i < itemCounts.Count)
-                losePanelItemTexts[i].text = itemCounts[i].ToString() + " / " + requiredEachItem;
-        }
 
-        if (loseCoinText != null) loseCoinText.text = score + " / " + requiredCoins;
-    }
 
+    //adds coins
     public void AddScore(int amount)
     {
         if (!isGameActive) return;
@@ -356,11 +316,7 @@ public class GameManagerC : MonoBehaviour
         UpdateScoreUI();
     }
 
-    void UpdateScoreUI()
-    {
-        if (scoreText != null) scoreText.text = score.ToString(); 
-    }
-
+    //heartlose
     public void TakeDamage(int amount)
     {
         if (!isGameActive) return;
@@ -372,6 +328,56 @@ public class GameManagerC : MonoBehaviour
             GameOver("You've run out of lives!", false);
     }
 
+    //------UPDATEUI------
+
+    //updates global money for all situations
+    public void UpdateGlobalMoneyUI()
+    {
+        int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
+        
+        if (globalMoneyText != null)
+        {
+            globalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
+
+        if (winGlobalMoneyText != null)
+        {
+            winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
+        }
+        if (loseGlobalMoneyMid != null)
+        {
+        loseGlobalMoneyMid.text = "Total Coins: " + currentMoney.ToString();
+        }
+        if (loseGlobalMoneyTop != null)
+        {
+        loseGlobalMoneyTop.text = "Total Coins: " + currentMoney.ToString();
+        }
+    }
+    public void UpdateUI()
+    {
+        for (int i = 0; i < itemUITexts.Count; i++)
+        {
+            if (i < itemCounts.Count)
+                itemUITexts[i].text = itemCounts[i].ToString();
+        }
+    }
+    //updates lose panel with collected item stats
+    void UpdateLosePanelStats()
+    {
+        for (int i = 0; i < losePanelItemTexts.Count; i++)
+        {
+            if (i < itemCounts.Count)
+                losePanelItemTexts[i].text = itemCounts[i].ToString() + " / " + requiredEachItem;
+        }
+
+        if (loseCoinText != null) loseCoinText.text = score + " / " + requiredCoins;
+    }
+    //updates uı for score(coin)
+    void UpdateScoreUI()
+    {
+        if (scoreText != null) scoreText.text = score.ToString(); 
+    }
+    //heart update 
     void UpdateHeartsUI()
     {
         if (hearts == null) return;
@@ -381,22 +387,55 @@ public class GameManagerC : MonoBehaviour
         }
     }
 
+    //-------BUTTON FUNCTIONS-------
+
+     //click sounds for buttons
+    public void PlayClickSound()
+    {
+        if (audioSource != null && buttonClickSound != null)
+        {
+            audioSource.PlayOneShot(buttonClickSound);
+        }
+    }
+    //start game button
+    public void StartGame()
+    {
+        if (startPanel != null) startPanel.SetActive(false);
+        isGameActive = true; 
+        StartCoroutine(CountdownRoutine()); 
+        
+        UpdateGlobalMoneyUI();
+    }
+    //restart button
     public void RestartGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
+    //quit button (to map menu)
     public void QuitGame()
     {
         Time.timeScale = 1f;
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
-
+    //next level button
     public void GoToNextScene()
     {
         Time.timeScale = 1f; 
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    //pause button
+    public void PauseGame()
+    {
+        Time.timeScale = 0f; 
+        if (pausePanel != null) pausePanel.SetActive(true); 
+    }
+    //resume button
+    public void ResumeGame()
+    {
+        if (pausePanel != null) pausePanel.SetActive(false);
+        StartCoroutine(CountdownRoutine()); 
+    }
+
 }

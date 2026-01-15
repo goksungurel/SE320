@@ -51,17 +51,15 @@ public class PlayerCatcher : MonoBehaviour
     if (other.CompareTag("GoodItem"))
     {
         if (animator != null) animator.SetTrigger("Catch");
-        // ARTIK İSİM KONTROLÜNE (Eiffel vs) GEREK YOK!
-        // Merkezi sisteme objeyi gönderiyoruz, o kimliğinden (ItemData) her şeyi anlayacak.
+        //itemdatadan direkt anlaşılacak
         if (gameManager != null)
         {
-            gameManager.CollectItem(other.tag, other.gameObject); // GameObject'i gönderiyoruz
+            gameManager.CollectItem(other.tag, other.gameObject); 
         }
 
-        // Genel toplama sesi (Eğer ItemData'da özel ses yoksa bu çalmaya devam eder)
         if (audioSource != null && goodItemSound != null)
         {
-            audioSource.PlayOneShot(goodItemSound);
+            audioSource.PlayOneShot(goodItemSound, 1.5f);
         }
 
         Destroy(other.gameObject); 
@@ -72,7 +70,7 @@ public class PlayerCatcher : MonoBehaviour
             Instantiate(dustEffect, transform.position, Quaternion.identity);
         if (audioSource != null && badItemSound != null)
         {
-            audioSource.PlayOneShot(badItemSound, 0.5f);
+            audioSource.PlayOneShot(badItemSound, 0.3f);
         }
 
         if (gameManager != null)
@@ -85,7 +83,7 @@ public class PlayerCatcher : MonoBehaviour
     else if (other.CompareTag("Coin"))
     {
         if (animator != null) animator.SetTrigger("Catch");
-        // Coin toplandığında GameManager'a haber veriyoruz
+
         if (gameManager != null)
         {
             gameManager.CollectItem("Coin", other.gameObject); 
@@ -93,7 +91,7 @@ public class PlayerCatcher : MonoBehaviour
         
         if (audioSource != null && coinSound != null)
         {
-            audioSource.PlayOneShot(coinSound);
+            audioSource.PlayOneShot(coinSound, 1.1f);
         }
         
         Destroy(other.gameObject); 
