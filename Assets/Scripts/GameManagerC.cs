@@ -251,7 +251,19 @@ public class GameManagerC : MonoBehaviour
         int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
         int newTotal = currentTotal + score; 
         PlayerPrefs.SetInt("totalCoins", newTotal);
+
+        // --- YENİ EKLEME: Seviye İlerleme Kaydı ---
+        //sahnenin adını al
+        string sceneName = SceneManager.GetActiveScene().name;
+        
+        // her ülke için key yapıyoruz
+        if (sceneName.Contains("France")) PlayerPrefs.SetInt("France_Catcher_Done", 1);
+        else if (sceneName.Contains("Spain")) PlayerPrefs.SetInt("Spain_Catcher_Done", 1);
+        else if (sceneName.Contains("Italy")) PlayerPrefs.SetInt("Italy_Catcher_Done", 1);
+        else if (sceneName.Contains("Germany")) PlayerPrefs.SetInt("Germany_Catcher_Done", 1);
         PlayerPrefs.Save();
+
+        Debug.Log("KAYIT YAPILDI: " + sceneName + " için _Catcher_Done anahtarı 1 yapıldı.");
         
         UpdateGlobalMoneyUI(); 
 

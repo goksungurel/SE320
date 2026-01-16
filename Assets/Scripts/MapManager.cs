@@ -44,7 +44,7 @@ public class MapManager : MonoBehaviour
         currentCost = cost;
         fallbackScene = prevScene;
 
-        // --- ÖNCEKİ ÜLKE KONTROLÜ (Arkadaşının eklediği yeni mantık) ---
+        // ülke kontrolü
         string prevCountryName = prevScene.Replace("Card", "");
         bool isPreviousUnlocked = (prevCountryName == "Germany") || (PlayerPrefs.GetInt(prevCountryName + "Unlocked", 0) == 1);
 
@@ -55,7 +55,7 @@ public class MapManager : MonoBehaviour
             return; 
         }
 
-        // --- SEVİYE İLERLEME KONTROLÜ (Senin hazırladığın mantık) ---
+        //seviye ilerleme kontrolü
         if (PlayerPrefs.GetInt(countryName + "Unlocked", 0) == 1)
         {
             CheckProgressionAndLoad(countryName, nextScene);
@@ -86,7 +86,8 @@ public class MapManager : MonoBehaviour
 
     // --- BUTON TIKLAMA FONKSYONLARI ---
 
-    public void ClickGermany() { SceneManager.LoadScene("CardGermany"); }
+    // Almanya için de senin mantığını aktif ettim
+    public void ClickGermany() { CheckProgressionAndLoad("Germany", "CardGermany"); }
 
     public void ClickFrance() { HandleLogic("France", 15, "CardFrance", "CardGermany"); }
 
@@ -107,8 +108,7 @@ public class MapManager : MonoBehaviour
         int myMoney = PlayerPrefs.GetInt("totalCoins", 0);
         if (myMoney >= currentCost)
         {
-            // targetScene yerine zaten elimizde olan ülke ismini (countryName gibi) kullanalım
-            // Ama senin kodunda countryName yerel değişken, bu yüzden targetScene'den temizlemek mantıklı:
+
             string countryName = targetScene.Replace("Card", "");
             string key = countryName + "Unlocked";
             
@@ -120,7 +120,6 @@ public class MapManager : MonoBehaviour
             UpdateMoneyDisplay();
             RefreshMapVisuals(); 
 
-            // Buradaki yönlendirme artık güvenli
             CheckProgressionAndLoad(countryName, targetScene);
         }
         else
@@ -143,7 +142,7 @@ public class MapManager : MonoBehaviour
         // card done ise catcherdan başla
         else if (PlayerPrefs.GetInt(country + "_Card_Done", 0) == 1)
         {
-            SceneManager.LoadScene("Catcher" + country);
+            SceneManager.LoadScene(country + "Catch" );
         }
         // hiçbir şey bitmediyse default aç
         else
@@ -155,6 +154,16 @@ public class MapManager : MonoBehaviour
     public void PlayPreviousCountry()
     {
         Time.timeScale = 1f;
+
+        string countryName = fallbackScene.Replace("Card", "");
+
+        // deleting progresses of levels
+        PlayerPrefs.DeleteKey(countryName + "_Card_Done");
+        PlayerPrefs.DeleteKey(countryName + "_Catcher_Done");
+        PlayerPrefs.Save();
+
+        Debug.Log(countryName + " deleting progress.");
+
         SceneManager.LoadScene(fallbackScene);
     }
 
@@ -162,21 +171,36 @@ public class MapManager : MonoBehaviour
     {
         if (globalMoneyText) globalMoneyText.text = PlayerPrefs.GetInt("totalCoins", 0).ToString();
     }
-    // OYUNU TAMAMEN SIFIRLAMA FONKS�YONU
+    // OYUNU TAMAMEN SIFIRLAMA FONKSYONU
     public void ResetAllProgress()
     {
         PlayerPrefs.DeleteKey("totalCoins");
         PlayerPrefs.DeleteKey("FranceUnlocked");
         PlayerPrefs.DeleteKey("SpainUnlocked");
         PlayerPrefs.DeleteKey("ItalyUnlocked");
+
+        //deleting keys for control
+        PlayerPrefs.DeleteKey("Germany_Card_Done");
+        PlayerPrefs.DeleteKey("Germany_Catcher_Done");
+
+        PlayerPrefs.DeleteKey("France_Card_Done");
+        PlayerPrefs.DeleteKey("France_Catcher_Done");
+
+        PlayerPrefs.DeleteKey("Spain_Card_Done");
+        PlayerPrefs.DeleteKey("Spain_Catcher_Done");
+
+        PlayerPrefs.DeleteKey("Italy_Card_Done");
+        PlayerPrefs.DeleteKey("Italy_Catcher_Done");
+
+
         PlayerPrefs.Save();
 
         UpdateMoneyDisplay();
         RefreshMapVisuals();
 
-        // ��lem bitince paneli kapat
+        // lem bitince paneli kapat
         if (resetConfirmationPanel) resetConfirmationPanel.SetActive(false);
 
-        Debug.Log("S�f�rland�!");
+        Debug.Log("Sfrland! Tüm ilerleme ve kilitler temizlendi.");
     }
 }
