@@ -3,16 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|c:\\users\\asus\\documents\\github\\se320\\assets\\scripts\\obstaclespawner_germany.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\obstaclespawner_germany.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\gamemanagerc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanagerc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\itemspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,11 +58,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ObstacleSpawner_Germany.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\ObstacleSpawner_Germany.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ObstacleSpawner_Germany.cs",
@@ -75,7 +75,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "GameManagerC.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GameManagerC.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManagerC.cs",
@@ -87,15 +87,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "MapManager.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\MapManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MapManager.cs",
               "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\MapManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\MapManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T20:06:53.279Z"
+              "WhenOpened": "2025-12-29T20:06:53.279Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
