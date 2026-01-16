@@ -14,10 +14,9 @@ public class MenuManager : MonoBehaviour
     // --- PLAY BUTONU İÇİN (Sahne No: 13) ---
     public void PlayGame()
     {
-        Debug.Log("Play Butonuna Basıldı!");
-        StartCoroutine(LoadSceneByNumber(13));
+        StartCoroutine(LoadSceneByString("MapMenu")); 
     }
-
+    
     // --- GENEL SAHNE YÜKLEME (İsimle çağırmak istersen) ---
     public void LoadSceneByName(string sceneName)
     {

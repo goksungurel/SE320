@@ -180,6 +180,9 @@ public class GameManager3 : MonoBehaviour
         {
             TimeSpan time = TimeSpan.FromSeconds(timeRemaining);
             timerText.text = "TIME: " + time.ToString(@"mm\:ss");
+
+            int currentSeconds = Mathf.CeilToInt(timeRemaining);
+            timerText.color = currentSeconds <= 5 ? Color.red : Color.white;
         }
     }
 

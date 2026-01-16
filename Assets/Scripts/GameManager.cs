@@ -265,23 +265,23 @@ public class GameManager : MonoBehaviour
 
     void Win()
     {
-    timerRunning = false;
+        timerRunning = false;
 
-    int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-    PlayerPrefs.SetInt("totalCoins", currentTotal + money);
+        int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+        PlayerPrefs.SetInt("totalCoins", currentTotal + money);
 
-    string countryName = SceneManager.GetActiveScene().name.Replace("Card", "");
-    PlayerPrefs.SetInt(countryName + "_Card_Done", 1);
-    
-    PlayerPrefs.Save();
+        string countryName = SceneManager.GetActiveScene().name.Replace("Card", "");
+        PlayerPrefs.SetInt(countryName + "_Card_Done", 1);
+        
+        PlayerPrefs.Save();
 
-    UpdateGlobalMoneyUI();
+        UpdateGlobalMoneyUI();
 
-    if (winPanel != null)
-        winPanel.SetActive(true);
+        if (winPanel != null)
+            winPanel.SetActive(true);
 
-    if (winSound != null)
-        winSound.Play();
+        if (winSound != null)
+            winSound.Play();
     }
 
     void Lose()
@@ -298,23 +298,25 @@ public class GameManager : MonoBehaviour
     // ================= UI BUTTONS =================
     public void RestartLevel()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        StartCoroutine(LoadSceneRoutine(SceneManager.GetActiveScene().buildIndex));
     }
 
     public void GoToMapMenu()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(1); 
+        StartCoroutine(LoadSceneRoutine(1)); 
     }
 
     public void GoToNextScene()
     {
-        int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-        PlayerPrefs.SetInt("totalCoins", currentTotal + money);
-        PlayerPrefs.Save();
+        StartCoroutine(LoadSceneRoutine(SceneManager.GetActiveScene().buildIndex + 1));
+    }
 
+
+    private System.Collections.IEnumerator LoadSceneRoutine(int sceneIndex)
+    {
+        PlayClickSound(); 
+        yield return new WaitForSecondsRealtime(0.2f); 
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(sceneIndex); 
     }
 }
