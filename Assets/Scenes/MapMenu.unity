@@ -2842,6 +2842,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1496134572}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &954843384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3692,6 +3704,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1496134572}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1388558396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4037,6 +4061,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1496134572}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1428453338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4186,14 +4222,14 @@ MonoBehaviour:
   notEnoughMoneyPanel: {fileID: 189072486}
   playPreviousButton: {fileID: 848098670}
   resetConfirmationPanel: {fileID: 730883570}
-  comingSoonPanel: {fileID: 0}
+  comingSoonPanel: {fileID: 1449332587}
   globalMoneyText: {fileID: 1842464955}
-  franceLock: {fileID: 0}
-  franceUnlock: {fileID: 0}
-  spainLock: {fileID: 0}
-  spainUnlock: {fileID: 0}
-  italyLock: {fileID: 0}
-  italyUnlock: {fileID: 0}
+  franceLock: {fileID: 1674883719}
+  franceUnlock: {fileID: 792397220}
+  spainLock: {fileID: 261545085}
+  spainUnlock: {fileID: 1424458712}
+  italyLock: {fileID: 560839125}
+  italyUnlock: {fileID: 2057651440}
   costText: {fileID: 1940965860}
   userMoneyText: {fileID: 1037382097}
   warningMessage: {fileID: 1622091179}
@@ -5291,13 +5327,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1496134571}
+      - m_Target: {fileID: 1496134572}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: PlaySound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6340,13 +6376,13 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1496134571}
+      - m_Target: {fileID: 1496134572}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: PlaySound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

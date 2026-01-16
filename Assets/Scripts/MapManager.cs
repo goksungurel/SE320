@@ -174,4 +174,10 @@ public class MapManager : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void BackToMenu()
+{
+    Time.timeScale = 1f;
+
+    StartCoroutine(LoadSceneWithSound("MainMenu"));
+}
 }
