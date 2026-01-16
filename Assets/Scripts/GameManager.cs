@@ -280,6 +280,10 @@ public class GameManager : MonoBehaviour
 
     int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
     PlayerPrefs.SetInt("totalCoins", currentTotal + money);
+
+    string countryName = SceneManager.GetActiveScene().name.Replace("Card", "");
+    PlayerPrefs.SetInt(countryName + "_Card_Done", 1);
+    
     PlayerPrefs.Save();
 
     UpdateGlobalMoneyUI();

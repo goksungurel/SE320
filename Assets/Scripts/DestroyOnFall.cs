@@ -41,6 +41,7 @@ public class DestroyOnFall : MonoBehaviour
             other.enabled = false;
             Destroy(other.gameObject);
         }
+        //coin will not cause to loss of heart
         else if(other.CompareTag("Coin"))
         {
             if (dustEffect != null)

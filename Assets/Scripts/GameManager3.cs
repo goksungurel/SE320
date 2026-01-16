@@ -176,11 +176,11 @@ public class GameManager3 : MonoBehaviour
     
     void UpdateTimerUI() 
     { 
-    if (timerText != null) 
-    {
-        TimeSpan time = TimeSpan.FromSeconds(timeRemaining);
-        timerText.text = "TIME: " + time.ToString(@"mm\:ss");
-    }
+        if (timerText != null) 
+        {
+            TimeSpan time = TimeSpan.FromSeconds(timeRemaining);
+            timerText.text = "TIME: " + time.ToString(@"mm\:ss");
+        }
     }
 
     void LevelFinished()

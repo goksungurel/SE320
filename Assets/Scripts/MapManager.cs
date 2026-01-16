@@ -17,13 +17,13 @@ public class MapManager : MonoBehaviour
     public TMP_Text globalMoneyText;
 
     [Header("Country UI Icons")]
-    [Tooltip("Fransa Ýkonlarý")]
+    [Tooltip("Fransa konlar")]
     public GameObject franceLock;
     public GameObject franceOpen;
-    [Tooltip("Ýspanya Ýkonlarý")]
+    [Tooltip("spanya konlar")]
     public GameObject spainLock;
     public GameObject spainOpen;
-    [Tooltip("Ýtalya Ýkonlarý")]
+    [Tooltip("talya konlar")]
     public GameObject italyLock;
     public GameObject italyOpen;
 
@@ -34,29 +34,29 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         UpdateMoneyDisplay();
-        RefreshMapVisuals(); // Baþlangýçta kim kilitli kim açýk kontrol et
+        RefreshMapVisuals(); // Balangta kim kilitli kim ak kontrol et
     }
 
-    // --- GÖRSEL GÜNCELLEME ÇEKÝRDEÐÝ ---
+    // --- GRSEL GNCELLEME EKRDE ---
     public void RefreshMapVisuals()
     {
-        // Fransa: 0 ise kilitli, 1 ise açýk
+        // Fransa: 0 ise kilitli, 1 ise ak
         bool isFranceUnlocked = PlayerPrefs.GetInt("FranceUnlocked", 0) == 1;
         if (franceLock) franceLock.SetActive(!isFranceUnlocked);
         if (franceOpen) franceOpen.SetActive(isFranceUnlocked);
 
-        // Ýspanya
+        // spanya
         bool isSpainUnlocked = PlayerPrefs.GetInt("SpainUnlocked", 0) == 1;
         if (spainLock) spainLock.SetActive(!isSpainUnlocked);
         if (spainOpen) spainOpen.SetActive(isSpainUnlocked);
 
-        // Ýtalya
+        // talya
         bool isItalyUnlocked = PlayerPrefs.GetInt("ItalyUnlocked", 0) == 1;
         if (italyLock) italyLock.SetActive(!isItalyUnlocked);
         if (italyOpen) italyOpen.SetActive(isItalyUnlocked);
     }
 
-    // --- BUTON TIKLAMA FONKSÝYONLARI ---
+    // --- BUTON TIKLAMA FONKSYONLARI ---
 
     public void ClickGermany() { SceneManager.LoadScene("CardGermany"); }
 
@@ -70,11 +70,12 @@ public class MapManager : MonoBehaviour
     {
         targetScene = nextScene;
         currentCost = cost;
-        fallbackScene = prevScene; // "Önceki Level" bilgisini kaydet
+        fallbackScene = prevScene; // "nceki Level" bilgisini kaydet
 
         if (PlayerPrefs.GetInt(countryName + "Unlocked", 0) == 1)
         {
-            SceneManager.LoadScene(nextScene);
+            // Ekleme: Catcher bittiyse Runner kartna ynlendir
+            CheckProgressionAndLoad(countryName, nextScene);
         }
         else
         {
@@ -94,22 +95,48 @@ public class MapManager : MonoBehaviour
         int myMoney = PlayerPrefs.GetInt("totalCoins", 0);
         if (myMoney >= currentCost)
         {
-            // Kilidi aç (Sahne isminden "Card" kýsmýný atarak key oluþturur: FranceUnlocked gibi)
-            string key = targetScene.Replace("Card", "") + "Unlocked";
+            // targetScene yerine zaten elimizde olan Ã¼lke ismini (countryName gibi) kullanalÄ±m
+            // Ama senin kodunda countryName yerel deÄŸiÅŸken, bu yÃ¼zden targetScene'den temizlemek mantÄ±klÄ±:
+            string countryName = targetScene.Replace("Card", "");
+            string key = countryName + "Unlocked";
+            
             PlayerPrefs.SetInt(key, 1);
             PlayerPrefs.SetInt("totalCoins", myMoney - currentCost);
             PlayerPrefs.Save();
 
             unlockPanel.SetActive(false);
             UpdateMoneyDisplay();
-            RefreshMapVisuals(); // ANINDA ÝKONU DEÐÝÞTÝR
-            SceneManager.LoadScene(targetScene);
+            RefreshMapVisuals(); 
+
+            // Buradaki yÃ¶nlendirme artÄ±k gÃ¼venli
+            CheckProgressionAndLoad(countryName, targetScene);
         }
         else
         {
             unlockPanel.SetActive(false);
-            warningMessage.text = "Not enough coins! Go back to " + fallbackScene.Replace("Card", "") + " to earn more.";
+            // fallbackScene isminden "Card"Ä± temizleyerek kullanÄ±cÄ±ya daha temiz bir mesaj veriyoruz
+            string cleanFallback = fallbackScene.Replace("Card", "");
+            warningMessage.text = "Not enough coins! Go back to " + cleanFallback + " to earn more.";
             notEnoughMoneyPanel.SetActive(true);
+        }
+    }
+
+    void CheckProgressionAndLoad(string country, string defaultScene)
+    {
+        // catcher bittiyse runnerdan baÅŸla
+        if (PlayerPrefs.GetInt(country + "_Catcher_Done", 0) == 1)
+        {
+            SceneManager.LoadScene(country + "Runner");
+        }
+        // card done ise catcherdan baÅŸla
+        else if (PlayerPrefs.GetInt(country + "_Card_Done", 0) == 1)
+        {
+            SceneManager.LoadScene("Catcher" + country);
+        }
+        // hiÃ§bir ÅŸey bitmediyse default aÃ§
+        else
+        {
+            SceneManager.LoadScene(defaultScene);
         }
     }
 
