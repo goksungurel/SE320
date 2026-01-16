@@ -298,27 +298,37 @@ public class GameManager : MonoBehaviour
     }
 
     void Win()
+{
+    timerRunning = false;
+
+    int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+    int newTotal = currentTotal + money; 
+    
+    PlayerPrefs.SetInt("totalCoins", newTotal);
+    
+    string sceneName = SceneManager.GetActiveScene().name;
+    string countryName = "";
+
+    if (sceneName.Contains("Germany")) countryName = "Germany";
+    else if (sceneName.Contains("France")) countryName = "France";
+    else if (sceneName.Contains("Spain")) countryName = "Spain";
+    else if (sceneName.Contains("Italy")) countryName = "Italy";
+
+PlayerPrefs.SetInt(countryName + "CardDone", 1);
+PlayerPrefs.Save();
+    
+    PlayerPrefs.Save(); 
+
+    UpdateGlobalMoneyUI();
+
+    if (winPanel != null)
+        winPanel.SetActive(true);
+
+    if (audioSource != null && winSound != null)
     {
-        timerRunning = false;
-
-        int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-        PlayerPrefs.SetInt("totalCoins", currentTotal + money);
-
-        string countryName = SceneManager.GetActiveScene().name.Replace("Card", "");
-        PlayerPrefs.SetInt(countryName + "_Card_Done", 1);
-        
-        PlayerPrefs.Save();
-
-        UpdateGlobalMoneyUI();
-
-        if (winPanel != null)
-            winPanel.SetActive(true);
-
-        if (audioSource != null && winSound != null)
-        {
-            audioSource.PlayOneShot(winSound);
-        }
+        audioSource.PlayOneShot(winSound);
     }
+}
 
     void Lose()
     {

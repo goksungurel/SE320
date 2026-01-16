@@ -4109,8 +4109,9 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: 580c45279e0bb9b4fb35e5a97282e87f, type: 3}
   unlockPanel: {fileID: 839468103}
   notEnoughMoneyPanel: {fileID: 189072486}
-  playPreviousButton: {fileID: 0}
+  playPreviousButton: {fileID: 848098670}
   resetConfirmationPanel: {fileID: 730883570}
+  globalMoneyText: {fileID: 1842464955}
   costText: {fileID: 1940965860}
   userMoneyText: {fileID: 1037382097}
   warningMessage: {fileID: 1622091179}

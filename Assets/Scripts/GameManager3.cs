@@ -27,7 +27,7 @@ public class GameManager3 : MonoBehaviour
 
     [Header("Coin Settings")]
     public TextMeshProUGUI coinText;
-    private int totalCoins = 0;
+    private int score = 0;
 
     [Header("Global Money System")]
     public TextMeshProUGUI globalMoneyText;
@@ -141,7 +141,7 @@ public class GameManager3 : MonoBehaviour
     public void UpdateGlobalMoneyUI()
     {
         int currentMoney = PlayerPrefs.GetInt("totalCoins", 0);
-        if (globalMoneyText != null) globalMoneyText.text = currentMoney.ToString();
+        if (globalMoneyText != null) globalMoneyText.text = "Total Coins: " + currentMoney.ToString();
         if (winGlobalMoneyText != null) winGlobalMoneyText.text = "Total Coins: " + currentMoney.ToString();
     }
 
@@ -199,13 +199,13 @@ public class GameManager3 : MonoBehaviour
 
     public void AddCoin(int amount)
     {
-        totalCoins += amount;
+        score += amount;
         UpdateCoinUI();
         PlayCoinSound();
     }
 
     void UpdateHeartsUI() { for (int i = 0; i < hearts.Length; i++) { if (hearts[i] != null) hearts[i].enabled = i < currentLives; } }
-    void UpdateCoinUI() { if (coinText != null) coinText.text = "        " + totalCoins.ToString(); }
+    void UpdateCoinUI() { if (coinText != null) coinText.text = "        " + score.ToString(); }
     
     void UpdateTimerUI() 
     { 
@@ -220,22 +220,43 @@ public class GameManager3 : MonoBehaviour
     }
 
     void LevelFinished()
+{
+    int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
+    
+    int newTotal = currentTotal + score;
+    
+    PlayerPrefs.SetInt("totalCoins", newTotal);
+    PlayerPrefs.Save();
+    
+    UpdateGlobalMoneyUI();
+    Time.timeScale = 0f;
+
+    string sceneName = SceneManager.GetActiveScene().name;
+    string countryName = "";
+
+    if (sceneName.Contains("Germany")) countryName = "Germany";
+    else if (sceneName.Contains("France")) countryName = "France";
+    else if (sceneName.Contains("Spain")) countryName = "Spain";
+    else if (sceneName.Contains("Italy")) countryName = "Italy";
+
+
+    PlayerPrefs.SetInt(countryName + "RunnerDone", 1);
+    PlayerPrefs.Save();
+
+
+
+    if (audioSource != null && timeUpSound != null)
     {
-        int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-        PlayerPrefs.SetInt("totalCoins", currentTotal + totalCoins);
-        PlayerPrefs.Save();
-        UpdateGlobalMoneyUI();
-
-        Time.timeScale = 0f;
-
-        if (audioSource != null && timeUpSound != null)
-        {
-            audioSource.PlayOneShot(timeUpSound);
-        }
-        
-        if (finalCoinText != null) finalCoinText.text = "Total Coins: " + totalCoins.ToString();
-        if (timeUpPanel != null) timeUpPanel.SetActive(true);
+        audioSource.PlayOneShot(timeUpSound);
     }
+
+    if (finalCoinText != null) 
+    {
+        finalCoinText.text = "Total Money: " + newTotal.ToString(); 
+    }
+    
+    if (timeUpPanel != null) timeUpPanel.SetActive(true);
+}
 
     public void TogglePause()
     {
