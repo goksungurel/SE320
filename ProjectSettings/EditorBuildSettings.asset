@@ -30,12 +30,6 @@ EditorBuildSettings:
     path: Assets/Scenes/FranceRunner.unity
     guid: 1897d7a17a2aa584aae1725d78d50479
   - enabled: 1
-    path: Assets/Scenes/CardItaly.unity
-    guid: 209e07d423d9d4e69b3ed1f66032d480
-  - enabled: 1
-    path: Assets/Scenes/ItalyCatch.unity
-    guid: 3cc63166c9ee540ab96ffea9586915e1
-  - enabled: 1
     path: Assets/Scenes/CardSpain.unity
     guid: 7d8b633eb06e24e709a1ef49b8e0a5a6
   - enabled: 1
@@ -44,6 +38,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SpainRunner.unity
     guid: 8c5c44dac9cc83944b44e11c36c59907
+  - enabled: 1
+    path: Assets/Scenes/CardItaly.unity
+    guid: 209e07d423d9d4e69b3ed1f66032d480
+  - enabled: 1
+    path: Assets/Scenes/ItalyCatch.unity
+    guid: 3cc63166c9ee540ab96ffea9586915e1
+  - enabled: 1
+    path: Assets/Scenes/ItalyRunner.unity
+    guid: 51d700bc20f4fd745a18a325711ac7d0
   - enabled: 1
     path: Assets/Scenes/MapMenu.unity
     guid: a54d047cdcbb1cb41bc96d2cc3d0db56

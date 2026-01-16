@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|c:\\users\\asus\\documents\\github\\se320\\assets\\scripts\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mapmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5A55150-93FF-9D76-ED53-2DEDFBBEA02B}|Unity.TextMeshPro.Editor.csproj|c:\\users\\asus\\documents\\github\\se320\\library\\packagecache\\com.unity.ugui@e375ff18e90f\\editor\\tmp\\tmp_baseshadergui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\gamemanagerc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanagerc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5A55150-93FF-9D76-ED53-2DEDFBBEA02B}|Unity.TextMeshPro.Editor.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\library\\packagecache\\com.unity.ugui@e375ff18e90f\\editor\\tmp\\tmp_baseshadergui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F5A55150-93FF-9D76-ED53-2DEDFBBEA02B}|Unity.TextMeshPro.Editor.csproj|solutionrelative:library\\packagecache\\com.unity.ugui@e375ff18e90f\\editor\\tmp\\tmp_baseshadergui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -17,10 +21,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\obstaclespawner_germany.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\obstaclespawner_germany.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\gamemanagerc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanagerc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{BD52B184-5DB8-4EAF-56CE-DB67BD1378A1}|Assembly-CSharp.csproj|C:\\Users\\Asus\\Documents\\GitHub\\SE320\\assets\\scripts\\itemspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,7 +70,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TMP_BaseShaderGUI.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Library\\PackageCache\\com.unity.ugui@e375ff18e90f\\Editor\\TMP\\TMP_BaseShaderGUI.cs",
               "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.ugui@e375ff18e90f\\Editor\\TMP\\TMP_BaseShaderGUI.cs",
@@ -78,12 +78,11 @@
               "RelativeToolTip": "Library\\PackageCache\\com.unity.ugui@e375ff18e90f\\Editor\\TMP\\TMP_BaseShaderGUI.cs",
               "ViewState": "AgIAACEBAAAAAAAAAAAswDIBAABmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-16T08:56:53.523Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-16T08:56:53.523Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "LiberationSans - OFL.txt",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\TextMesh Pro\\Fonts\\LiberationSans - OFL.txt",
               "RelativeDocumentMoniker": "Assets\\TextMesh Pro\\Fonts\\LiberationSans - OFL.txt",
@@ -95,7 +94,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ObstacleSpawner_Germany.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\ObstacleSpawner_Germany.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\ObstacleSpawner_Germany.cs",
@@ -107,13 +106,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "GameManagerC.cs",
               "DocumentMoniker": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GameManagerC.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\GameManagerC.cs",
               "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\GameManagerC.cs",
               "RelativeToolTip": "Assets\\Scripts\\GameManagerC.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKEBAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-30T11:56:04.421Z"
             },
@@ -125,7 +124,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\MapManager.cs",
               "ToolTip": "C:\\Users\\Asus\\Documents\\GitHub\\SE320\\Assets\\Scripts\\MapManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\MapManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEcAAABUAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAQwE0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-29T20:06:53.279Z",
               "EditorCaption": ""
