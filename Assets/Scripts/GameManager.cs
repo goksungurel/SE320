@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        ApplyEntryFee();
+        
 
         if (winPanel != null)
             winPanel.SetActive(false);
@@ -126,18 +126,7 @@ public class GameManager : MonoBehaviour
         timerRunning = true;
     }
 
-    void ApplyEntryFee()
-    {
-        if (entryFee > 0)
-        {
-            int currentTotal = PlayerPrefs.GetInt("totalCoins", 0);
-            if (currentTotal >= entryFee)
-            {
-                PlayerPrefs.SetInt("totalCoins", currentTotal - entryFee);
-                PlayerPrefs.Save();
-            }
-        }
-    }
+
 
     void Update()
     {
