@@ -1,5 +1,5 @@
 using UnityEngine;
-using System; // TimeSpan için gerekli
+using System; 
 using UnityEngine.SceneManagement; 
 using UnityEngine.UI;
 using TMPro;
@@ -131,22 +131,12 @@ public class GameManagerC : MonoBehaviour
     } 
 
 
-    //en baştaki geriye sayma kodu
     IEnumerator CountdownRoutine()
     {
         if (countdownText != null)
         {
-            string sceneName = SceneManager.GetActiveScene().name;
-
-            // color settings for scenes
-            if (sceneName.Contains("Spain") || sceneName.Contains("Italy"))
-            {
-                countdownText.color = Color.white;
-            }
-            else if (sceneName.Contains("Germany") || sceneName.Contains("France"))
-            {
-                countdownText.color = Color.black;
-            }
+            // Sahne ismine bakmaksızın rengi beyaz yapıyoruz
+            countdownText.color = Color.white;
 
             countdownText.gameObject.SetActive(true);
             int count = 3;
@@ -174,6 +164,9 @@ public class GameManagerC : MonoBehaviour
             {
                 TimeSpan time = TimeSpan.FromSeconds(timeRemaining);
                 timerText.text = "TIME: " + time.ToString(@"mm\:ss");
+
+                int currentSeconds = Mathf.CeilToInt(timeRemaining);
+                timerText.color = currentSeconds <= 5 ? Color.red : Color.white;
             }
         }
         else
@@ -262,8 +255,6 @@ public class GameManagerC : MonoBehaviour
         else if (sceneName.Contains("Italy")) PlayerPrefs.SetInt("Italy_Catcher_Done", 1);
         else if (sceneName.Contains("Germany")) PlayerPrefs.SetInt("Germany_Catcher_Done", 1);
         PlayerPrefs.Save();
-
-        Debug.Log("KAYIT YAPILDI: " + sceneName + " için _Catcher_Done anahtarı 1 yapıldı.");
         
         UpdateGlobalMoneyUI(); 
 

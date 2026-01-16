@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager3 : MonoBehaviour
 {
@@ -14,6 +16,9 @@ public class GameManager3 : MonoBehaviour
     [Header("Movement Settings")]
     public float currentForwardSpeed = 7f; // Player h�z� buraya bakacak
     public float speedIncreaseRate = 0.05f; // Fransa i�in saniyelik art��
+
+    [Header("Countdown Settings")]
+    public TextMeshProUGUI countdownText;
 
     [Header("Life Settings")]
     public int maxLives = 3;
@@ -46,6 +51,7 @@ public class GameManager3 : MonoBehaviour
     public AudioClip damageSound;   // Engele �arp�nca
     public AudioClip jumpSound;     // Z�play�nca
     public AudioClip bulletHitSound; // Mermi �arp�nca (�talya)
+    public AudioClip timeUpSound;
 
     [Header("Background Music")]
     public AudioClip backgroundMusic;
@@ -105,6 +111,32 @@ public class GameManager3 : MonoBehaviour
     if (pausePanel != null) pausePanel.SetActive(false);
     if (startPanel != null) startPanel.SetActive(shouldShowStartPanel);
 }
+    IEnumerator CountdownRoutine()
+    {
+        if (countdownText != null)
+        {
+            Time.timeScale = 0f; 
+            isTimerRunning = false;
+
+            countdownText.color = Color.white;
+            countdownText.gameObject.SetActive(true);
+
+            int count = 3;
+            while (count > 0)
+            {
+                countdownText.text = count.ToString();
+                yield return new WaitForSecondsRealtime(1f); 
+                count--;
+            }
+
+            countdownText.text = "GO!";
+            yield return new WaitForSecondsRealtime(0.5f);
+            countdownText.gameObject.SetActive(false);
+        }
+
+        Time.timeScale = 1f; 
+        isTimerRunning = true; 
+    }
 
     public void UpdateGlobalMoneyUI()
     {
@@ -142,12 +174,13 @@ public class GameManager3 : MonoBehaviour
     }
 
     public void StartGame()
-    {
-        shouldShowStartPanel = false;
-        Time.timeScale = 1f;
-        if (startPanel != null) startPanel.SetActive(false);
-        UpdateGlobalMoneyUI();
-    }
+{
+    if (startPanel != null) startPanel.SetActive(false);
+    shouldShowStartPanel = false;
+    isTimerRunning = false; 
+    StartCoroutine(CountdownRoutine());
+    UpdateGlobalMoneyUI();
+}
 
     // SES �ALMA FONKS�YONLARI
     public void PlayCoinSound() { if (audioSource && coinSound) audioSource.PlayOneShot(coinSound); }
@@ -194,7 +227,13 @@ public class GameManager3 : MonoBehaviour
         UpdateGlobalMoneyUI();
 
         Time.timeScale = 0f;
-        if (finalCoinText != null) finalCoinText.text = "Total Collected Coin: " + totalCoins.ToString();
+
+        if (audioSource != null && timeUpSound != null)
+        {
+            audioSource.PlayOneShot(timeUpSound);
+        }
+        
+        if (finalCoinText != null) finalCoinText.text = "Total Coins: " + totalCoins.ToString();
         if (timeUpPanel != null) timeUpPanel.SetActive(true);
     }
 
@@ -208,8 +247,8 @@ public class GameManager3 : MonoBehaviour
     public void ResumeGame()
     {
         isPaused = false;
-        Time.timeScale = 1f;
         if (pausePanel != null) pausePanel.SetActive(false);
+        StartCoroutine(CountdownRoutine()); 
     }
 
     public void MapMenu()

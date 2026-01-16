@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using System;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,6 +33,9 @@ public class GameManager : MonoBehaviour
     float timeLeft;
     bool timerRunning = true;
 
+    [Header("Countdown Settings")]
+    public TextMeshProUGUI countdownText;
+
     // ================= BOARD =================
     [Header("Board")]
     public Transform gridParent;
@@ -45,11 +49,12 @@ public class GameManager : MonoBehaviour
     // ================= WIN UI =================
     [Header("Win UI")]
     public GameObject winPanel;
-    public AudioSource winSound;
+    public AudioClip winSound;
 
     // ================= LOSE UI =================
     [Header("Lose UI")]
     public GameObject losePanel;
+    public AudioClip loseSound;
 
     // ================= AUDIO =================
     [Header("Background Music")]
@@ -107,6 +112,33 @@ public class GameManager : MonoBehaviour
         UpdateGlobalMoneyUI();
     }
 
+    IEnumerator CountdownRoutine()
+{
+    if (countdownText != null)
+    {
+        Time.timeScale = 0f; 
+        
+        countdownText.color = Color.black;
+        countdownText.gameObject.SetActive(true);
+
+        int count = 3;
+        while (count > 0)
+        {
+            countdownText.text = count.ToString();
+            yield return new WaitForSecondsRealtime(1f); 
+            count--;
+        }
+
+        countdownText.text = "GO!";
+        yield return new WaitForSecondsRealtime(0.5f);
+        countdownText.gameObject.SetActive(false);
+    }
+
+    Time.timeScale = 1f; 
+    InputLocked = false;   
+    timerRunning = true;   
+}
+
     public void PlayClickSound()
     {
         if (audioSource != null && buttonClickSound != null)
@@ -119,11 +151,13 @@ public class GameManager : MonoBehaviour
         if (startPanel != null)
             startPanel.SetActive(false);
 
+
         BuildBoard();
 
         gameStarted = true;
-        InputLocked = false;
-        timerRunning = true;
+        InputLocked = true;
+        timerRunning = false;
+        StartCoroutine(CountdownRoutine());
     }
 
 
@@ -280,8 +314,10 @@ public class GameManager : MonoBehaviour
         if (winPanel != null)
             winPanel.SetActive(true);
 
-        if (winSound != null)
-            winSound.Play();
+        if (audioSource != null && winSound != null)
+        {
+            audioSource.PlayOneShot(winSound);
+        }
     }
 
     void Lose()
@@ -292,6 +328,10 @@ public class GameManager : MonoBehaviour
         if (losePanel != null)
             losePanel.SetActive(true);
 
+        if (audioSource != null && loseSound != null)
+        {
+            audioSource.PlayOneShot(loseSound);
+        }
         Time.timeScale = 0f;
     }
 
