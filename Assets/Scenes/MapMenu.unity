@@ -4092,7 +4092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1449332588
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4188,6 +4188,12 @@ MonoBehaviour:
   resetConfirmationPanel: {fileID: 730883570}
   comingSoonPanel: {fileID: 0}
   globalMoneyText: {fileID: 1842464955}
+  franceLock: {fileID: 0}
+  franceUnlock: {fileID: 0}
+  spainLock: {fileID: 0}
+  spainUnlock: {fileID: 0}
+  italyLock: {fileID: 0}
+  italyUnlock: {fileID: 0}
   costText: {fileID: 1940965860}
   userMoneyText: {fileID: 1037382097}
   warningMessage: {fileID: 1622091179}

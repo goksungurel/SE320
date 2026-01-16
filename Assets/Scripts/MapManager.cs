@@ -12,7 +12,7 @@ public class MapManager : MonoBehaviour
     [Header("UI Panels")]
     public GameObject unlockPanel;
     public GameObject notEnoughMoneyPanel;
-    public GameObject playPreviousButton; // Para yetmeyince çýkan o buton
+    public GameObject playPreviousButton; // Para yetmeyince ï¿½ï¿½kan o buton
     public GameObject resetConfirmationPanel;
     public GameObject comingSoonPanel;
     public TextMeshProUGUI globalMoneyText;
@@ -86,7 +86,7 @@ public class MapManager : MonoBehaviour
         if (!isPreviousUnlocked)
         {
             if (warningMessage != null) warningMessage.text = "First, you need to unlock " + prevCountryName + "!";
-            if (playPreviousButton != null) playPreviousButton.SetActive(false); // Kilit açýlmamýþsa bu buton çýkmasýn
+            if (playPreviousButton != null) playPreviousButton.SetActive(false); // Kilit aï¿½ï¿½lmamï¿½ï¿½sa bu buton ï¿½ï¿½kmasï¿½n
             if (notEnoughMoneyPanel != null) notEnoughMoneyPanel.SetActive(true);
             return;
         }
@@ -121,23 +121,23 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            // PARA YETMEDÝÐÝNDE BURASI ÇALIÞIR
+            // PARA YETMEDï¿½ï¿½ï¿½NDE BURASI ï¿½ALIï¿½IR
             if (unlockPanel != null) unlockPanel.SetActive(false);
             if (warningMessage != null) warningMessage.text = "Not enough coins! Play " + fallbackScene.Replace("Card", "") + " again.";
 
-            if (playPreviousButton != null) playPreviousButton.SetActive(true); // BUTONU GÖSTER
+            if (playPreviousButton != null) playPreviousButton.SetActive(true); // BUTONU Gï¿½STER
             if (notEnoughMoneyPanel != null) notEnoughMoneyPanel.SetActive(true);
         }
     }
 
-    // ÖNCEKÝ ÜLKEYÝ BAÞTAN OYNATAN O MEÞHUR FONKSÝYON
+    // ï¿½NCEKï¿½ ï¿½LKEYï¿½ BAï¿½TAN OYNATAN O MEï¿½HUR FONKSï¿½YON
     public void PlayPreviousCountry()
     {
         if (!string.IsNullOrEmpty(fallbackScene) && fallbackScene != "None")
         {
             string countryName = fallbackScene.Replace("Card", "");
 
-            // Önceki ülkenin ilerlemesini sýfýrlýyoruz ki en baþtan (Card sahnesinden) baþlasýn
+            // ï¿½nceki ï¿½lkenin ilerlemesini sï¿½fï¿½rlï¿½yoruz ki en baï¿½tan (Card sahnesinden) baï¿½lasï¿½n
             PlayerPrefs.DeleteKey(countryName + "CardDone");
             PlayerPrefs.DeleteKey(countryName + "CatchDone");
             PlayerPrefs.DeleteKey(countryName + "RunnerDone");
@@ -149,7 +149,7 @@ public class MapManager : MonoBehaviour
 
     private string GetLatestSceneInCountry(string country)
     {
-        if (PlayerPrefs.GetInt(country + "RunnerDone", 0) == 1) return "Runner" + country;
+        if (PlayerPrefs.GetInt(country + "RunnerDone", 0) == 1) return country + "Runner" ;
         if (PlayerPrefs.GetInt(country + "CatchDone", 0) == 1) return country + "Runner";
         if (PlayerPrefs.GetInt(country + "CardDone", 0) == 1) return country + "Catch";
         return "Card" + country;
