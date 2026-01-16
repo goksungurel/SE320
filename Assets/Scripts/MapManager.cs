@@ -30,13 +30,41 @@ public class MapManager : MonoBehaviour
     private int currentCost;
     private string targetScene;
     private string fallbackScene;
+    public GameObject resetConfirmationPanel;
 
     void Start()
     {
         UpdateMoneyDisplay();
         RefreshMapVisuals(); // Balangta kim kilitli kim ak kontrol et
     }
+    void HandleLogic(string countryName, int cost, string nextScene, string prevScene)
+    {
+        Debug.Log("Butona tıklandı! Hedef: " + nextScene + " Önceki: " + prevScene);
+        targetScene = nextScene;
+        currentCost = cost;
+        fallbackScene = prevScene;
 
+        // --- ÖNCEKİ ÜLKE KONTROLÜ (Arkadaşının eklediği yeni mantık) ---
+        string prevCountryName = prevScene.Replace("Card", "");
+        bool isPreviousUnlocked = (prevCountryName == "Germany") || (PlayerPrefs.GetInt(prevCountryName + "Unlocked", 0) == 1);
+
+        if (!isPreviousUnlocked)
+        {
+            warningMessage.text = "First, you need to unlock " + prevCountryName + "!";
+            notEnoughMoneyPanel.SetActive(true);
+            return; 
+        }
+
+        // --- SEVİYE İLERLEME KONTROLÜ (Senin hazırladığın mantık) ---
+        if (PlayerPrefs.GetInt(countryName + "Unlocked", 0) == 1)
+        {
+            CheckProgressionAndLoad(countryName, nextScene);
+        }
+        else
+        {
+            OpenUnlockPanel();
+        }
+    }
     // --- GRSEL GNCELLEME EKRDE ---
     public void RefreshMapVisuals()
     {
@@ -62,26 +90,10 @@ public class MapManager : MonoBehaviour
 
     public void ClickFrance() { HandleLogic("France", 15, "CardFrance", "CardGermany"); }
 
-    public void ClickSpain() { HandleLogic("Spain", 25, "CardSpain", "CardFrance"); }
+    public void ClickSpain() { HandleLogic("Spain", 30, "CardSpain", "CardFrance"); }
 
-    public void ClickItaly() { HandleLogic("Italy", 40, "CardItaly", "CardSpain"); }
+    public void ClickItaly() { HandleLogic("Italy", 45, "CardItaly", "CardSpain"); }
 
-    void HandleLogic(string countryName, int cost, string nextScene, string prevScene)
-    {
-        targetScene = nextScene;
-        currentCost = cost;
-        fallbackScene = prevScene; // "nceki Level" bilgisini kaydet
-
-        if (PlayerPrefs.GetInt(countryName + "Unlocked", 0) == 1)
-        {
-            // Ekleme: Catcher bittiyse Runner kartna ynlendir
-            CheckProgressionAndLoad(countryName, nextScene);
-        }
-        else
-        {
-            OpenUnlockPanel();
-        }
-    }
 
     void OpenUnlockPanel()
     {
@@ -149,5 +161,22 @@ public class MapManager : MonoBehaviour
     public void UpdateMoneyDisplay()
     {
         if (globalMoneyText) globalMoneyText.text = PlayerPrefs.GetInt("totalCoins", 0).ToString();
+    }
+    // OYUNU TAMAMEN SIFIRLAMA FONKS�YONU
+    public void ResetAllProgress()
+    {
+        PlayerPrefs.DeleteKey("totalCoins");
+        PlayerPrefs.DeleteKey("FranceUnlocked");
+        PlayerPrefs.DeleteKey("SpainUnlocked");
+        PlayerPrefs.DeleteKey("ItalyUnlocked");
+        PlayerPrefs.Save();
+
+        UpdateMoneyDisplay();
+        RefreshMapVisuals();
+
+        // ��lem bitince paneli kapat
+        if (resetConfirmationPanel) resetConfirmationPanel.SetActive(false);
+
+        Debug.Log("S�f�rland�!");
     }
 }
